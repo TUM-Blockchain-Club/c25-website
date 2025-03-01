@@ -32,25 +32,6 @@ export default function Home() {
                 <Video />
                 <Statistic />
                 <Manifesto />
-                <Speaker />
-                <AcademicTrack />
-                <Tracks />
-                <Venue />
-                <Tickets />
-                <AfterEvents />
-                <Grants />
-                <Sponsors />
-                <Partners />
-                <div className="w-full flex justify-center">
-                  <Text className="border border-white px-6 py-4">
-                    <Link
-                      href={"https://www.tum-blockchain.com/conference2023"}
-                    >
-                      Throwback 2023
-                    </Link>
-                  </Text>
-                </div>
-                <FAQSection />
               </div>
             </div>
           </Container>

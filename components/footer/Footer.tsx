@@ -2,7 +2,7 @@
 
 import { Link } from "@/components/link";
 import { Text } from "@/components/text";
-import confLogo from "@/public/logos/c24-wordmark.svg";
+import confLogo from "@/public/logos/c25-wordmark.svg";
 import dcLogo from "@/public/logos/discord-logo.png";
 import liLogo from "@/public/logos/linkedin-logo.png";
 import tbcLogo from "@/public/logos/tbc-wordmark.svg";
