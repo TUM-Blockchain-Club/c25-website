@@ -1,6 +1,39 @@
 import { Text } from "@/components/text";
 import { Sponsor } from "@/components/sponsor/Sponsor";
 
+const gold_sponsors = [
+  {
+    alt: "1Inch",
+    sponsorType: "gold",
+    link: "https://1inch.io",
+    imageSrc: "/sponsors/1inch_logo.png",
+  },
+  {
+    alt: "Dfinity",
+    sponsorType: "gold",
+    link: "https://dfinity.org/",
+    imageSrc: "/sponsors/icp_logo.png",
+  },
+  {
+    alt: "Solana",
+    sponsorType: "gold",
+    link: "https://solana.com/",
+    imageSrc: "/sponsors/solana_logo.png",
+  },
+  {
+    alt: "Verus",
+    sponsorType: "gold",
+    link: "https://verus.io",
+    imageSrc: "/sponsors/verus_logo.png",
+  },
+  {
+    alt: "aeternity",
+    sponsorType: "gold",
+    link: "https://aeternity.com/",
+    imageSrc: "/sponsors/aeternity_logo.png",
+  },
+];
+
 const Sponsors = () => {
   return (
     <section
@@ -25,37 +58,43 @@ const Sponsors = () => {
       <Text textType={"title"} className="text-gradient font-medium">
         Gold
       </Text>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 glow">
-        <Sponsor
-          alt="1Inch"
-          sponsorType="gold"
-          link="https://1inch.io"
-          imageSrc={"/sponsors/1inch_logo.png"}
-        />
-        <Sponsor
-          alt="Dfinity"
-          sponsorType="gold"
-          link="https://dfinity.org/"
-          imageSrc={"/sponsors/icp_logo.png"}
-        />
-        <Sponsor
-          alt="Solana"
-          sponsorType="gold"
-          link="https://solana.com/"
-          imageSrc={"/sponsors/solana_logo.png"}
-        />
-        <Sponsor
-          alt="Verus"
-          sponsorType="gold"
-          link="https://verus.io"
-          imageSrc={"/sponsors/verus_logo.png"}
-        />
-        <Sponsor
-          alt="aeternity"
-          sponsorType="gold"
-          link="https://aeternity.com/"
-          imageSrc={"/sponsors/aeternity_logo.png"}
-        />
+      <div className="flex flex-col gap-4 glow md:col-span-2">
+        <div className="flex flex-row gap-4 glow md:col-span-2">
+          <Sponsor
+            alt="1Inch"
+            sponsorType="gold"
+            link="https://1inch.io"
+            imageSrc={"/sponsors/1inch_logo.png"}
+          />
+          <Sponsor
+            alt="Dfinity"
+            sponsorType="gold"
+            link="https://dfinity.org/"
+            imageSrc={"/sponsors/icp_logo.png"}
+          />
+        </div>
+        <div className="flex flex-row gap-4 glow md:col-span-2">
+          <Sponsor
+            alt="Solana"
+            sponsorType="gold"
+            link="https://solana.com/"
+            imageSrc={"/sponsors/solana_logo.png"}
+          />
+          <Sponsor
+            alt="Verus"
+            sponsorType="gold"
+            link="https://verus.io"
+            imageSrc={"/sponsors/verus_logo.png"}
+          />
+        </div>
+        <div className="flex flex-row gap-4 glow justify-center w-content">
+          <Sponsor
+            alt="aeternity"
+            sponsorType="gold"
+            link="https://aeternity.com/"
+            imageSrc={"/sponsors/aeternity_logo.png"}
+          />
+        </div>
       </div>
       <Text textType={"title"}>Silver</Text>
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
