@@ -1,0 +1,172 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+.cta-border {
+  /*background: linear-gradient(
+    135deg,
+    rgba(255, 203, 109, 1) 0%,
+    rgba(228, 52, 165, 1) 50%,
+    rgba(52, 138, 235, 1) 100%
+  );*/
+  border-image: linear-gradient(
+      135deg,
+      rgba(255, 203, 109, 1) 0%,
+      rgba(228, 52, 165, 1) 50%,
+      rgba(52, 138, 235, 1) 100%
+    )
+    1;
+  border-width: 2px;
+  border-style: solid;
+}
+
+.glow {
+  animation: glow 5s infinite;
+}
+
+.shadow-glow {
+  animation: shadow-glow 5s infinite;
+}
+
+.sponsor-bronze {
+  box-shadow: 0px 0px 100px 10px rgba(92, 21, 103, 0.5);
+  background-color: rgba(92, 21, 103, 0.5);
+}
+
+@keyframes glow {
+  0% {
+    background-color: rgba(255, 203, 109, 0.5);
+    box-shadow: 0px 0px 100px 10px rgba(255, 203, 109, 0.8);
+  }
+  33.3% {
+    background-color: rgba(228, 52, 165, 0.5);
+    box-shadow: 0px 0px 100px 10px rgba(228, 52, 165, 0.8);
+  }
+  66.6% {
+    background-color: rgba(52, 138, 235, 0.5);
+    box-shadow: 0px 0px 100px 10px rgba(52, 138, 235, 0.8);
+  }
+  100% {
+    background-color: rgba(255, 203, 109, 0.5);
+    box-shadow: 0px 0px 100px 10px rgba(255, 203, 109, 0.8);
+  }
+}
+
+@keyframes shadow-glow {
+  0% {
+    box-shadow: 0px 0px 100px 10px rgba(255, 203, 109, 0.2);
+  }
+  33.3% {
+    box-shadow: 0px 0px 100px 10px rgba(228, 52, 165, 0.2);
+  }
+  66.6% {
+    box-shadow: 0px 0px 100px 10px rgba(52, 138, 235, 0.2);
+  }
+  100% {
+    box-shadow: 0px 0px 100px 10px rgba(255, 203, 109, 0.2);
+  }
+}
+
+.text-gradient {
+  background: -webkit-linear-gradient(
+    300deg,
+    rgba(255, 203, 109, 1) 0%,
+    rgba(228, 52, 165, 1) 50%,
+    rgba(52, 138, 235, 1) 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/*a {
+  @apply underline underline-offset-[6px] decoration-2 decoration-dotted;
+}*/
+
+.border-gradient-tbc {
+  border-image: linear-gradient(
+      to right bottom,
+      theme("colors.tbc-yellow"),
+      theme("colors.tbc-pink"),
+      theme("colors.tbc-blue")
+    )
+    1;
+}
+
+.border-gradient-manifesto {
+  border-image: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0) 0%,
+      rgba(0, 0, 0, 1) 100%
+    )
+    1;
+  @apply border-x border-b;
+}
+
+.border-gradient-tbc-from-transparent {
+  border-image: linear-gradient(
+      to right bottom,
+      rgba(255, 203, 109, 0) 0%,
+      rgba(228, 52, 165, 0.5) 50%,
+      rgba(52, 138, 235, 1) 100%
+    )
+    1;
+}
+
+.bg-gradient-tbc {
+  background-image: linear-gradient(
+    to right bottom,
+    theme("colors.tbc-yellow"),
+    theme("colors.tbc-pink"),
+    theme("colors.tbc-blue")
+  );
+}
+
+.bg-gradient-tbc-md {
+  background-image: linear-gradient(
+    to right bottom,
+    theme("colors.tbc-yellow"),
+    theme("colors.tbc-pink"),
+    theme("colors.tbc-blue")
+  );
+}
+
+@media screen and (max-width: 768px) {
+  .bg-gradient-tbc-md {
+    background-image: none;
+  }
+}
+
+#footer::after {
+  content: "";
+  position: absolute;
+  z-index: -10;
+  min-height: 500px;
+  width: 100%;
+  background-image: linear-gradient(
+    to right bottom,
+    theme("colors.tbc-yellow"),
+    theme("colors.tbc-pink"),
+    theme("colors.tbc-blue")
+  );
+}
+
+.line-anim {
+  animation: lineAnim 4s linear infinite;
+}
+
+@keyframes lineAnim {
+  0% {
+    width: 0;
+  }
+  100% {
+    width: 100%;
+  }
+}
