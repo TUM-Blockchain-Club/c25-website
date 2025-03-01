@@ -21,7 +21,11 @@ export const useSpeaker = async (count?: number): Promise<Speaker[]> => {
     const accessToken = process.env.CONTENTFUL_ACCESS_TOKEN;
 
     if (!spaceId || !environment || !accessToken) {
-      console.error("Missing required Contentful environment variables");
+      console.error("Missing required Contentful environment variables:", {
+        spaceId: spaceId ? "✓" : "✗",
+        environment: environment ? "✓" : "✗",
+        accessToken: accessToken ? "✓" : "✗",
+      });
       return [];
     }
 
