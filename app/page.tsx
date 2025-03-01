@@ -34,6 +34,7 @@ export default function Home() {
                 <Manifesto />
                 <Tracks />
                 <Sponsors />
+                <Speaker />
               </div>
             </div>
           </Container>
