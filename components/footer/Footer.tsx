@@ -1,5 +1,3 @@
-"use client";
-
 import { Link } from "@/components/link";
 import { Text } from "@/components/text";
 import confLogo from "@/public/logos/c25-wordmark.svg";
@@ -8,6 +6,7 @@ import liLogo from "@/public/logos/linkedin-logo.png";
 import tbcLogo from "@/public/logos/tbc-wordmark.svg";
 import telLogo from "@/public/logos/telegram-logo.png";
 import xLogo from "@/public/logos/x-logo.png";
+import lineBg from "@/public/logos/lines.svg";
 import classNames from "classnames";
 import Image from "next/image";
 import React from "react";
@@ -24,10 +23,21 @@ export const Footer = React.forwardRef<FooterElement, FooterProps>(
         id={"footer"}
         className={classNames(
           className,
-          "flex z-10 justify-center items-center justify-items-center bg-gradient-to-b from-black from-10% to-[rgba(0,0,0,0.66)] to-80%",
+          "relative flex z-10 justify-center items-center justify-items-center bg-gradient-to-b from-black from-10% to-[rgba(0,0,0,0.66)] to-80%",
         )}
         ref={ref}
       >
+        {/* Background Image */}
+        <div className="absolute inset-0 w-full h-full bg-gradient-to-b from-black from-10% to-[rgba(0,0,0,0.66)] to-80%">
+          <Image
+            src={lineBg}
+            alt="Background Pattern"
+            layout="fill"
+            objectFit="cover"
+            className="opacity-20"
+          />
+        </div>
+
         <div
           className={
             "flex flex-col self-center relative min-h-[500px] w-full max-w-7xl"
@@ -104,24 +114,33 @@ export const Footer = React.forwardRef<FooterElement, FooterProps>(
               </div>
               <div
                 className={
-                  "flex flex-col lg:flex-row h-full justify-start lg:justify-center gap-4 lg:gap-8"
+                  "flex flex-col lg:flex-row h-full justify-center lg:justify-center gap-8 lg:gap-16"
                 }
               >
-                <Text asChild>
-                  <Link href={"mailto:relations@tum-blockchain.com"}>
-                    Contact
-                  </Link>
-                </Text>
-                <Text asChild>
-                  <Link href={"https://www.tum-blockchain.com/privacy-policy"}>
-                    Privacy Policy
-                  </Link>
-                </Text>
-                <Text asChild>
-                  <Link href={"https://www.tum-blockchain.com/imprint"}>
-                    Imprint
-                  </Link>
-                </Text>
+                <div className="flex flex-col space-y-2 items-center">
+                  <Text asChild>
+                    <Link href={"mailto:relations@tum-blockchain.com"}>
+                      Contact
+                    </Link>
+                  </Text>
+                </div>
+                <div className="flex flex-col space-y-2 items-center">
+                  <Text asChild>
+                    <Link
+                      href={"https://www.tum-blockchain.com/privacy-policy"}
+                    >
+                      Privacy Policy
+                    </Link>
+                  </Text>
+                </div>
+                <div className="flex flex-col space-y-2 items-center">
+                  <Text asChild>
+                    <Link href={"https://www.tum-blockchain.com/imprint"}>
+                      Imprint
+                    </Link>
+                  </Text>
+                  <div className="flex space-x-4"></div>
+                </div>
               </div>
             </div>
           </div>

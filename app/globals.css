@@ -19,9 +19,9 @@ body {
   );*/
   border-image: linear-gradient(
       135deg,
-      rgba(255, 203, 109, 1) 0%,
-      rgba(228, 52, 165, 1) 50%,
-      rgba(52, 138, 235, 1) 100%
+      rgba(0, 235, 255, 1) 0%,
+      rgba(111, 61, 226, 1) 49%,
+      rgba(255, 182, 236, 1) 100%
     )
     1;
   border-width: 2px;
