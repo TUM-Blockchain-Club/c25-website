@@ -121,13 +121,13 @@ const Tracks = () => {
           desc={trackItems[4].description}
           dimension={70}
         />
-        <Track
+        {/* <Track
           icon={School2}
           iconColor="#FB923C"
           title={trackItems[5].title}
           desc={trackItems[5].description}
           dimension={70}
-        />
+        /> */}
       </div>
     </section>
   );
