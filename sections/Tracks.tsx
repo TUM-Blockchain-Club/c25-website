@@ -9,6 +9,7 @@ import {
   TestTube,
   FileText,
   Network,
+  School2,
 } from "lucide-react";
 
 export const trackItems = [
@@ -65,6 +66,17 @@ export const trackItems = [
       </>
     ),
   },
+  {
+    title: "Academic",
+    img: "/tracks/graduation.svg",
+    description: (
+      <>
+        We promote academic excellence by hosting leading researchers and
+        professionals to present blockchain innovations at the 2025 TUM
+        Blockchain Conference, in collaboration with TUM and IEEE Blockchain.
+      </>
+    ),
+  },
 ];
 
 const Tracks = () => {
@@ -73,46 +85,55 @@ const Tracks = () => {
       <Text textType={"sub_hero"} className="text-gradient text-center">
         Tracks
       </Text>
-      <div className="md:flex justify-center md:gap-x-8 mt-20">
+      <div className="md:flex justify-center md:gap-x-40 mt-20">
         <Track
           icon={GraduationCap}
-          iconColor="#4f46e5"
+          iconColor="#4ADE80"
           title={trackItems[0].title}
           desc={trackItems[0].description}
           dimension={70}
         />
         <Track
           icon={Globe}
-          iconColor="#0ea5e9"
+          iconColor="#2DD4BF"
           className="mt-10 md:mt-0"
           title={trackItems[1].title}
           desc={trackItems[1].description}
           dimension={70}
         />
+      </div>
+      <div className="md:flex justify-center md:gap-x-40 md:mt-20">
         <Track
           icon={TestTube}
-          iconColor="#10b981"
+          iconColor="#FACC15"
           className="mt-10 md:mt-0"
           title={trackItems[2].title}
           desc={trackItems[2].description}
           dimension={70}
         />
-      </div>
-      <div className="md:flex justify-center md:gap-x-8 md:mt-20">
         <Track
           icon={FileText}
-          iconColor="#f59e0b"
+          iconColor="#F87171"
           className="mt-10 md:mt-0"
           title={trackItems[3].title}
           desc={trackItems[3].description}
           dimension={70}
         />
+      </div>
+      <div className="md:flex justify-center md:gap-x-40 md:mt-20">
         <Track
           icon={Network}
-          iconColor="#ec4899"
+          iconColor="#60A5FA"
           className="mt-10 md:mt-0"
           title={trackItems[4].title}
           desc={trackItems[4].description}
+          dimension={70}
+        />
+        <Track
+          icon={School2}
+          iconColor="#FB923C"
+          title={trackItems[5].title}
+          desc={trackItems[5].description}
           dimension={70}
         />
       </div>

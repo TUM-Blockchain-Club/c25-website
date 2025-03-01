@@ -117,14 +117,14 @@ export const Footer = React.forwardRef<FooterElement, FooterProps>(
                   "flex flex-col lg:flex-row h-full justify-center lg:justify-center gap-8 lg:gap-16"
                 }
               >
-                <div className="flex flex-col space-y-2 items-center">
+                <div className="flex flex-col space-y-2 items-left">
                   <Text asChild>
                     <Link href={"mailto:relations@tum-blockchain.com"}>
                       Contact
                     </Link>
                   </Text>
                 </div>
-                <div className="flex flex-col space-y-2 items-center">
+                <div className="flex flex-col space-y-2 items-left">
                   <Text asChild>
                     <Link
                       href={"https://www.tum-blockchain.com/privacy-policy"}
@@ -133,7 +133,7 @@ export const Footer = React.forwardRef<FooterElement, FooterProps>(
                     </Link>
                   </Text>
                 </div>
-                <div className="flex flex-col space-y-2 items-center">
+                <div className="flex flex-col space-y-2 items-left">
                   <Text asChild>
                     <Link href={"https://www.tum-blockchain.com/imprint"}>
                       Imprint
