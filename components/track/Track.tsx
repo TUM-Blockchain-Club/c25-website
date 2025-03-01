@@ -5,11 +5,13 @@ import classNames from "classnames";
 import { StaticImport } from "next/dist/shared/lib/get-img-props";
 import Image from "next/image";
 import React from "react";
+import { LucideIcon } from "lucide-react";
 
 type TrackElement = React.ElementRef<"div">;
 export type TrackProps = React.ComponentPropsWithoutRef<"div"> & {
-  imageSrc: string | StaticImport;
-  imageAlt: string;
+  imageSrc?: string | StaticImport;
+  imageAlt?: string;
+  icon?: LucideIcon;
   dimension: number;
   title: string;
   desc: string | JSX.Element;
@@ -21,6 +23,7 @@ export const Track = React.forwardRef<TrackElement, TrackProps>(
       className,
       imageSrc,
       imageAlt,
+      icon: Icon,
       dimension,
       title,
       desc,
@@ -32,13 +35,19 @@ export const Track = React.forwardRef<TrackElement, TrackProps>(
         ref={ref}
         {...restProps}
       >
-        <Image
-          className={"object-contain mx-auto"}
-          src={imageSrc}
-          alt={imageAlt}
-          width={dimension}
-          height={dimension}
-        />
+        {imageSrc ? (
+          <Image
+            className={"object-contain mx-auto"}
+            src={imageSrc}
+            alt={imageAlt || ""}
+            width={dimension}
+            height={dimension}
+          />
+        ) : Icon ? (
+          <div className="flex justify-center">
+            <Icon size={dimension} className="mx-auto" />
+          </div>
+        ) : null}
         <Text textType={"sub_title"} className="mt-8 text-center" as="p">
           {title}
         </Text>

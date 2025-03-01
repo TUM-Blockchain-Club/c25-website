@@ -1,7 +1,15 @@
+"use client";
+
 import Image from "next/image";
 import { Text } from "@/components/text";
 import { Track } from "@/components/track";
-import { Camera } from "lucide-react";
+import {
+  GraduationCap,
+  Globe,
+  TestTube,
+  FileText,
+  Network,
+} from "lucide-react";
 
 export const trackItems = [
   {
@@ -67,24 +75,21 @@ const Tracks = () => {
       </Text>
       <div className="md:flex justify-center md:gap-x-8 mt-20">
         <Track
-          imageAlt="hat"
-          imageSrc={trackItems[0].img}
+          icon={GraduationCap}
           title={trackItems[0].title}
           desc={trackItems[0].description}
           dimension={70}
         />
         <Track
-          imageAlt="globe"
+          icon={Globe}
           className="mt-10 md:mt-0"
-          imageSrc={trackItems[1].img}
           title={trackItems[1].title}
           desc={trackItems[1].description}
           dimension={70}
         />
         <Track
-          imageAlt="lab"
+          icon={TestTube}
           className="mt-10 md:mt-0"
-          imageSrc={trackItems[2].img}
           title={trackItems[2].title}
           desc={trackItems[2].description}
           dimension={70}
@@ -92,17 +97,15 @@ const Tracks = () => {
       </div>
       <div className="md:flex justify-center md:gap-x-8 md:mt-20">
         <Track
-          imageAlt="paragraph"
+          icon={FileText}
           className="mt-10 md:mt-0"
-          imageSrc={trackItems[3].img}
           title={trackItems[3].title}
           desc={trackItems[3].description}
           dimension={70}
         />
         <Track
-          imageAlt="objects"
+          icon={Network}
           className="mt-10 md:mt-0"
-          imageSrc={trackItems[4].img}
           title={trackItems[4].title}
           desc={trackItems[4].description}
           dimension={70}
