@@ -6,13 +6,15 @@ import { cva, VariantProps } from "class-variance-authority";
 import classNames from "classnames";
 
 const buttonVariants = cva(
-  "hover:no-underline font-sans button text-white p-3 bg-black",
+  "hover:no-underline font-sans button text-white p-3 bg-black rounded-[5px]", // Added rounded-[5px]
   {
     variants: {
       buttonType: {
         cta: "font-bold border-gradient-tbc border-2 hover:bg-gradient-to-br hover:from-tbc-yellow/30 hover:via-tbc-pink/30 hover:to-tbc-blue/30",
         primary: "border border-white hover:bg-bg-hover",
         secondary: "hover:bg-bg-hover",
+        ticket:
+          "font-bold border-gradient-tbc border-2 hover:bg-gradient-to-br hover:from-tbc-yellow/30 hover:via-tbc-pink/30 hover:to-tbc-blue/30",
       },
     },
     defaultVariants: {
@@ -20,9 +22,10 @@ const buttonVariants = cva(
     },
   },
 );
-type ButtonVariantProps = VariantProps<typeof buttonVariants>;
 
+type ButtonVariantProps = VariantProps<typeof buttonVariants>;
 type ButtonElement = React.ElementRef<"button">;
+
 export interface ButtonProps
   extends React.ComponentPropsWithoutRef<"button">,
     ButtonVariantProps {

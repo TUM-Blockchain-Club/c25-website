@@ -84,7 +84,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
               </Text>
             );
           })}
-          <Button className={"sm:hidden mr-4 w-fit"} disabled>
+          <Button buttonType={"primary"} disabled>
             Tickets
           </Button>
         </nav>
