@@ -10,14 +10,17 @@ export const findAssetURL = (
 };
 
 export const useSpeaker = async (count?: number): Promise<Speaker[]> => {
-  const spaceId = process.env.CONTENTFUL_SPACE_ID!;
-  const environment = process.env.CONTENTFUL_ENV!;
-  const url = new URL(
-    `https://cdn.contentful.com/spaces/${spaceId}/environments/${environment}/entries`,
-  );
+  // const spaceId = process.env.CONTENTFUL_SPACE_ID!;
+  // const environment = process.env.CONTENTFUL_ENV!;
+  // const url = new URL(
+  //   `https://cdn.contentful.com/spaces/${spaceId}/environments/${environment}/entries`,
+  // );
 
   let speakers: Speaker[] = [];
   let skipCounter = 0;
+
+  // Short circuit for now
+  return [];
 
   do {
     url.search = new URLSearchParams({

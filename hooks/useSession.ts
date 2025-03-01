@@ -3,14 +3,17 @@ import Speaker from "@/model/speaker";
 import { findAssetURL } from "@/hooks/useSpeaker";
 
 export const useSession = async (): Promise<Session[]> => {
-  const spaceId = process.env.CONTENTFUL_SPACE_ID!;
-  const environment = process.env.CONTENTFUL_ENV!;
-  const url = new URL(
-    `https://cdn.contentful.com/spaces/${spaceId}/environments/${environment}/entries`,
-  );
+  // const spaceId = process.env.CONTENTFUL_SPACE_ID!;
+  // const environment = process.env.CONTENTFUL_ENV!;
+  // const url = new URL(
+  //   `https://cdn.contentful.com/spaces/${spaceId}/environments/${environment}/entries`,
+  // );
 
   let sessions: Session[] = [];
   let skipCounter = 0;
+
+  // Short circuit for now
+  return [];
 
   do {
     url.search = new URLSearchParams({
