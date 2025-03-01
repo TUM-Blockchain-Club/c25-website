@@ -22,6 +22,7 @@ export const useSpeaker = async (count?: number): Promise<Speaker[]> => {
   // Short circuit for now
   return [];
 
+  /**
   do {
     url.search = new URLSearchParams({
       content_type: "speaker",
@@ -71,4 +72,5 @@ export const useSpeaker = async (count?: number): Promise<Speaker[]> => {
   }
 
   return speakers ?? [];
+  */
 };

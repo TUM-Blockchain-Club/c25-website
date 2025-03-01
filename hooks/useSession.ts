@@ -15,6 +15,7 @@ export const useSession = async (): Promise<Session[]> => {
   // Short circuit for now
   return [];
 
+  /**
   do {
     url.search = new URLSearchParams({
       content_type: "session",
@@ -88,4 +89,5 @@ export const useSession = async (): Promise<Session[]> => {
   }
 
   return sessions ?? [];
+  */
 };
