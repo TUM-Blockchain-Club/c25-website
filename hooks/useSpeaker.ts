@@ -18,6 +18,7 @@ export const useSpeaker = async (count?: number): Promise<Speaker[]> => {
 
   let speakers: Speaker[] = [];
   let skipCounter = 0;
+  let hasMoreItems = true;
 
   do {
     url.search = new URLSearchParams({
@@ -37,9 +38,16 @@ export const useSpeaker = async (count?: number): Promise<Speaker[]> => {
 
     const jsonRes = await res.json();
     const { total } = jsonRes;
+    const items = jsonRes.items || [];
+
+    if (items.length === 0) {
+      // No more items to fetch
+      hasMoreItems = false;
+      break;
+    }
 
     speakers = speakers.concat(
-      jsonRes.items?.map((item: any): Speaker => {
+      items.map((item: any): Speaker => {
         return {
           name: item.fields.name,
           description: item.fields.description,
@@ -54,17 +62,20 @@ export const useSpeaker = async (count?: number): Promise<Speaker[]> => {
       }),
     );
 
-    // Stop iterating if the current response count is not bounded by maximum (100)
-    if (total === 0) {
-      break;
+    // Stop iterating if we've reached the requested count
+    if (count && speakers.length >= count) {
+      hasMoreItems = false;
+    } else if (skipCounter + items.length >= total) {
+      // We've fetched all available items
+      hasMoreItems = false;
     } else {
       console.log("Paginating speaker");
       skipCounter += 100;
     }
-  } while (!count);
+  } while (hasMoreItems);
 
   if (!speakers) {
-    console.log("Speakers is undefined");
+    console.warn("Speakers is undefined");
   }
 
   return speakers ?? [];
