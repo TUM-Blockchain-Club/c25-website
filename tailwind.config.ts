@@ -10,9 +10,9 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        "tbc-yellow": "#FFCB6D",
-        "tbc-pink": "#E434A5",
-        "tbc-blue": "#348AEB",
+        "tbc-light-blue": "#00EBFF",
+        "tbc-violet": "#6F3DE2",
+        "tbc-pink": "#FFB6EC",
         "bg-hover": "#1D1D1D",
         "email-pink": "#FFCB6D",
         "email-purple": "#FFCB6D",
