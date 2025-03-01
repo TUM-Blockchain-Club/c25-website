@@ -13,6 +13,14 @@ on:
         required: true
       VERCEL_PROJECT_ID:
         required: true
+      CONTENTFUL_SPACE_ID:
+        required: true
+      CONTENTFUL_ACCESS_TOKEN:
+        required: true
+      CONTENTFUL_PREVIEW_ACCESS_TOKEN:
+        required: true
+      CONTENTFUL_ENV:
+        required: true
 
 jobs:
   deploy:
