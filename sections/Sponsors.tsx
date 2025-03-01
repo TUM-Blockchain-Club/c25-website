@@ -8,7 +8,7 @@ const Sponsors = () => {
       id="sponsors"
     >
       <Text textType={"sub_hero"} className="text-gradient text-center">
-        Sponsors
+        Previous Sponsors
       </Text>
       <Text textType={"title"} className="text-gradient font-bold">
         Platinum

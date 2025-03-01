@@ -32,6 +32,7 @@ export default function Home() {
                 <Video />
                 <Statistic />
                 <Manifesto />
+                <Sponsors />
               </div>
             </div>
           </Container>
