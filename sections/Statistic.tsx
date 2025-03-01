@@ -9,7 +9,7 @@ const Statistic = () => {
     >
       <div className={"flex flex-col items-center"}>
         <Text textType={"sub_title"} className={""}>
-          This Year Statistic
+          Last Year Statistic
         </Text>
         <div className={"flex flex-col items-center lg:flex-row gap-12 mt-12"}>
           <div className={"flex flex-col gap-2 items-center lg:items-center"}>

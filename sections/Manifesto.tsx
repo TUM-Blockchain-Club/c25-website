@@ -11,22 +11,41 @@ const Manifesto = () => {
         </div>
         <div className="w-full flex justify-center">
           <Text as={"p"} className="text-left sm:max-w-[42rem]">
-            We are committed to advancing the blockchain ecosystem by bringing
-            together the <b>next generation of builders and thinkers</b> in web3
-            in a non-profit setting where technology and open discourse take
-            center stage.
+            Web3 is more than a buzzword; it’s a fundamental shift in how we
+            trust, transact, and connect in a digital world. Similarly,
+            blockchain technology isn’t just about financial gains—it’s about
+            creating progress that transcends borders, industries, and silos.
+            Yet, fragmentation within the ecosystem remains a challenge.
             <br />
             <br />
-            Our lineup of five tracks - <b>Education</b>, <b>Research</b>,{" "}
-            <b>Ecosystem</b>,<b>Applications</b>, and <b>Regulation</b> - with
-            experts from industry, academia, and politics, explores the latest
-            technologies, projects, and legal landscapes in web3. This year,
-            with its own dedicated track, we are placing particular emphasis on
-            real-world applications and use cases of web3, exploring why web3
-            matters today more than ever. In a world where AI threatens identity
-            and information integrity, where ecosystem lock-ins are the norm,
-            and true privacy is virtually non-existent in consumer products,
-            web3 isn't just a trend - it's a lifeline.
+            At the 3rd edition of the TUM Blockchain Conference, we aim to break
+            down these silos. Together, we’ll explore how decentralized
+            solutions are driving societal, environmental, and technological
+            change, while examining the role of AI and other emerging
+            technologies in shaping the future of Web3.
+            <br />
+            <br />
+            This year, we are bringing together visionaries: developers,
+            policymakers, academics, industry leaders, and legal experts to
+            bridge divides across industries and geographies. Together, we’ll
+            pave the way for an integrated and interoperable Web3 ecosystem.
+            <br />
+            <br />
+            Building on our five core tracks—Education, Research, Ecosystem,
+            Applications, and Regulation—this year’s conference emphasizes
+            integration and impact. We’ll dive into how Web3 converges with AI,
+            IoT, and other technologies, unlocking transformative use cases in
+            finance, governance, sustainability, and beyond.
+            <br />
+            <br />
+            Through a mix of thought-provoking panels, talks, hands-on
+            workshops, and use-case showcases, we’re not just discussing
+            Web3—we’re building its future.
+            <br />
+            <br />
+            Our goal is clear: to unify fragmented ecosystems, empower
+            individuals to create meaningful change, and redefine what’s
+            possible in a decentralized, interoperable world.
           </Text>
         </div>
       </div>
