@@ -76,12 +76,14 @@ const Tracks = () => {
       <div className="md:flex justify-center md:gap-x-8 mt-20">
         <Track
           icon={GraduationCap}
+          iconColor="#4f46e5"
           title={trackItems[0].title}
           desc={trackItems[0].description}
           dimension={70}
         />
         <Track
           icon={Globe}
+          iconColor="#0ea5e9"
           className="mt-10 md:mt-0"
           title={trackItems[1].title}
           desc={trackItems[1].description}
@@ -89,6 +91,7 @@ const Tracks = () => {
         />
         <Track
           icon={TestTube}
+          iconColor="#10b981"
           className="mt-10 md:mt-0"
           title={trackItems[2].title}
           desc={trackItems[2].description}
@@ -98,6 +101,7 @@ const Tracks = () => {
       <div className="md:flex justify-center md:gap-x-8 md:mt-20">
         <Track
           icon={FileText}
+          iconColor="#f59e0b"
           className="mt-10 md:mt-0"
           title={trackItems[3].title}
           desc={trackItems[3].description}
@@ -105,6 +109,7 @@ const Tracks = () => {
         />
         <Track
           icon={Network}
+          iconColor="#ec4899"
           className="mt-10 md:mt-0"
           title={trackItems[4].title}
           desc={trackItems[4].description}

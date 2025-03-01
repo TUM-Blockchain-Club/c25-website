@@ -12,6 +12,7 @@ export type TrackProps = React.ComponentPropsWithoutRef<"div"> & {
   imageSrc?: string | StaticImport;
   imageAlt?: string;
   icon?: LucideIcon;
+  iconColor?: string;
   dimension: number;
   title: string;
   desc: string | JSX.Element;
@@ -24,6 +25,7 @@ export const Track = React.forwardRef<TrackElement, TrackProps>(
       imageSrc,
       imageAlt,
       icon: Icon,
+      iconColor,
       dimension,
       title,
       desc,
@@ -45,7 +47,7 @@ export const Track = React.forwardRef<TrackElement, TrackProps>(
           />
         ) : Icon ? (
           <div className="flex justify-center">
-            <Icon size={dimension} className="mx-auto" />
+            <Icon size={dimension} className="mx-auto" color={iconColor} />
           </div>
         ) : null}
         <Text textType={"sub_title"} className="mt-8 text-center" as="p">
