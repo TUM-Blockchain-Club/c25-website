@@ -15,6 +15,24 @@ export type HeaderProps = React.ComponentPropsWithoutRef<"header"> & {
   logoUrl?: string;
 };
 
+type HeaderLink = {
+  label: string;
+  link: string;
+  showsAtHome: boolean;
+};
+
+const links: HeaderLink[] = [
+  // { label: "Home", link: "/", showsAtHome: false },
+  { label: "Manifesto", link: "#manifesto", showsAtHome: true },
+  // { label: "Speakers", link: "/speakers", showsAtHome: true },
+  { label: "Sponsors", link: "#sponsors", showsAtHome: true },
+  // { label: "Side Events", link: "/side-events", showsAtHome: true },
+  // { label: "Agenda", link: "/agenda", showsAtHome: true },
+  // { label: "Workshops", link: "/workshops", showsAtHome: true },
+  // { label: "Student Grants", link: "#grants", showsAtHome: true },
+  // { label: "FAQ", link: "#faq", showsAtHome: true },
+];
+
 export type SidebarProps = {
   isOpen: boolean;
   onClose: () => void;
@@ -45,43 +63,27 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
           className="mb-8"
         ></Cross1Icon>
         <nav className="flex flex-col gap-8">
-          {pathName !== "/" && (
-            <Text asChild>
-              <Link href="/">Home</Link>
-            </Text>
-          )}
-          {pathName === "/" && (
-            <Text asChild>
-              <Link href="#manifesto">Manifesto</Link>
-            </Text>
-          )}
-          <Text asChild>
-            <Link href="/speakers">Speakers</Link>
-          </Text>
-          {pathName === "/" && (
-            <Text asChild>
-              <Link href="#sponsors">Sponsors</Link>
-            </Text>
-          )}
-          <Text asChild>
-            <Link href="/side-events">Side Events</Link>
-          </Text>
-          <Text asChild>
-            <Link href="/agenda">Agenda</Link>
-          </Text>
-          <Text asChild>
-            <Link href="/workshops">Workshops</Link>
-          </Text>
-          {pathName === "/" && (
-            <>
-              <Text asChild>
-                <Link href="#grants">Student Grants</Link>
+          {links.map((link) => {
+            // Skip "Home" link if we're already on home page
+            if (link.label === "Home" && pathName === "/") return null;
+
+            // Only show links marked for home page when on home page
+            if (link.link.startsWith("#") && pathName !== "/") return null;
+
+            // Only show links that should appear on the current page
+            if (
+              link.showsAtHome &&
+              pathName !== "/" &&
+              !link.link.startsWith("/")
+            )
+              return null;
+
+            return (
+              <Text asChild key={link.label}>
+                <Link href={link.link}>{link.label}</Link>
               </Text>
-              <Text asChild>
-                <Link href="#faq">FAQ</Link>
-              </Text>
-            </>
-          )}
+            );
+          })}
           <Button className={"sm:hidden mr-4 w-fit"} disabled>
             Tickets
           </Button>
@@ -146,40 +148,34 @@ export const Header = React.forwardRef<HeaderElement, HeaderProps>(
                 "hidden sm:flex h-full justify-center gap-8 items-center"
               }
             >
-              {pathName !== "/" && (
-                <Text asChild>
-                  <Link href="/">Home</Link>
-                </Text>
-              )}
-              {pathName === "/" && (
-                <Text asChild>
-                  <Link href="#manifesto">Manifesto</Link>
-                </Text>
-              )}
-              <Text asChild>
-                <Link href="/speakers">Speakers</Link>
-              </Text>
-              {pathName === "/" && (
-                <Text asChild>
-                  <Link href="#sponsors">Sponsors</Link>
-                </Text>
-              )}
-              <Text asChild>
-                <Link href="/side-events" className="text-center">
-                  Side Events
-                </Link>
-              </Text>
-              {pathName === "/" && (
-                <Text asChild>
-                  <Link href="#grants">Grants</Link>
-                </Text>
-              )}
-              <Text asChild>
-                <Link href="/agenda">Agenda</Link>
-              </Text>
-              <Text asChild>
-                <Link href="/workshops">Workshops</Link>
-              </Text>
+              {links.map((link) => {
+                // Skip "Home" link if we're already on home page
+                if (link.label === "Home" && pathName === "/") return null;
+
+                // Only show links marked for home page when on home page
+                if (link.link.startsWith("#") && pathName !== "/") return null;
+
+                // Only show links that should appear on the current page
+                if (
+                  link.showsAtHome &&
+                  pathName !== "/" &&
+                  !link.link.startsWith("/")
+                )
+                  return null;
+
+                return (
+                  <Text asChild key={link.label}>
+                    <Link
+                      href={link.link}
+                      className={
+                        link.label === "Side Events" ? "text-center" : ""
+                      }
+                    >
+                      {link.label === "Student Grants" ? "Grants" : link.label}
+                    </Link>
+                  </Text>
+                );
+              })}
               <Button disabled>Tickets</Button>
             </nav>
             <div className="md:hidden py-2 px-4">
