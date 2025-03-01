@@ -85,7 +85,7 @@ const Tracks = () => {
       <Text textType={"sub_hero"} className="text-gradient text-center">
         Tracks
       </Text>
-      <div className="md:flex justify-center md:gap-x-40 mt-20">
+      <div className="flex flex-col items-center space-y-10 md:space-y-0 md:flex-row md:flex-wrap md:justify-center md:gap-x-40 mt-20">
         <Track
           icon={GraduationCap}
           iconColor="#4ADE80"
@@ -96,17 +96,13 @@ const Tracks = () => {
         <Track
           icon={Globe}
           iconColor="#2DD4BF"
-          className="mt-10 md:mt-0"
           title={trackItems[1].title}
           desc={trackItems[1].description}
           dimension={70}
         />
-      </div>
-      <div className="md:flex justify-center md:gap-x-40 md:mt-20">
         <Track
           icon={TestTube}
           iconColor="#FACC15"
-          className="mt-10 md:mt-0"
           title={trackItems[2].title}
           desc={trackItems[2].description}
           dimension={70}
@@ -114,17 +110,13 @@ const Tracks = () => {
         <Track
           icon={FileText}
           iconColor="#F87171"
-          className="mt-10 md:mt-0"
           title={trackItems[3].title}
           desc={trackItems[3].description}
           dimension={70}
         />
-      </div>
-      <div className="md:flex justify-center md:gap-x-40 md:mt-20">
         <Track
           icon={Network}
           iconColor="#60A5FA"
-          className="mt-10 md:mt-0"
           title={trackItems[4].title}
           desc={trackItems[4].description}
           dimension={70}

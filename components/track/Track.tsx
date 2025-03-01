@@ -33,7 +33,7 @@ export const Track = React.forwardRef<TrackElement, TrackProps>(
     } = props;
     return (
       <div
-        className={classNames(className, "w-[265px] sm:max-w-[400px] md:px-4")}
+        className={classNames(className, "w-[265px] lg:h-[350px] sm:w-[400px]")}
         ref={ref}
         {...restProps}
       >
