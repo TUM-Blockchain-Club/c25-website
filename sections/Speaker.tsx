@@ -21,20 +21,20 @@ const Speaker = async () => {
             <SpeakerComponent key={index} {...speaker} hasSocialLink />
           ))}
       </div>
-      {/* <div className="md:flex space-x-0 md:space-x-4 space-y-4 md:space-y-0">
-        <div>
+      <div className="md:flex space-x-0 md:space-x-4 space-y-4 md:space-y-0">
+        {/* <div>
           <div className="w-full flex justify-center">
             <Button disabled>Apply as speaker</Button>
           </div>
-        </div>
+        </div> */}
         <div>
           <div className="w-full flex justify-center">
             <Button buttonType={"primary"} asChild>
-              <Link href={"/speakers"}>All speakers</Link>
+              <Link href={"/speakers"}>All previous speakers</Link>
             </Button>
           </div>
         </div>
-      </div> */}
+      </div>
     </section>
   );
 };
