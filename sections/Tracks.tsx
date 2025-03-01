@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { Text } from "@/components/text";
 import { Track } from "@/components/track";
+import { Camera } from "lucide-react";
 
 export const trackItems = [
   {
