@@ -13,7 +13,7 @@ const SpeakersPage = async () => {
           <div className={"mt-[100px] md:mt-[20vh] z-10 max-w-3xl"}>
             <div className="lg:flex items-center">
               <Text textType={"sub_hero"} className="text-gradient text-left">
-                Previous Speakers
+                2024 Speakers
               </Text>
             </div>
           </div>
