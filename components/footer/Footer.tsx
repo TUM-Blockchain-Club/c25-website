@@ -32,9 +32,8 @@ export const Footer = React.forwardRef<FooterElement, FooterProps>(
           <Image
             src={lineBg}
             alt="Background Pattern"
-            layout="fill"
-            objectFit="cover"
-            className="opacity-20"
+            fill
+            style={{ objectFit: "cover", opacity: 0.2 }}
           />
         </div>
 
