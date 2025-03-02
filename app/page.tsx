@@ -33,8 +33,8 @@ export default function Home() {
                 <Statistic />
                 <Manifesto />
                 <Tracks />
-                <Sponsors />
                 <Speaker />
+                <Sponsors />
               </div>
             </div>
           </Container>

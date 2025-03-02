@@ -13,7 +13,7 @@ const Speaker = async () => {
       id="speaker"
     >
       <Text textType={"sub_hero"} className="text-gradient text-center">
-        Previous Speakers
+        2024 Speakers
       </Text>
       <div className={"grid grid-cols-2 lg:grid-cols-4 gap-2 lg:gap-6"}>
         {speakers &&
@@ -30,7 +30,7 @@ const Speaker = async () => {
         <div>
           <div className="w-full flex justify-center">
             <Button buttonType={"primary"} asChild>
-              <Link href={"/speakers"}>All previous speakers</Link>
+              <Link href={"/speakers"}>All 2024 speakers</Link>
             </Button>
           </div>
         </div>
