@@ -87,7 +87,7 @@ export const Footer = React.forwardRef<FooterElement, FooterProps>(
                       width={25}
                     />
                   </Link>
-                  <Link
+                  {/* <Link
                     href="https://t.me/+6SMYu7pub0E1MGUy"
                     target="_blank"
                     rel="noopener noreferrer"
@@ -97,7 +97,7 @@ export const Footer = React.forwardRef<FooterElement, FooterProps>(
                       alt={"TUM Blockchain Club Logo"}
                       width={25}
                     />
-                  </Link>
+                  </Link> */}
                   <Link
                     href="https://x.com/tbc_munich"
                     target="_blank"
