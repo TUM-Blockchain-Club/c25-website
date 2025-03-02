@@ -1,6 +1,7 @@
 "use client";
 
 import { Text } from "@/components/text";
+import { AspectRatioIcon } from "@radix-ui/react-icons";
 
 const Video = () => {
   return (
@@ -17,13 +18,14 @@ const Video = () => {
         </div>
       </div> */}
       <section className="w-full flex flex-col lg:flex-row justify-center items-center lg:mt-[-125px]">
-        <div className="w-full flex justify-center max-w-[275px] sm:max-w-[500px] xl:max-w-full">
+        <div
+          className="w-full relative justify-center"
+          style={{ maxWidth: "560px", aspectRatio: "16 / 9" }}
+        >
           <iframe
-            width="560"
-            height="315"
             src="https://www.youtube-nocookie.com/embed/YNVbWTAIjl8?si=FeS9M4Yrm7zWdwuR"
             title="YouTube video player"
-            className="glow cta-border"
+            className="w-full h-full glow cta-border"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             referrerPolicy="strict-origin-when-cross-origin"
             allowFullScreen
