@@ -77,8 +77,10 @@ export default function RootLayout({
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </head>
       <body
-        className={`${montserrat.className} bg-black text-white overflow-x-hidden`}
+        className={`${montserrat.className} bg-black text-white overflow-x-hidden w-screen items-center justify-center`}
       >
+        {" "}
+        {/* FIX: Items center and justify-center are enforcing center alignment for everything*/}
         <Header />
         {children}
         <SpeedInsights />

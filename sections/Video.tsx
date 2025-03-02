@@ -19,7 +19,7 @@ const Video = () => {
       </div> */}
       <section className="w-full flex flex-col lg:flex-row justify-center items-center lg:mt-[-125px]">
         <div
-          className="w-full relative justify-center max-w-[325px] sm:max-w-[500px]"
+          className="w-full relative justify-center items-center max-w-[325px] sm:max-w-[500px]"
           style={{ aspectRatio: "16 / 9" }}
         >
           <iframe

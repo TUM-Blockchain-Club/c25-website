@@ -24,7 +24,11 @@ export default function Home() {
     <>
       <div>
         <Sparkle />
-        <main className={"w-full flex justify-center pt-[25px] lg:pt-0 z-20"}>
+        <main
+          className={
+            "w-full flex justify-center items-center pt-[25px] lg:pt-0 z-20"
+          }
+        >
           <Container>
             <div className={"flex flex-col max-w-7xl z-10"}>
               <Hero />
