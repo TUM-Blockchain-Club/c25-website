@@ -10,7 +10,7 @@ const Manifesto = () => {
           </Text>
         </div>
         <div className="w-full flex justify-center">
-          <Text as={"p"} className="text-left sm:max-w-[42rem]">
+          <Text as={"p"} className="text-left max-w-[80%] sm:max-w-[42rem]">
             Web3 is more than a buzzword; it’s a fundamental shift in how we
             trust, transact, and connect in a digital world. Similarly,
             blockchain technology isn’t just about financial gains—it’s about
