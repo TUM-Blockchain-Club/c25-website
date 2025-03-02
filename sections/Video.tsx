@@ -19,8 +19,8 @@ const Video = () => {
       </div> */}
       <section className="w-full flex flex-col lg:flex-row justify-center items-center lg:mt-[-125px]">
         <div
-          className="w-full relative justify-center"
-          style={{ maxWidth: "560px", aspectRatio: "16 / 9" }}
+          className="w-full relative justify-center max-w-[325px] sm:max-w-[500px]"
+          style={{ aspectRatio: "16 / 9" }}
         >
           <iframe
             src="https://www.youtube-nocookie.com/embed/YNVbWTAIjl8?si=FeS9M4Yrm7zWdwuR"
