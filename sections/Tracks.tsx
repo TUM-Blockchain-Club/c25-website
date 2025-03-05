@@ -85,7 +85,7 @@ const Tracks = () => {
       <Text textType={"sub_hero"} className="text-gradient text-center">
         Tracks
       </Text>
-      <div className="flex flex-col items-center space-y-10 md:space-y-0 md:flex-row md:flex-wrap md:justify-center md:gap-x-40 mt-20">
+      <div className="flex flex-col items-center space-y-10 md:space-y-0 md:flex-row md:flex-wrap md:justify-center md:gap-x-40 mt-20 text-center lg:text-left md:text-left">
         <Track
           icon={GraduationCap}
           iconColor="#4ADE80"
