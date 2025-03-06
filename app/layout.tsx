@@ -16,16 +16,12 @@ const ogImages = {
 };
 
 export const metadata: Metadata = {
-  title: "TUM Blockchain Conference 24",
+  title: "TUM Blockchain Conference 25",
   metadataBase: new URL("https://conference.tum-blockchain.com"),
   authors: [
     {
       name: "Yudhistira Arief Wibowo",
       url: "https://github.com/itsmeyaw",
-    },
-    {
-      name: "Luis Kameter",
-      url: "https://github.com/KameterLuis",
     },
     {
       name: "Xiyue Zhang",
