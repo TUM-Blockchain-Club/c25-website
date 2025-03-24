@@ -205,6 +205,12 @@ const Sponsors = () => {
           link="https://polkadot.com/blockchain-academy"
           imageSrc={"/sponsors/PBA2.png"}
         />
+        <Sponsor
+          alt="Polygon"
+          sponsorType="bronze"
+          link="https://polygon.technology/"
+          imageSrc={"/sponsors/polygon.png"}
+        />
       </div>
     </section>
   );
