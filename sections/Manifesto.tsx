@@ -14,30 +14,28 @@ const Manifesto = () => {
             as={"p"}
             className="text-center lg:text-left md:text-left max-w-[80%] sm:max-w-[42rem]"
           >
-            Web3 marks a fundamental shift in digital trust and connectivity,
-            transcending industries and borders—yet{" "}
-            <b>ecosystem fragmentation</b> persists.
+            The 3rd iteration of the TUM Blockchain Conference unites
+            <b> visionaries and thought leaders</b> in a non-profit setting to
+            transform Web3’s potential from promise to action through
+            collaboration and open dialogue. This initiative, organized by the
+            TUM Blockchain Club, is fueled by students’ passion for education,
+            innovation, and community
             <br />
             <br />
-            At the 3rd TUM Blockchain Conference, developers, policymakers,
-            academics, and leaders unite to break down these silos.
+            In a fragmented digital world, where AI undermines identity and
+            information, DeFi, governance, and sustainability innovations
+            struggle to scale, Web3’s convergence with AI and IoT demands new
+            ways to <b> trust, transact, and connect</b>. This conference is our
+            response: a platform to break down barriers and drive progress.
             <br />
             <br />
-            Together, we’ll explore decentralized solutions for societal,
-            environmental, and technological progress, integrating AI, IoT, and
-            other emerging technologies to redefine Web3’s future in a
-            non-profit setting.
-            <br />
-            <br />
-            Through talks, panels, workshops, and real-world showcases, we’ll{" "}
-            <b>bridge education, research, regulation, and ecosystems</b> to
-            unlock transformative applications in finance, governance, and
-            sustainability.
-            <br />
-            <br />
-            Our mission is clear: unify decentralized systems, foster
-            interoperability, and empower actionable change for a
-            connected world.
+            We’re gathering developers, policymakers, academics, industry
+            leaders, and legal experts to advance the Web3 ecosystem across
+            industries and borders. Through insightful panels, talks, hands-on
+            workshops, and use-case showcases across{" "}
+            <a href="#tracks">five tracks</a>, this year’s conference
+            underscores why Web3 is not just a technology—it’s a{" "}
+            <b>societal imperative</b>.
           </Text>
         </div>
       </div>
