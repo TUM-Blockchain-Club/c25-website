@@ -31,7 +31,7 @@ const Speaker = async () => {
           <div className="w-full flex justify-center">
             <Button buttonType={"primary"} asChild>
               <Link href={"/speakers"}>All 2024 speakers</Link>
-              <Link href={""}>All 2024 speakers</Link>
+              {/* <Link href={""}>All 2024 speakers</Link> */}
             </Button>
           </div>
         </div>
