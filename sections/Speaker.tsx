@@ -28,10 +28,13 @@ const Speaker = async () => {
           </div>
         </div> */}
         <div>
-          <div className="w-full flex justify-center">
-            <Button buttonType={"primary"} asChild>
+          <div className="w-full flex gap-4 justify-center">
+            <Button buttonType={"secondary"} asChild>
               <Link href={"/speakers"}>All 2024 speakers</Link>
               {/* <Link href={""}>All 2024 speakers</Link> */}
+            </Button>
+            <Button buttonType={"primary"} asChild>
+              <Link href={"https://tally.so/r/w8EB0o"}>Apply as Speaker</Link>
             </Button>
           </div>
         </div>
