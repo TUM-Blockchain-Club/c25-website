@@ -37,6 +37,7 @@ export default function Home() {
                 <Statistic />
                 <Manifesto />
                 <Tracks />
+                <Venue />
                 <Speaker />
                 <Sponsors />
               </div>

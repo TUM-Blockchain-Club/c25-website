@@ -40,24 +40,24 @@ const Venue = () => {
             ref={slideRef}
           >
             <VenueImage
-              imageSrc={"/venue/venue_1.jpg"}
-              imageAlt="Deutsches Museum"
+              imageSrc={"/venue/venue_1.webp"}
+              imageAlt="House of Communication"
             />
             <VenueImage
-              imageSrc={"/venue/venue_2.jpg"}
-              imageAlt="Deutsches Museum"
+              imageSrc={"/venue/venue_2.webp"}
+              imageAlt="House of Communication"
             />
             <VenueImage
-              imageSrc={"/venue/venue_3.jpg"}
-              imageAlt="Deutsches Museum"
+              imageSrc={"/venue/venue_3.webp"}
+              imageAlt="House of Communication"
             />
             <VenueImage
-              imageSrc={"/venue/venue_4.jpg"}
-              imageAlt="Deutsches Museum"
+              imageSrc={"/venue/venue_4.webp"}
+              imageAlt="House of Communication"
             />
             <VenueImage
-              imageSrc={"/venue/venue_5.jpg"}
-              imageAlt="Deutsches Museum"
+              imageSrc={"/venue/venue_5.webp"}
+              imageAlt="House of Communication"
             />
           </div>
           <div
@@ -74,10 +74,10 @@ const Venue = () => {
         >
           <div className="relative -translate-y-[50%] bg-black mx-auto border-gradient-tbc border-2 text-center max-w-[250px] sm:max-w-[400px] py-4 sm:py-8">
             <Text as="p" textType={"sub_title"}>
-              Deutsches Museum
+              House of Communication
             </Text>
             <Text as="p" textType={"paragraph"}>
-              Museumsinsel 1, 80538 Munich
+              Friedenstraße 24, 81671 Munich
             </Text>
           </div>
         </a>
