@@ -25,11 +25,6 @@ const links: HeaderLink[] = [
   // { label: "Home", link: "/", showsAtHome: false },
   { label: "Manifesto", link: "#manifesto", showsAtHome: true },
   { label: "Speakers", link: "/speakers", showsAtHome: true },
-  {
-    label: "Apply as Speaker",
-    link: "https://tally.so/r/w8EB0o",
-    showsAtHome: true,
-  },
   // { label: "Side Events", link: "/side-events", showsAtHome: true },
   // { label: "Agenda", link: "/agenda", showsAtHome: true },
   // { label: "Workshops", link: "/workshops", showsAtHome: true },
@@ -88,8 +83,8 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
               </Text>
             );
           })}
-          <Button buttonType={"primary"} asChild disabled>
-            <Link href={""}>Join Waitlist</Link>
+          <Button buttonType={"primary"} asChild>
+            <Link href={"https://tally.so/r/nGkDVL"}>Join Waitlist</Link>
           </Button>
         </nav>
       </div>
@@ -180,8 +175,8 @@ export const Header = React.forwardRef<HeaderElement, HeaderProps>(
                   </Text>
                 );
               })}
-              <Button asChild disabled>
-                <Link href={""}>Join Waitlist</Link>
+              <Button asChild>
+                <Link href={"https://tally.so/r/nGkDVL"}>Join Waitlist</Link>
               </Button>
             </nav>
             <div className="md:hidden py-2 px-4">
