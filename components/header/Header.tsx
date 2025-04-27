@@ -84,7 +84,13 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
             );
           })}
           <Button buttonType={"primary"} asChild>
-            <Link href={"https://tally.so/r/nGkDVL"}>Join Waitlist</Link>
+            <Link
+              href={
+                "#tally-open=nGkDVL&tally-emoji-text=👋&tally-emoji-animation=wave&tally-auto-close=2000"
+              }
+            >
+              Join Waitlist
+            </Link>
           </Button>
         </nav>
       </div>
@@ -176,7 +182,13 @@ export const Header = React.forwardRef<HeaderElement, HeaderProps>(
                 );
               })}
               <Button asChild>
-                <Link href={"https://tally.so/r/nGkDVL"}>Join Waitlist</Link>
+                <Link
+                  href={
+                    "#tally-open=nGkDVL&tally-emoji-text=👋&tally-emoji-animation=wave&tally-auto-close=2000"
+                  }
+                >
+                  Join Waitlist
+                </Link>
               </Button>
             </nav>
             <div className="md:hidden py-2 px-4">
