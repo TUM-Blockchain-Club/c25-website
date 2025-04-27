@@ -10,7 +10,6 @@ const Sparkle = () => {
   const [hasEntered, setHasEntered] = useState(false);
 
   useEffect(() => {
-    // Detect mobile once
     if (typeof window !== "undefined") {
       const checkMobile =
         /Mobi|Android/i.test(navigator.userAgent) || window.innerWidth < 768;
