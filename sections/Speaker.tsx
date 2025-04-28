@@ -33,8 +33,14 @@ const Speaker = async () => {
               <Link href={"/speakers"}>All 2024 speakers</Link>
               {/* <Link href={""}>All 2024 speakers</Link> */}
             </Button>
-            <Button buttonType={"primary"} asChild disabled>
-              <Link href={""}>Apply as Speaker</Link>
+            <Button buttonType={"primary"} asChild>
+              <Link
+                href={
+                  "#tally-open=w8EB0o&tally-emoji-text=👋&tally-emoji-animation=wave&tally-auto-close=2000"
+                }
+              >
+                Apply as Speaker
+              </Link>
             </Button>
           </div>
         </div>
