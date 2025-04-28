@@ -1,3 +1,4 @@
+"use client";
 import { Button } from "@/components/button";
 import { Text } from "@/components/text";
 import { Speaker as SpeakerComponent } from "@/components/speaker";
@@ -33,8 +34,17 @@ const Speaker = async () => {
               <Link href={"/speakers"}>All 2024 speakers</Link>
               {/* <Link href={""}>All 2024 speakers</Link> */}
             </Button>
-            <Button buttonType={"primary"} asChild disabled>
-              <Link href={""}>Apply as Speaker</Link>
+            <Button buttonType={"primary"} asChild>
+              <Link
+                href={
+                  "#tally-open=w8EB0o&tally-emoji-text=👋&tally-emoji-animation=wave&tally-auto-close=2000"
+                }
+                onClick={(e) => {
+                  e.preventDefault();
+                }}
+              >
+                Apply as Speaker
+              </Link>
             </Button>
           </div>
         </div>

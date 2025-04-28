@@ -88,6 +88,9 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
               href={
                 "#tally-open=nGkDVL&tally-emoji-text=👋&tally-emoji-animation=wave&tally-auto-close=2000"
               }
+              onClick={(e) => {
+                e.preventDefault();
+              }}
             >
               Join Waitlist
             </Link>
@@ -186,6 +189,9 @@ export const Header = React.forwardRef<HeaderElement, HeaderProps>(
                   href={
                     "#tally-open=nGkDVL&tally-emoji-text=👋&tally-emoji-animation=wave&tally-auto-close=2000"
                   }
+                  onClick={(e) => {
+                    e.preventDefault();
+                  }}
                 >
                   Join Waitlist
                 </Link>
