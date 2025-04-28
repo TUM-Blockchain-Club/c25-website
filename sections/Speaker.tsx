@@ -34,13 +34,7 @@ const Speaker = async () => {
               {/* <Link href={""}>All 2024 speakers</Link> */}
             </Button>
             <Button buttonType={"primary"} asChild>
-              <Link
-                href={
-                  "#tally-open=w8EB0o&tally-emoji-text=👋&tally-emoji-animation=wave&tally-auto-close=2000"
-                }
-              >
-                Apply as Speaker
-              </Link>
+              <Link href={"https://tally.so/r/w8EB0o"}>Apply as Speaker</Link>
             </Button>
           </div>
         </div>
