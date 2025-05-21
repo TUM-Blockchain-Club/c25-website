@@ -1,10 +1,17 @@
 import { Container } from "@/components/container";
 import { Speaker as SpeakerComponent } from "@/components/speaker";
 import { Text } from "@/components/text";
-import { useSpeaker } from "@/hooks/useSpeaker";
+import { fetchSpeakers } from "@/components/service/contentStrapi";
 
 const SpeakersPage = async () => {
-  const speakers = await useSpeaker();
+  const speakers = await fetchSpeakers();
+
+  const filteredSpeakers = speakers
+    .filter((speaker) => {
+      const priority = Number(speaker.priority);
+      return !isNaN(priority) && priority >= 0;
+    })
+    .sort((a, b) => Number(a.priority) - Number(b.priority));
 
   return (
     <div className={"flex justify-center"}>
@@ -20,9 +27,9 @@ const SpeakersPage = async () => {
           <div
             className={"grid grid-cols-2 lg:grid-cols-4 gap-2 lg:gap-6 mt-24"}
           >
-            {speakers &&
-              speakers.map((speaker, index) => (
-                <SpeakerComponent key={index} {...speaker} hasSocialLink />
+            {filteredSpeakers &&
+              filteredSpeakers.map((speaker) => (
+                <SpeakerComponent key={speaker.id} {...speaker} />
               ))}
           </div>
         </Container>
