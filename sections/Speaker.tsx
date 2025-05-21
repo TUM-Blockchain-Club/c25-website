@@ -1,11 +1,19 @@
 import { Button } from "@/components/button";
 import { Text } from "@/components/text";
 import { Speaker as SpeakerComponent } from "@/components/speaker";
-import { useSpeaker } from "@/hooks/useSpeaker";
+// import { useSpeaker } from "@/hooks/useSpeaker";
 import { Link } from "@/components/link";
+import { fetchSpeakers } from "@/components/service/contentStrapi";
 
 const Speaker = async () => {
-  const speakers = await useSpeaker(12);
+  const speakers = await fetchSpeakers();
+
+  const filteredSpeakers = speakers
+    .filter((speaker) => {
+      const priority = Number(speaker.priority);
+      return !isNaN(priority) && priority <= 3;
+    })
+    .sort((a, b) => Number(a.priority) - Number(b.priority));
 
   return (
     <section
@@ -16,9 +24,9 @@ const Speaker = async () => {
         2024 Speakers
       </Text>
       <div className={"grid grid-cols-2 lg:grid-cols-4 gap-2 lg:gap-6"}>
-        {speakers &&
-          speakers.map((speaker, index) => (
-            <SpeakerComponent key={index} {...speaker} hasSocialLink />
+        {filteredSpeakers &&
+          filteredSpeakers.map((speaker, index) => (
+            <SpeakerComponent key={index} {...speaker} />
           ))}
       </div>
       <div className="md:flex space-x-0 md:space-x-4 space-y-4 md:space-y-0">
@@ -33,8 +41,8 @@ const Speaker = async () => {
               <Link href={"/speakers"}>All 2024 speakers</Link>
               {/* <Link href={""}>All 2024 speakers</Link> */}
             </Button>
-            <Button buttonType={"primary"} asChild disabled>
-              <Link href={""}>Apply as Speaker</Link>
+            <Button buttonType={"cta"} asChild>
+              <Link href={"https://tally.so/r/w8EB0o"}>Apply as Speaker</Link>
             </Button>
           </div>
         </div>
