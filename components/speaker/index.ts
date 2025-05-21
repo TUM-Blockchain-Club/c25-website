@@ -1,1 +1,1 @@
-export { Speaker, type SpeakerProps } from "./Speaker";
+export { Speaker } from "./Speaker";

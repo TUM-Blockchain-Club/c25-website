@@ -12,9 +12,11 @@ import {
   LinkedInLogoIcon,
   TwitterLogoIcon,
 } from "@radix-ui/react-icons";
-import { createDeflate } from "zlib";
 
-export const Speaker = React.forwardRef<HTMLDivElement, Speaker>(
+type SpeakerProps = Omit<React.HTMLAttributes<HTMLDivElement>, "id"> &
+  SpeakerModel;
+
+export const Speaker = React.forwardRef<HTMLDivElement, SpeakerProps>(
   (
     {
       name,
@@ -27,29 +29,30 @@ export const Speaker = React.forwardRef<HTMLDivElement, Speaker>(
       documentId,
       updatedAt,
       publishedAt,
+      className,
       ...rest
     },
     ref,
   ) => {
     const urlType = (() => {
-      if (url.includes("x.com") || url.includes("twitter.com")) return "x";
-      if (url.includes("linkedin.com")) return "linkedin";
-      if (url.includes("github.com")) return "github";
+      if (url?.includes("x.com") || url?.includes("twitter.com")) return "x";
+      if (url?.includes("linkedin.com")) return "linkedin";
+      if (url?.includes("github.com")) return "github";
       return "website";
     })();
 
     return (
       <div
         className={classNames(
-          rest.className,
+          className,
           "flex w-[150px] xs:w-[180px] sm:w-[200px] min-h-[200px] xs:min-h-[270px] sm:min-h-[300px] flex-col gap-4 items-start shrink-0",
         )}
         ref={ref}
-        {...rest}
+        {...{ ...rest, id: undefined }} // Exclude the `id` property
       >
         <Image
           className={"object-cover"}
-          src={profile_photo.url || "/speakers/placeholder.webp"}
+          src={profile_photo?.url || "/speakers/placeholder.webp"}
           alt={name}
           title={name}
           width={275}

@@ -29,7 +29,11 @@ const SpeakersPage = async () => {
           >
             {filteredSpeakers &&
               filteredSpeakers.map((speaker) => (
-                <SpeakerComponent key={speaker.id} {...speaker} />
+                <SpeakerComponent
+                  key={Number(speaker.id)}
+                  {...speaker}
+                  id={Number(speaker.id)} // Convert id to string
+                />
               ))}
           </div>
         </Container>
