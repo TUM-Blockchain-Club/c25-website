@@ -4,7 +4,7 @@ import Spline from "@splinetool/react-spline";
 import { useEffect, useRef, useState } from "react";
 
 const Sparkle = () => {
-  const splineRef = useRef(null);
+  const splineRef = useRef<any>(null);
   const splineWrapperRef = useRef<HTMLDivElement>(null);
   const [isMobile, setIsMobile] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
