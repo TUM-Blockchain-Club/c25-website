@@ -70,6 +70,7 @@ const Sparkle = () => {
             opacity: isVisible ? 1 : 0,
             transition: "opacity 0.5s ease-in-out",
             pointerEvents: isVisible ? "auto" : "none",
+            scale: isVisible ? 1.3 : 0.95,
           }}
           className="absolute w-screen h-screen"
         >
