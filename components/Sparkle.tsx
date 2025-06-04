@@ -1,100 +1,69 @@
 "use client";
 
-import Spline from "@splinetool/react-spline";
+import dynamic from "next/dynamic";
 import { useEffect, useRef, useState } from "react";
 
+const Spline = dynamic(() => import("@splinetool/react-spline"), {
+  ssr: false,
+});
+
 const Sparkle = () => {
-  const splineRef = useRef<any>(null);
   const splineWrapperRef = useRef<HTMLDivElement>(null);
   const [isMobile, setIsMobile] = useState(false);
-  const [isVisible, setIsVisible] = useState(true);
-  const [hasEntered, setHasEntered] = useState(false);
-
-  function onLoad(spline: any) {
-    splineRef.current = spline;
-  }
+  const [shouldRenderSpline, setShouldRenderSpline] = useState(false);
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      const checkMobile =
-        /Mobi|Android/i.test(navigator.userAgent) || window.innerWidth < 768;
-      setIsMobile(checkMobile);
+    if (typeof window === "undefined") return;
+
+    const isMob =
+      /Mobi|Android/i.test(navigator.userAgent) || window.innerWidth < 768;
+    setIsMobile(isMob);
+
+    if (!isMob) {
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          setShouldRenderSpline(entry.isIntersecting);
+        },
+        { threshold: 0.1 },
+      );
+
+      const ref = splineWrapperRef.current;
+      if (ref) observer.observe(ref);
+
+      return () => {
+        if (ref) observer.unobserve(ref);
+      };
     }
-  }, []);
-
-  useEffect(() => {
-    if (!splineWrapperRef.current) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        const isIntersecting = entry.isIntersecting;
-        setIsVisible(isIntersecting);
-
-        if (isIntersecting) {
-          setHasEntered(true);
-          if (splineRef.current) {
-            splineRef.current.emitEvent("start", "Sphere");
-          }
-        } else {
-          if (
-            splineRef.current &&
-            typeof splineRef.current.stop === "function"
-          ) {
-            splineRef.current.stop();
-          }
-        }
-      },
-      { root: null, threshold: 0.1 },
-    );
-
-    observer.observe(splineWrapperRef.current);
-
-    return () => {
-      observer.disconnect();
-    };
   }, []);
 
   return (
     <div
-      className="absolute w-screen h-screen -z-10 overflow-hidden"
       ref={splineWrapperRef}
-      style={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-      }}
+      className="absolute w-screen h-screen -z-10 overflow-hidden flex items-center justify-center"
     >
-      {hasEntered && (
-        <div
-          style={{
-            opacity: isVisible ? 1 : 0,
-            transition: "opacity 0.5s ease-in-out",
-            pointerEvents: isVisible ? "auto" : "none",
-            scale: isVisible ? 1.3 : 0.95,
-          }}
-          className="absolute w-screen h-screen"
-        >
-          {!isMobile ? (
-            <Spline
-              scene="https://prod.spline.design/X8yMwV2twUVUqdvk/scene.splinecode"
-              className="absolute opacity-50 object-cover w-screen h-screen"
-              style={{
-                width: "150vw",
-                height: "150vh",
-                transform: "translate(-25vw, -25vh)",
-              }}
-              onLoad={onLoad}
-            />
-          ) : (
-            <img
-              src="/planet.jpg"
-              alt="World Map"
-              className="absolute opacity-50 object-cover w-screen h-screen"
-              style={{ objectPosition: "center" }}
-            />
-          )}
-        </div>
-      )}
+      <div
+        className="absolute w-screen h-screen"
+        style={{
+          opacity: 1,
+          transition: "opacity 0.5s ease-in-out",
+          pointerEvents: "auto",
+          scale: 1.3,
+        }}
+      >
+        {!isMobile && shouldRenderSpline ? (
+          <Spline
+            scene="https://prod.spline.design/X8yMwV2twUVUqdvk/scene.splinecode"
+            className="absolute opacity-50 w-screen h-screen"
+          />
+        ) : (
+          <img
+            src="/planet.jpg"
+            alt="World Map"
+            className="absolute opacity-50 object-cover w-screen h-screen"
+            style={{ objectPosition: "center" }}
+          />
+        )}
+      </div>
     </div>
   );
 };
