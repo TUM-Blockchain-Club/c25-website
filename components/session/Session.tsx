@@ -4,12 +4,13 @@ import { Button } from "@/components/button";
 import { Text } from "@/components/text";
 import { Session as SessionModel } from "@/model/session";
 import { ClockIcon, SewingPinIcon } from "@radix-ui/react-icons";
+
 import classNames from "classnames";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useRef, useState } from "react";
 import { contentfulImageLoader } from "@/util/contentfulImageLoader";
-
+import { Clock, MapPin, Bell } from "lucide-react";
 export type SessionElement = React.ElementRef<"div">;
 export type SessionProps = React.ComponentPropsWithoutRef<"div"> & {
   session: SessionModel;
@@ -53,15 +54,14 @@ export const Session = React.forwardRef<SessionElement, SessionProps>(
         {...divProps}
         className={classNames(
           className,
-          "border w-full flex p-4 flex-col gap-4 bg-opacity-40",
+          "border w-full flex p-4 flex-col gap-4 bg-gradient-to-b from-black bg-opacity-60",
           {
-            "bg-green-950": session.track === "Education Track",
-            "bg-yellow-950": session.track === "Research Track",
-            "bg-blue-950": session.track === "Ecosystem Track",
-            "bg-purple-950": session.track === "Research Track",
-            "bg-red-950": session.track === "Regulation Track",
-            "bg-orange-950": session.track === "Academic Track",
-            "bg-teal-950": session.track === "Application Track",
+            "to-[#14532d]": session.track === "Education Track", // Dark forest green
+            "to-[#665200]": session.track === "Research Track", // Deep gold-brown
+            "to-[#1e3a8a]": session.track === "Ecosystem Track", // Deep blue (Tailwind blue-900)
+            "to-[#4c0608]": session.track === "Regulation Track", // Deep red / oxblood
+            "to-[#1a012e]": session.track === "Academic Track", // Very dark purple
+            "to-[#134e4a]": session.track === "Application Track", // Teal-950 (deep cyan-green)
           },
         )}
         ref={ref}
@@ -82,16 +82,16 @@ export const Session = React.forwardRef<SessionElement, SessionProps>(
                 {session.title}
               </Text>
             </div>
-            <div className="flex gap-2 w-fit justify-end">
+            <div className="grid grid-cols-2 min-h-fit gap-2 h-fit text-center w-[240px] justify-end">
               {session.isSpecialSession && (
-                <div className="min-w-fit border px-3 h-fit">
+                <div className="rounded-[5px] min-w-fit border h-fit">
                   <Text textType={"small"} className="text-white">
                     Keynote
                   </Text>
                 </div>
               )}
               {session.type && (
-                <div className="min-w-fit border px-3 h-fit">
+                <div className="rounded-[5px] border h-fit">
                   <Text textType={"small"} className="text-white">
                     {session.type}
                   </Text>
@@ -99,26 +99,28 @@ export const Session = React.forwardRef<SessionElement, SessionProps>(
               )}
               {session.track && (
                 <div
-                  className={classNames("min-w-fit border px-3 h-fit", {
-                    "border-green-400": session.track === "Education Track",
-                    "border-yellow-400": session.track === "Research Track",
-                    "border-blue-400": session.track === "Ecosystem Track",
-                    "border-purple-400": session.track === "Research Track",
-                    "border-red-400": session.track === "Regulation Track",
-                    "border-orange-400": session.track === "Academic Track",
-                    "border-teal-400": session.track === "Application Track",
-                  })}
+                  className={classNames(
+                    "border rounded-[5px] h-fit col-start-2",
+                    {
+                      "border-green-400": session.track === "Education Track",
+                      "border-yellow-400": session.track === "Research Track",
+                      "border-blue-400": session.track === "Ecosystem Track",
+                      "border-amber": session.track === "Research Track",
+                      "border-[#F87171]": session.track === "Regulation Track",
+                      "border-[#c084fc]": session.track === "Academic Track",
+                      "border-teal-400": session.track === "Application Track",
+                    },
+                  )}
                 >
                   <Text
                     textType={"small"}
                     className={classNames({
-                      "text-green-400": session.track === "Education Track",
-                      "text-yellow-400": session.track === "Research Track",
-                      "text-blue-400": session.track === "Ecosystem Track",
-                      "text-purple-400": session.track === "Research Track",
-                      "text-red-400": session.track === "Regulation Track",
-                      "text-orange-400": session.track === "Academic Track",
-                      "text-teal-400": session.track === "Application Track",
+                      "text-[#bbf7d0]": session.track === "Education Track", // Light mint green
+                      "text-[#fef08a]": session.track === "Research Track", // Soft yellow
+                      "text-[#bfdbfe]": session.track === "Ecosystem Track", // Light blue
+                      "text-[#fca5a5]": session.track === "Regulation Track", // Light red
+                      "text-[#E9D5FF]": session.track === "Academic Track", // Lavender
+                      "text-[#99f6e4]": session.track === "Application Track", // Light teal
                     })}
                   >
                     {session.track}
@@ -129,11 +131,11 @@ export const Session = React.forwardRef<SessionElement, SessionProps>(
           </div>
           <div className="flex gap-x-8 flex-col md:flex-row">
             <div className="flex items-center gap-1">
-              <SewingPinIcon className="text-yellow-400" />
+              <MapPin className="text-white" />
               <Text>{session.room}</Text>
             </div>
             <div className="flex items-center gap-1">
-              <ClockIcon className="text-yellow-400" />
+              <Clock className="text-white" />
               <Text>
                 {startTime.toLocaleDateString("en-DE", {
                   weekday: "short",
@@ -153,6 +155,9 @@ export const Session = React.forwardRef<SessionElement, SessionProps>(
                   timeZoneName: "short",
                 })}
               </Text>
+            </div>
+            <div>
+              <Bell className="text-white" />
             </div>
           </div>
         </div>
@@ -174,9 +179,9 @@ export const Session = React.forwardRef<SessionElement, SessionProps>(
                 "text-yellow-400":
                   session.track === "Research Track" || !session.track,
                 "text-blue-400": session.track === "Ecosystem Track",
-                "text-purple-400": session.track === "Research Track",
+                "text-orange-400": session.track === "Research Track",
                 "text-red-400": session.track === "Regulation Track",
-                "text-orange-400": session.track === "Academic Track",
+                "text-[#E9D5FF]": session.track === "Academic Track",
                 "text-teal-400": session.track === "Application Track",
               })}
             >
