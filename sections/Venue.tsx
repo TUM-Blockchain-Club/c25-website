@@ -40,23 +40,23 @@ const Venue = () => {
             ref={slideRef}
           >
             <VenueImage
-              imageSrc={"/venue/venue_1.webp"}
+              imageSrc={"/venue/venue_1.png"}
               imageAlt="House of Communication"
             />
             <VenueImage
-              imageSrc={"/venue/venue_2.webp"}
+              imageSrc={"/venue/venue_2.png"}
               imageAlt="House of Communication"
             />
             <VenueImage
-              imageSrc={"/venue/venue_3.webp"}
+              imageSrc={"/venue/venue_3.png"}
               imageAlt="House of Communication"
             />
             <VenueImage
-              imageSrc={"/venue/venue_4.webp"}
+              imageSrc={"/venue/venue_4.png"}
               imageAlt="House of Communication"
             />
             <VenueImage
-              imageSrc={"/venue/venue_5.webp"}
+              imageSrc={"/venue/venue_5.png"}
               imageAlt="House of Communication"
             />
           </div>
