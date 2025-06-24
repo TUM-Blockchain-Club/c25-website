@@ -56,12 +56,12 @@ export const Session = React.forwardRef<SessionElement, SessionProps>(
           className,
           "border w-full flex p-4 flex-col gap-4 bg-gradient-to-b from-black bg-opacity-60",
           {
-            "to-[#14532d]": session.track === "Education Track", // Dark forest green
-            "to-[#665200]": session.track === "Research Track", // Deep gold-brown
-            "to-[#1e3a8a]": session.track === "Ecosystem Track", // Deep blue (Tailwind blue-900)
-            "to-[#4c0608]": session.track === "Regulation Track", // Deep red / oxblood
+            "to-[#14532d]/60": session.track === "Education Track", // Dark forest green
+            "to-[#665200]/60": session.track === "Research Track", // Deep gold-brown
+            "to-[#1e3a8a]/40": session.track === "Ecosystem Track", // Deep blue (Tailwind blue-900)
+            "to-[#4c0608]/60": session.track === "Regulation Track", // Deep red / oxblood
             "to-[#1a012e]": session.track === "Academic Track", // Very dark purple
-            "to-[#134e4a]": session.track === "Application Track", // Teal-950 (deep cyan-green)
+            "to-[#134e4a]/60": session.track === "Application Track", // Teal-950 (deep cyan-green)
           },
         )}
         ref={ref}

@@ -60,7 +60,7 @@ export const Agenda: React.FC<AgendaProps> = ({ sessions }) => {
                   pressed={
                     dayFilter !== undefined && isSameDay(dayFilter, date)
                   }
-                  className="rounded-[5px] py-2 w-fit md:w-full"
+                  className="rounded-[5px] py-2 w-fit md:w-full w-full rounded-lg text-white border py-2 px-3"
                   key={index}
                 >
                   <Text
@@ -98,7 +98,10 @@ export const Agenda: React.FC<AgendaProps> = ({ sessions }) => {
                   setStageFilter(value);
                 }}
               >
-                <Select.Trigger placeholder={"Any Stage"} className="w-full" />
+                <Select.Trigger
+                  placeholder={"Any Stage"}
+                  className="w-full rounded-lg text-white border py-2 px-3"
+                />
                 <Select.Content>
                   <Select.Item value={"all"}>Any Stage</Select.Item>
                   {Stages.map((stage, index) => (
@@ -120,12 +123,30 @@ export const Agenda: React.FC<AgendaProps> = ({ sessions }) => {
                   setTrackFilter(value);
                 }}
               >
-                <Select.Trigger placeholder={"Any Track"} className="w-full" />
+                <Select.Trigger
+                  placeholder={"Any Track"}
+                  className="w-full rounded-lg text-white border py-2 px-3"
+                />
                 <Select.Content>
-                  <Select.Item value={"all"}>Any Track</Select.Item>
-                  {Tracks.map((stage, index) => (
-                    <Select.Item value={stage} key={index}>
-                      {stage}
+                  <Select.Item value="all">Any Track</Select.Item>
+                  {Tracks.map((track, index) => (
+                    <Select.Item
+                      value={track}
+                      key={index}
+                      className="flex items-center gap-2"
+                    >
+                      <span
+                        className={classNames(
+                          "inline-block w-3 h-3 rounded-full mr-2",
+                          track === "Education Track" && "bg-green-400",
+                          track === "Research Track" && "bg-yellow-400",
+                          track === "Ecosystem Track" && "bg-blue-400",
+                          track === "Regulation Track" && "bg-red-400",
+                          track === "Academic Track" && "bg-purple-400",
+                          track === "Application Track" && "bg-teal-400",
+                        )}
+                      />
+                      {track}
                     </Select.Item>
                   ))}
                 </Select.Content>
