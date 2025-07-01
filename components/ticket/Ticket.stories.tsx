@@ -35,7 +35,7 @@ type Story = StoryObj<TextPropAndCustomArgs>;
 
 export const Regular: Story = {
   args: {
-    label: "400€",
+    label: "59€",
   },
   render: ({ label }) => (
     <Ticket ticketType={"vip"} price={parseFloat(label)} title="VIP"></Ticket>
@@ -44,7 +44,7 @@ export const Regular: Story = {
 
 export const Vip: Story = {
   args: {
-    label: "120€",
+    label: "459€",
   },
   render: ({ label }) => (
     <Ticket price={parseFloat(label)} title="Regular"></Ticket>
@@ -53,7 +53,7 @@ export const Vip: Story = {
 
 export const Student: Story = {
   args: {
-    label: "12€",
+    label: "8€",
   },
   render: ({ label }) => (
     <Ticket
