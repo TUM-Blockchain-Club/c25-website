@@ -12,6 +12,7 @@ import React, { useState } from "react";
 type AgendaProps = { sessions: Session[] };
 
 export const Agenda: React.FC<AgendaProps> = ({ sessions }) => {
+  const [titleFilter, setTitleFilter] = useState<string>("");
   const [dayFilter, setDayFilter] = useState<Date>();
   const [trackFilter, setTrackFilter] = useState<Session["track"] & "all">();
   const [stageFilter, setStageFilter] = useState<Session["room"] & "all">();
@@ -27,12 +28,19 @@ export const Agenda: React.FC<AgendaProps> = ({ sessions }) => {
   let filteredSessions = null;
 
   if (sessions) {
-    filteredSessions = sessions.filter(
-      (item) =>
-        (!dayFilter || isSameDay(dayFilter, new Date(item.startTime))) &&
-        (trackFilter === "all" || !trackFilter || trackFilter === item.track) &&
-        (stageFilter === "all" || !stageFilter || stageFilter === item.room),
-    );
+    filteredSessions = sessions.filter((item) => {
+      const matchesDay =
+        !dayFilter || isSameDay(dayFilter, new Date(item.startTime));
+      const matchesTrack =
+        trackFilter === "all" || !trackFilter || trackFilter === item.track;
+      const matchesStage =
+        stageFilter === "all" || !stageFilter || stageFilter === item.room;
+      const matchesTitle =
+        !titleFilter.trim() ||
+        item.title.toLowerCase().includes(titleFilter.trim().toLowerCase());
+
+      return matchesDay && matchesTrack && matchesStage && matchesTitle;
+    });
   }
 
   return (
@@ -44,6 +52,18 @@ export const Agenda: React.FC<AgendaProps> = ({ sessions }) => {
         <Text textType={"sub_title"} className="text-left" as="p">
           Filter
         </Text>
+        <div className="flex flex-col gap-2">
+          <Text textType={"paragraph"} className="font-bold text-left" as="p">
+            Title
+          </Text>
+          <input
+            type="text"
+            value={titleFilter}
+            onChange={(e) => setTitleFilter(e.target.value)}
+            placeholder="Search agenda titles..."
+            className="w-full rounded-lg text-white border py-2 px-3 bg-black placeholder-gray-500"
+          />
+        </div>
         <div className="flex flex-col gap-3 h-fit">
           <Text textType={"paragraph"} className="font-bold text-left" as="p">
             Days
