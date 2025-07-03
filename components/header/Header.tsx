@@ -89,12 +89,8 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
             );
           })}
           <Button buttonType={"primary"} asChild>
-            <Link
-              href={
-                "#tally-open=nGkDVL&tally-emoji-text=👋&tally-emoji-animation=wave&tally-auto-close=2000"
-              }
-            >
-              Join Waitlist
+            <Link href={"https://tum-blockchain-conference-25.eventbrite.de"}>
+              Tickets
             </Link>
           </Button>
         </nav>
@@ -188,11 +184,9 @@ export const Header = React.forwardRef<HeaderElement, HeaderProps>(
               })}
               <Button asChild>
                 <Link
-                  href={
-                    "#tally-open=nGkDVL&tally-emoji-text=👋&tally-emoji-animation=wave&tally-auto-close=2000"
-                  }
+                  href={"https://tum-blockchain-conference-25.eventbrite.de"}
                 >
-                  Join Waitlist
+                  Tickets
                 </Link>
               </Button>
             </nav>

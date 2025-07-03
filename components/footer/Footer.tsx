@@ -125,11 +125,7 @@ export const Footer = React.forwardRef<FooterElement, FooterProps>(
                 </div>
                 <div className="flex flex-col space-y-2 items-left">
                   <Text asChild>
-                    <Link
-                      href={"https://www.tum-blockchain.com/privacy-policy"}
-                    >
-                      Privacy Policy
-                    </Link>
+                    <Link href={"/privacy-policy.pdf"}>Privacy Policy</Link>
                   </Text>
                 </div>
                 <div className="flex flex-col space-y-2 items-left">
