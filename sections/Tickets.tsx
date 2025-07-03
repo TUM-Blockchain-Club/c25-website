@@ -1,6 +1,7 @@
 import { Text } from "@/components/text";
 import { Button } from "@/components/button";
 import { Ticket } from "@/components/ticket";
+import Link from "next/link";
 
 const Tickets = () => {
   return (
@@ -18,7 +19,11 @@ const Tickets = () => {
         </div>
       </div>
       <div className="w-full flex justify-center mt-20">
-        <Button disabled>Tickets</Button>
+        <Button buttonType={"cta"} asChild>
+          <Link href={"https://tum-blockchain-conference-25.eventbrite.de"}>
+            Tickets
+          </Link>
+        </Button>
       </div>
     </section>
   );
