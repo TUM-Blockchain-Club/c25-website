@@ -20,7 +20,7 @@ const textVariants = cva("", {
   variants: {
     textType: {
       hero: "text-6xl lg:text-8xl font-display",
-      sub_hero: "text-5xl lg:text-7xl font-display",
+      sub_hero: "text-5xl lg:text-7xl font-raleway",
       title: "text-2xl lg:text-5xl font-sans",
       sub_title: "text-md lg:text-2xl font-sans",
       paragraph: "text-sm lg:text-base font-sans",
