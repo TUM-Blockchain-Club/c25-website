@@ -89,7 +89,6 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
             );
           })}
           <Button buttonType={"primary"} asChild>
-            {/* <Link href={"https://tally.so/r/nGkDVL"}>Join Waitlist</Link> */}
             <Link href={"https://tum-blockchain-conference-25.eventbrite.de"}>
               Tickets
             </Link>
@@ -184,7 +183,6 @@ export const Header = React.forwardRef<HeaderElement, HeaderProps>(
                 );
               })}
               <Button asChild>
-                {/* <Link href={"https://tally.so/r/nGkDVL"}>Join Waitlist</Link> */}
                 <Link
                   href={"https://tum-blockchain-conference-25.eventbrite.de"}
                 >
