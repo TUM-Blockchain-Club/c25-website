@@ -1,218 +1,165 @@
 import { Text } from "@/components/text";
 import { Sponsor } from "@/components/sponsor/Sponsor";
 
-const gold_sponsors = [
+interface SponsorData {
+  alt: string;
+  link: string;
+  imageSrc: string;
+  className?: string;
+}
+
+const platinumSponsors: SponsorData[] = [
   {
-    alt: "1Inch",
-    sponsorType: "gold",
-    link: "https://1inch.io",
-    imageSrc: "/sponsors/1inch_logo.png",
-  },
-  {
-    alt: "Dfinity",
-    sponsorType: "gold",
-    link: "https://dfinity.org/",
-    imageSrc: "/sponsors/icp_logo.png",
-  },
-  {
-    alt: "Solana",
-    sponsorType: "gold",
-    link: "https://solana.com/",
-    imageSrc: "/sponsors/solana_logo.png",
-  },
-  {
-    alt: "Verus",
-    sponsorType: "gold",
-    link: "https://verus.io",
-    imageSrc: "/sponsors/verus_logo.png",
-  },
-  {
-    alt: "aeternity",
-    sponsorType: "gold",
-    link: "https://aeternity.com/",
-    imageSrc: "/sponsors/aeternity_logo.png",
+    alt: "Bitvavo",
+    link: "https://bitvavo.com/",
+    imageSrc: "/sponsors/bitvavo_logo.png",
+    className: "!p-0",
   },
 ];
 
+const goldSponsors: SponsorData[] = [
+  {
+    alt: "Ethereum Ecosystem Support Program",
+    link: "https://ethereum.org/",
+    imageSrc: "/sponsors/ethereum_esp_logo.png",
+  },
+];
+
+const silverSponsors: SponsorData[] = [
+  {
+    alt: "XRP Ledger",
+    link: "https://www.xrpl-commons.org/",
+    imageSrc: "/sponsors/xrpl.png",
+    className: "!p-2",
+  },
+  {
+    alt: "IOTA",
+    link: "https://www.iota.org/",
+    imageSrc: "/sponsors/iota_logo.png",
+  },
+];
+
+const bronzeSponsors: SponsorData[] = [
+  {
+    alt: "neodyme",
+    link: "https://neodyme.io/",
+    imageSrc: "/sponsors/neodyme_logo.png",
+    className: "!p-9",
+  },
+  {
+    alt: "Staking Facilities",
+    link: "https://stakingfacilities.com/",
+    imageSrc: "/sponsors/staking_facilities_logo.png",
+  },
+  {
+    alt: "Polkadot",
+    link: "https://polkadot.com/",
+    imageSrc: "/sponsors/Polkadot_Logo.png",
+  },
+];
+
+// Helper function to chunk an array into groups of specified size
+const chunkArray = <T,>(array: T[], size: number): T[][] => {
+  const chunks: T[][] = [];
+  for (let i = 0; i < array.length; i += size) {
+    chunks.push(array.slice(i, i + size));
+  }
+  return chunks;
+};
+
 const Sponsors = () => {
+  // Create rows for gold sponsors: 2, 2, and remaining
+  const goldSponsorRows = [
+    goldSponsors.slice(0, 2),
+    goldSponsors.slice(2, 4),
+    goldSponsors.slice(4),
+  ].filter((row) => row.length > 0);
+
   return (
     <section
       className="w-full flex flex-col items-center gap-12 lg:gap-20"
       id="sponsors"
     >
       <Text textType={"sub_hero"} className="text-gradient text-center">
-        2024 Sponsors
+        Sponsors
       </Text>
+
+      {/* Platinum Sponsors */}
       <Text textType={"title"} className="text-gradient font-bold">
         Platinum
       </Text>
       <div className={"glow"}>
-        <Sponsor
-          alt="Sui"
-          sponsorType={"platinum"}
-          link="https://sui.io/"
-          className={"!p-0"}
-          imageSrc={"/sponsors/sui_logo.png"}
-        ></Sponsor>
+        {platinumSponsors.map((sponsor) => (
+          <Sponsor
+            key={sponsor.alt}
+            alt={sponsor.alt}
+            sponsorType="platinum"
+            link={sponsor.link}
+            imageSrc={sponsor.imageSrc}
+            className={sponsor.className}
+          />
+        ))}
       </div>
+
+      {/* Gold Sponsors */}
       <Text textType={"title"} className="text-gradient font-medium">
         Gold
       </Text>
       <div className="flex flex-col gap-4 glow md:col-span-2">
-        <div className="flex flex-row gap-4 glow md:col-span-2">
-          <Sponsor
-            alt="1Inch"
-            sponsorType="gold"
-            link="https://1inch.io"
-            imageSrc={"/sponsors/1inch_logo.png"}
-          />
-          <Sponsor
-            alt="Dfinity"
-            sponsorType="gold"
-            link="https://dfinity.org/"
-            imageSrc={"/sponsors/icp_logo.png"}
-          />
-        </div>
-        <div className="flex flex-row gap-4 glow md:col-span-2">
-          <Sponsor
-            alt="Solana"
-            sponsorType="gold"
-            link="https://solana.com/"
-            imageSrc={"/sponsors/solana_logo.png"}
-          />
-          <Sponsor
-            alt="Verus"
-            sponsorType="gold"
-            link="https://verus.io"
-            imageSrc={"/sponsors/verus_logo.png"}
-          />
-        </div>
-        <div className="flex flex-row gap-4 glow justify-center w-content">
-          <Sponsor
-            alt="aeternity"
-            sponsorType="gold"
-            link="https://aeternity.com/"
-            imageSrc={"/sponsors/aeternity_logo.png"}
-          />
-        </div>
+        {goldSponsorRows.map((row, rowIndex) => (
+          <div
+            key={rowIndex}
+            className={`flex flex-row gap-4 glow ${
+              rowIndex === goldSponsorRows.length - 1 && row.length === 1
+                ? "justify-center w-content"
+                : "md:col-span-2"
+            }`}
+          >
+            {row.map((sponsor) => (
+              <Sponsor
+                key={sponsor.alt}
+                alt={sponsor.alt}
+                sponsorType="gold"
+                link={sponsor.link}
+                imageSrc={sponsor.imageSrc}
+                className={sponsor.className}
+              />
+            ))}
+          </div>
+        ))}
       </div>
+
+      {/* Silver Sponsors */}
       <Text textType={"title"}>Silver</Text>
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-        <Sponsor
-          alt="XRP Ledger"
-          sponsorType="silver"
-          className={"!p-2"}
-          link="https://www.xrpl-commons.org/"
-          imageSrc={"/sponsors/xrpl.png"}
-        />
-        <Sponsor
-          alt="Starknet"
-          sponsorType="silver"
-          link="https://www.starknet.io"
-          imageSrc={"/sponsors/starknet_logo.jpg"}
-        />
-        <Sponsor
-          alt="Wormhole"
-          sponsorType="silver"
-          link="https://wormhole.com"
-          imageSrc={"/sponsors/wormhole_logo.png"}
-        />
-        <Sponsor
-          alt="Staking Facilities"
-          sponsorType="silver"
-          link="https://stakingfacilities.com/"
-          imageSrc={"/sponsors/staking_facilities_logo.png"}
-        />
-        <Sponsor
-          alt="Arcium"
-          sponsorType="silver"
-          link="https://arcium.com"
-          imageSrc={"/sponsors/arcium_logo.png"}
-        />
-        <Sponsor
-          alt="Doubleup"
-          sponsorType="silver"
-          link="https://www.doubleup.fun/"
-          imageSrc={"/sponsors/doubleup_logo.png"}
-        />
+        {silverSponsors.map((sponsor) => (
+          <Sponsor
+            key={sponsor.alt}
+            alt={sponsor.alt}
+            sponsorType="silver"
+            link={sponsor.link}
+            imageSrc={sponsor.imageSrc}
+            className={sponsor.className}
+          />
+        ))}
       </div>
+
+      {/* Bronze Sponsors */}
       <Text textType={"title"}>Bronze</Text>
       <div className="grid grid-cols-2 lg:grid-cols-3 gap-4">
-        <Sponsor
-          alt="Ethereum Ecosystem Support Program"
-          sponsorType="bronze"
-          link="https://ethereum.org/"
-          imageSrc={"/sponsors/ethereum_esp_logo.png"}
-        />
-        <Sponsor
-          alt="Obol labs"
-          sponsorType="bronze"
-          link="https://obol.org"
-          imageSrc={"/sponsors/obol_logo.png"}
-        />
-        <Sponsor
-          alt="Filecoin Foundation"
-          sponsorType="bronze"
-          link="https://fil.org"
-          imageSrc={"/sponsors/filecoin_foundation_logo.png"}
-        />
-        <Sponsor
-          alt="API3"
-          sponsorType="bronze"
-          link="https://api3.org"
-          imageSrc={"/sponsors/api3_logo.png"}
-        />
-        <Sponsor
-          alt="Polkadot"
-          sponsorType="bronze"
-          link="https://polkadot.com/"
-          imageSrc={"/sponsors/Polkadot_Logo.png"}
-        />
-        <Sponsor
-          alt="Lido"
-          sponsorType="bronze"
-          link="https://lido.fi"
-          imageSrc={"/sponsors/lido_logo.png"}
-        />
-        <Sponsor
-          alt="Scroll"
-          sponsorType="bronze"
-          link="https://scroll.io"
-          imageSrc={"/sponsors/scroll_logo.png"}
-        />
-        <Sponsor
-          alt="WM Datenservice"
-          sponsorType="bronze"
-          link="https://www.wmdatenservice.com/en/"
-          imageSrc={"/sponsors/wm_datenservice_logo.jpg"}
-        />
-        <Sponsor
-          alt="Ethereum Name Service"
-          sponsorType="bronze"
-          link="https://ens.domains"
-          className={"!p-10"}
-          imageSrc={"/sponsors/ens_logo.png"}
-        />
-        <Sponsor
-          alt="Nil"
-          sponsorType="bronze"
-          link="https://nil.foundation/"
-          imageSrc={"/sponsors/nil_logo.svg"}
-        />
-        <Sponsor
-          alt="polkadot blockchain academy"
-          sponsorType="bronze"
-          link="https://polkadot.com/blockchain-academy"
-          imageSrc={"/sponsors/PBA2.png"}
-        />
-        <Sponsor
-          alt="Polygon"
-          sponsorType="bronze"
-          link="https://polygon.technology/"
-          imageSrc={"/sponsors/polygon.png"}
-        />
+        {bronzeSponsors.map((sponsor) => (
+          <Sponsor
+            key={sponsor.alt}
+            alt={sponsor.alt}
+            sponsorType="bronze"
+            link={sponsor.link}
+            imageSrc={sponsor.imageSrc}
+            className={sponsor.className}
+          />
+        ))}
       </div>
     </section>
   );
 };
+
 export default Sponsors;
