@@ -1,46 +1,69 @@
 "use client";
 
-import Spline from "@splinetool/react-spline";
-import { useEffect, useRef } from "react";
+import dynamic from "next/dynamic";
+import { useEffect, useRef, useState } from "react";
+
+const Spline = dynamic(() => import("@splinetool/react-spline"), {
+  ssr: false,
+});
 
 const Sparkle = () => {
-  // Ref to access the underlying Spline DOM element
-  const splineRef = useRef<HTMLDivElement>(null);
+  const splineWrapperRef = useRef<HTMLDivElement>(null);
+  const [isMobile, setIsMobile] = useState(false);
+  const [shouldRenderSpline, setShouldRenderSpline] = useState(false);
 
   useEffect(() => {
-    let canvasElement = splineRef.current?.querySelector("canvas");
+    if (typeof window === "undefined") return;
 
-    const handleWheel = (e: WheelEvent) => e.preventDefault();
-    const handleTouch = (e: TouchEvent) => e.preventDefault();
+    const isMob =
+      /Mobi|Android/i.test(navigator.userAgent) || window.innerWidth < 768;
+    setIsMobile(isMob);
 
-    if (canvasElement) {
-      // Disable scroll and mouse wheel events on the canvas
-      canvasElement.addEventListener("wheel", handleWheel);
+    if (!isMob) {
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          setShouldRenderSpline(entry.isIntersecting);
+        },
+        { threshold: 0.1 },
+      );
 
-      // Prevent click-through on mobile (optional enhancement)
-      canvasElement.addEventListener("touchstart", handleTouch);
+      const ref = splineWrapperRef.current;
+      if (ref) observer.observe(ref);
+
+      return () => {
+        if (ref) observer.unobserve(ref);
+      };
     }
-
-    // Cleanup when the component unmounts
-    return () => {
-      if (canvasElement) {
-        canvasElement.removeEventListener("wheel", handleWheel);
-        canvasElement.removeEventListener("touchstart", handleTouch);
-      }
-    };
-  }, []); // Run only once when the component mounts
+  }, []);
 
   return (
-    <div className={"absolute w-screen h-screen -z-10"}>
-      <Spline
-        //scene={"https://prod.spline.design/LvzD1uPG26gSdiXR/scene.splinecode"}
-        scene={"https://prod.spline.design/GLp8btuF5tLoHIlE/scene.splinecode"}
-        className={
-          "absolute opacity-50 !h-screen lg:!h-[150vh] lg:top-[calc(-150vh/5)] top-0 left-0"
-        }
-        style={{ width: "100vw" }}
-        ref={splineRef}
-      />
+    <div
+      ref={splineWrapperRef}
+      className="absolute w-screen h-screen -z-10 overflow-hidden flex items-center justify-center"
+    >
+      <div
+        className="absolute w-screen h-screen"
+        style={{
+          opacity: 1,
+          transition: "opacity 0.5s ease-in-out",
+          pointerEvents: "auto",
+          scale: 1.3,
+        }}
+      >
+        {!isMobile && shouldRenderSpline ? (
+          <Spline
+            scene="https://prod.spline.design/X8yMwV2twUVUqdvk/scene.splinecode"
+            className="absolute opacity-50 w-screen h-screen"
+          />
+        ) : (
+          <img
+            src="/planet.jpg"
+            alt="World Map"
+            className="absolute opacity-50 object-cover w-screen h-screen"
+            style={{ objectPosition: "center" }}
+          />
+        )}
+      </div>
     </div>
   );
 };

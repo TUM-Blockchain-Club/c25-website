@@ -39,7 +39,7 @@ export const Agenda: React.FC<AgendaProps> = ({ sessions }) => {
     <div className={"flex flex-col md:flex-row relative gap-8 mt-20"}>
       <div
         id="filter"
-        className="bg-black md:sticky md:top-24 border border-white p-6 md:min-w-[250px] flex flex-col gap-4 md:gap-6 h-fit"
+        className="bg-black md:sticky md:top-24 border border-white rounded-[5px] p-6 md:min-w-[250px] flex flex-col gap-4 md:gap-6 h-fit"
       >
         <Text textType={"sub_title"} className="text-left" as="p">
           Filter
@@ -49,7 +49,7 @@ export const Agenda: React.FC<AgendaProps> = ({ sessions }) => {
             Days
           </Text>
           <div className="flex flex-row md:flex-col gap-2">
-            {[new Date("2024-09-12"), new Date("2024-09-13")].map(
+            {[new Date("2025-09-11"), new Date("2025-09-12")].map(
               (date, index) => (
                 <Toggle
                   onClick={() =>
@@ -60,7 +60,7 @@ export const Agenda: React.FC<AgendaProps> = ({ sessions }) => {
                   pressed={
                     dayFilter !== undefined && isSameDay(dayFilter, date)
                   }
-                  className="block py-2 w-fit md:w-full"
+                  className="rounded-[5px] py-2 w-fit md:w-full w-full rounded-lg text-white border py-2 px-3"
                   key={index}
                 >
                   <Text
@@ -98,7 +98,10 @@ export const Agenda: React.FC<AgendaProps> = ({ sessions }) => {
                   setStageFilter(value);
                 }}
               >
-                <Select.Trigger placeholder={"Any Stage"} className="w-full" />
+                <Select.Trigger
+                  placeholder={"Any Stage"}
+                  className="w-full rounded-lg text-white border py-2 px-3"
+                />
                 <Select.Content>
                   <Select.Item value={"all"}>Any Stage</Select.Item>
                   {Stages.map((stage, index) => (
@@ -120,12 +123,30 @@ export const Agenda: React.FC<AgendaProps> = ({ sessions }) => {
                   setTrackFilter(value);
                 }}
               >
-                <Select.Trigger placeholder={"Any Track"} className="w-full" />
+                <Select.Trigger
+                  placeholder={"Any Track"}
+                  className="w-full rounded-lg text-white border py-2 px-3"
+                />
                 <Select.Content>
-                  <Select.Item value={"all"}>Any Track</Select.Item>
-                  {Tracks.map((stage, index) => (
-                    <Select.Item value={stage} key={index}>
-                      {stage}
+                  <Select.Item value="all">Any Track</Select.Item>
+                  {Tracks.map((track, index) => (
+                    <Select.Item
+                      value={track}
+                      key={index}
+                      className="flex items-center gap-2"
+                    >
+                      <span
+                        className={classNames(
+                          "inline-block w-3 h-3 rounded-full mr-2",
+                          track === "Education Track" && "bg-green-400",
+                          track === "Research Track" && "bg-yellow-400",
+                          track === "Ecosystem Track" && "bg-blue-400",
+                          track === "Regulation Track" && "bg-red-400",
+                          track === "Academic Track" && "bg-purple-400",
+                          track === "Application Track" && "bg-teal-400",
+                        )}
+                      />
+                      {track}
                     </Select.Item>
                   ))}
                 </Select.Content>

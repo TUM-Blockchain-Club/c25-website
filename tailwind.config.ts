@@ -16,6 +16,9 @@ const config: Config = {
         "bg-hover": "#1D1D1D",
         "email-pink": "#FFCB6D",
         "email-purple": "#FFCB6D",
+        "track-background": "#1a012e",
+        "track-border": "#c084fc",
+        track: "#E9D5FF",
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
@@ -33,6 +36,7 @@ const config: Config = {
       fontFamily: {
         display: ["var(--font-space-grotesk)"],
         sans: ["var(--font-montserrat)"],
+        raleway: ["var(--font-raleway)"],
       },
     },
   },
