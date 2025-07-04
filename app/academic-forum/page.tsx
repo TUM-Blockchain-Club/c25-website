@@ -26,13 +26,6 @@ export default function PaperSubmission() {
                 </div>
               </div>
             </div>
-            /*
-             *<div className="mt-4">
-             *  <Text textType={"paragraph"}>
-             *    Knowledge Partner: <b>IEEE Blockchain</b>
-             *  </Text>
-             *</div>
-             */
             <div className="mt-12">
               <Text textType={"paragraph"}>
                 <b>Status:</b> Submissions Open
