@@ -1,5 +1,6 @@
 import { Text } from "@/components/text";
 import { Button } from "@/components/button";
+import { Link } from "@/components/link";
 
 const AcademicForum = () => {
   return (
