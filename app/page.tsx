@@ -6,7 +6,7 @@ import Sponsors from "@/sections/Sponsors";
 import Statistic from "@/sections/Statistic";
 import { Link } from "@/components/link";
 import { Text } from "@/components/text";
-import AcademicTrack from "@/sections/AcademicTrack";
+import AcademicForum from "@/sections/AcademicForum";
 import AfterEvents from "@/sections/AfterEvents";
 import FAQSection from "@/sections/FAQ";
 import Grants from "@/sections/Grants";
