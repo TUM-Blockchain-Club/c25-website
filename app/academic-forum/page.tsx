@@ -12,7 +12,7 @@ export default function PaperSubmission() {
           <div className={"mt-[100px] md:mt-[20vh] z-10 max-w-3xl"}>
             <div className="lg:flex items-center">
               <Text textType={"sub_hero"} className="text-gradient text-left">
-                Academic Track
+                Academic Forum
               </Text>
               <div className="flex-grow" />
               <div className="flex mt-8 lg:mt-0 space-x-8 max-w-[200px] md:max-w-full">
@@ -26,45 +26,39 @@ export default function PaperSubmission() {
                 </div>
               </div>
             </div>
-            <div className="mt-4">
-              <Text textType={"paragraph"}>
-                Knowledge Partner: <b>IEEE Blockchain</b>
-              </Text>
-            </div>
             <div className="mt-12">
               <Text textType={"paragraph"}>
-                <b>Status:</b> Submissions Closed
+                <b>Status:</b> Submissions Open
               </Text>
             </div>
             <div className="mt-2">
               <Text textType={"paragraph"}>
-                <b>Submission Deadline:</b> August 9, 2024 (23:59 CEST)
+                <b>Submission Deadline:</b> August 11, 2025 (23:59 CEST)
               </Text>
             </div>
             <div className="mt-2">
               <Text textType={"paragraph"}>
-                <b>Acceptance Notification:</b> August 16, 2024
+                <b>Acceptance Notification:</b> August 15, 2025
               </Text>
             </div>
             <div className="mt-2">
               <Text textType={"paragraph"}>
-                <b>Conference Dates:</b> September 12-13, 2024
+                <b>Conference Dates:</b> September 11-12, 2025
               </Text>
             </div>
             <div className="mt-2">
               <Text textType={"paragraph"}>
-                <b>Academic Track Date:</b> September 13, 2024
+                <b>Academic Track Date:</b> September 12, 2025
               </Text>
             </div>
             <div className="mt-2">
               <Text textType={"paragraph"}>
-                <b>Venue:</b> Forum der Zukunft (Deutsches Museum), Munich,
-                Germany
+                <b>Venue:</b> House of Communication, Munich, Germany
               </Text>
             </div>
             <Link
               href={
-                "https://apply.tum-blockchain.com/conference24-abstract-submission"
+                "https://apply.tum-blockchain.com/r/m6YOrA"
               }
             >
               <Button buttonType={"cta"} className="mt-6">
@@ -78,24 +72,10 @@ export default function PaperSubmission() {
             </div>
             <div className="mt-12">
               <Text textType={"paragraph"}>
-                We are delighted to announce the Call for Extended Abstracts for
-                the academic track at the 2024 TUM Blockchain Conference. The
-                academic track is hosted in collaboration with the TUM Chair of
-                Network Architectures and Services. We are happy to have IEEE
-                Blockchain as a Knowledge partner inviting selected works for a
-                submission to IEEE Blockchain Technical Briefs. In addition, the
-                selected abstracts will be offered to present their work in form
-                of a short talk and/or a poster presentation.
+                We are delighted to announce the Call for Extended Abstracts for the Academic Forum at the 2025 TUM Blockchain Conference. The Academic Forum is hosted in collaboration with the TUM Chair of Network Architectures and Services. The selected abstracts will be offered to present their work in form of a short talk and/or a poster presentation.
                 <br />
                 <br />
-                This event invites researchers, academics, and industry
-                professionals to connect and present their latest work in the
-                topics related to the Science of Blockchains. Accepted talks
-                will be showcased through a short presentation at the conference
-                and displayed as posters in the conference area. The posters
-                will remain on display for the entire day of the event, offering
-                an excellent platform for in-depth discussions and networking
-                opportunities.
+                This event invites researchers, academics, and industry professionals to connect and present their latest work in the topics related to the Science of Blockchains. Accepted talks will be showcased through a short presentation at the conference and displayed as posters in the conference area. The posters will remain on display for the entire day of the event, offering an excellent platform for in-depth discussions and networking opportunities.
               </Text>
             </div>
             <div className="mt-20">
@@ -215,7 +195,7 @@ export default function PaperSubmission() {
             </div>
             <Link
               href={
-                "https://apply.tum-blockchain.com/conference24-abstract-submission"
+                "https://apply.tum-blockchain.com/r/m6YOrA"
               }
             >
               <Button buttonType={"cta"} className="mt-6">
@@ -227,9 +207,7 @@ export default function PaperSubmission() {
             </div>
             <div className="mt-6">
               <Text textType={"paragraph"}>
-                Abstracts will be reviewed by the listed committee in a single
-                blind review process. Accepted papers will be invited to submit
-                their work to IEEE Blockchain Technical Briefs.
+                Abstracts will be reviewed by the listed committee. Accepted papers will be invited to present their work at the conference.
               </Text>
             </div>
             <div className="mt-12">
@@ -251,7 +229,7 @@ export default function PaperSubmission() {
                 >
                   <li>
                     <b>Talk:</b> Accepted Abstracts will be able to present
-                    their talk on the 13 September.
+                    their talk on the 12 September.
                   </li>
                   <li>
                     <b>Poster:</b> Posters may be submitted later with the
@@ -295,29 +273,7 @@ export default function PaperSubmission() {
                   style={{ listStyleType: "circle" }}
                   className="pl-5 space-y-2"
                 >
-                  <li>Justin Y. Shi, IEEE Blockchain Editor-in-Chief</li>
-                  <li>Jens Ernstberger, a16z Research</li>
-                  <li>Revanth Airre, IEEE Silicon Valley Blockchain Chapter</li>
-                  <li>Manjiri Birajdar, IEEE Blockchain</li>
-                  <li>
-                    Kilian Glas, TUM, Chair of Network Architectures and
-                    Services
-                  </li>
-                  <li>
-                    Richard von Seck, TUM, Chair of Network Architectures and
-                    Services
-                  </li>
-                  <li>
-                    Jan Lauringer, TUM, Chair of Embedded Systems and Internet
-                    of Things
-                  </li>
-                  <li>Burak Öz, TUM, Sebis Chair</li>
-                  <li>Felix Hoops, TUM, Sebis Chair</li>
-                  <li>
-                    Valentin Zieglmeier, TUM, Chair for Software and Systems
-                    Engineering
-                  </li>
-                  <li>Lucas Aschenbach, TUM Blockchain Club</li>
+                  <li>TBA</li>
                 </ul>
               </Text>
             </div>
@@ -334,7 +290,7 @@ export default function PaperSubmission() {
                     Filip Rezabek, TUM, Chair of Network Architectures and
                     Services
                   </li>
-                  <li>Lucas Aschenbach, TUM Blockchain Club</li>
+                  <li>Benjamín Benčík, TUM Blockchain Club</li>
                   <li>Luis Bahners, TUM Blockchain Club</li>
                 </ul>
               </Text>
