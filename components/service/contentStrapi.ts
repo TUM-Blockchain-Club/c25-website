@@ -98,7 +98,7 @@ export const fetchSpeakers = async (): Promise<Speaker[]> => {
 
   do {
     const res = await axios.get(
-      `https://strapi.rbg.tum-blockchain.com/api/speakers?sort=name:asc&pagination[page]=${page}&pagination[pageSize]=25&populate=profile_photo`,
+      `https://strapi.rbg.tum-blockchain.com/api/speakers25?sort=name:asc&pagination[page]=${page}&pagination[pageSize]=25&populate=profile_photo`,
       {
         headers: {
           Authorization: `Bearer ${process.env.STRAPI_API_TOKEN}`,
@@ -136,7 +136,6 @@ const downloadProfilePicture = async (speaker: Speaker) => {
     const ext = speaker.profile_photo.ext || ".webp";
     const fileName = `${speaker.documentId}${ext}`;
     const filePath = path.join(speakerDir, fileName);
-    const filePublicUrl = `/speakers2/${fileName}`;
 
     if (!fs.existsSync(filePath)) {
       const res = await axios({
