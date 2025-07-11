@@ -21,7 +21,7 @@ const goldSponsors: SponsorData[] = [
   {
     alt: "Ethereum Ecosystem Support Program",
     link: "https://ethereum.org/",
-    imageSrc: "/sponsors/ethereum_esp_logo.png",
+    imageSrc: "/sponsors/ethereum_fas_logo.png",
   },
 ];
 
