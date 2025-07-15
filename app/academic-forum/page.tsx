@@ -26,6 +26,11 @@ export default function PaperSubmission() {
                 </div>
               </div>
             </div>
+            <div className="mt-4">
+                <Text textType={"paragraph"}>
+                Knowledge Partner: <b>IEEE Blockchain</b>
+                </Text>
+            </div>
             <div className="mt-12">
               <Text textType={"paragraph"}>
                 <b>Status:</b> Submissions Open
@@ -72,7 +77,7 @@ export default function PaperSubmission() {
             </div>
             <div className="mt-12">
               <Text textType={"paragraph"}>
-                We are delighted to announce the Call for Extended Abstracts for the Academic Forum at the 2025 TUM Blockchain Conference. The Academic Forum is hosted in collaboration with the TUM Chair of Network Architectures and Services. The selected abstracts will be offered to present their work in form of a short talk and/or a poster presentation.
+                We are delighted to announce the Call for Extended Abstracts for the Academic Forum at the 2025 TUM Blockchain Conference. The Academic Forum is hosted in collaboration with the TUM Chair of Network Architectures and Services. We are happy to have IEEE Blockchain as a Knowledge partner inviting selected works for a submission to IEEE Blockchain Technical Briefs. The selected abstracts will be offered to present their work in form of a short talk and/or a poster presentation.
                 <br />
                 <br />
                 This event invites researchers, academics, and industry professionals to connect and present their latest work in the topics related to the Science of Blockchains. Accepted talks will be showcased through a short presentation at the conference and displayed as posters in the conference area. The posters will remain on display for the entire day of the event, offering an excellent platform for in-depth discussions and networking opportunities.
@@ -273,7 +278,10 @@ export default function PaperSubmission() {
                   style={{ listStyleType: "circle" }}
                   className="pl-5 space-y-2"
                 >
-                  <li>TBA</li>
+                  <li>Jonas Gebele, TUM, Chair of Software Engineering for Business Information Systems</li>
+                  <li>Burak Oez, TUM, Chair of Software Engineering for Business Information Systems</li>
+                  <li>Fabian Stiehle, TUM, Information System Development and Operation</li>
+                  <li>Kilian Glas, TUM, Chair of Network Architectures and Services</li>
                 </ul>
               </Text>
             </div>
