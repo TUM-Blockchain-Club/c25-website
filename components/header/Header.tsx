@@ -25,6 +25,7 @@ const links: HeaderLink[] = [
   // { label: "Home", link: "/", showsAtHome: false },
   { label: "Manifesto", link: "#manifesto", showsAtHome: true },
   { label: "Speakers", link: "/speakers", showsAtHome: true },
+  { label: "Academic Forum", link: "/academic-forum", showsAtHome: true },
   {
     label: "Apply as Speaker",
     link: "https://tally.so/r/w8EB0o",
