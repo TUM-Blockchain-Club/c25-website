@@ -59,7 +59,7 @@ const bronzeSponsors: SponsorData[] = [
   {
     alt: "Space Computer",
     link: "https://www.spacecomputer.io/",
-    imageSrc: "/sponsors/space_computer_logo.png",
+    imageSrc: "/sponsors/space_computer_logo.svg",
   },
 ];
 
