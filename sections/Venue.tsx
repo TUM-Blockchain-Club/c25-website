@@ -67,7 +67,7 @@ const Venue = () => {
           ></div>
         </div>
         <a
-          href="https://maps.app.goo.gl/NGALyFUZ3n1Wvg76A"
+          href="https://maps.app.goo.gl/rLirPeQoSCjxYL1u5"
           target="_blank"
           rel="noopener noreferrer"
           className="block"
