@@ -178,7 +178,7 @@ const Now: React.FC<NowProps> = ({ sessions, simulatedDate }) => {
                                       />
                                     )}
                                     <div className="flex flex-col max-w-48">
-                                      <Text>{speaker.name}</Text>
+                                      <Text className="break-words hyphens-auto">{speaker.name}</Text>
                                       <Text textType={"small"}>
                                         {speaker.description}
                                       </Text>
@@ -245,7 +245,7 @@ const Now: React.FC<NowProps> = ({ sessions, simulatedDate }) => {
                                     />
                                   )}
                                   <div className="flex flex-col max-w-48">
-                                    <Text>{speaker.name}</Text>
+                                    <Text className="break-words hyphens-auto">{speaker.name}</Text>
                                     <Text textType={"small"}>
                                       {speaker.description}
                                     </Text>
