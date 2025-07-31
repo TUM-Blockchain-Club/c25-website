@@ -59,7 +59,7 @@ export const Speaker = React.forwardRef<HTMLDivElement, SpeakerProps>(
           height={275}
         />
         <div className={"flex flex-col gap-1 self-stretch"}>
-          <Text textType={"sub_title"} className={"font-bold"}>
+          <Text textType={"sub_title"} className={"font-bold break-words hyphens-auto"}>
             {name}
           </Text>
           <Text textType={"paragraph"}>
