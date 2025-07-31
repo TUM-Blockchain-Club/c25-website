@@ -227,7 +227,7 @@ export const Session = React.forwardRef<SessionElement, SessionProps>(
                       </Link>
                     )}
                     <div className="flex flex-col max-w-48">
-                      <Text key={index}>{speaker.name}</Text>
+                      <Text key={index} className="break-words hyphens-auto">{speaker.name}</Text>
                       <Text key={index} textType="small">
                         {speaker.description}
                       </Text>
