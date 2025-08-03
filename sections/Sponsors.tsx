@@ -23,6 +23,11 @@ const goldSponsors: SponsorData[] = [
     link: "https://ethereum.org/",
     imageSrc: "/sponsors/ethereum_fas_logo.png",
   },
+  {
+    alt: "Ledger",
+    link: "https://www.ledger.com/",
+    imageSrc: "/sponsors/ledger_logo.png",
+  },
 ];
 
 const silverSponsors: SponsorData[] = [
