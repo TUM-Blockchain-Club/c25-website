@@ -49,7 +49,7 @@ const bronzeSponsors: SponsorData[] = [
     alt: "neodyme",
     link: "https://neodyme.io/",
     imageSrc: "/sponsors/neodyme_logo.png",
-    className: "!p-9",
+    className: "!p-4 md:!p-9",
   },
   {
     alt: "Staking Facilities",
