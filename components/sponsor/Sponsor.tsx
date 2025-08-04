@@ -11,11 +11,11 @@ const sponsorVariant = cva(
   {
     variants: {
       sponsorType: {
-        bronze: "w-[125px] h-[125px] md:w-[200px] md:h-[200px]",
-        silver: "w-[200px] h-[200px] md:w-[200px] md:h-[200px]",
-        gold: "w-[200px] h-[200px] md:w-[200px] md:h-[200px]",
+        bronze: "w-[100px] h-[100px] md:w-[200px] md:h-[200px]",
+        silver: "w-[140px] h-[140px] md:w-[200px] md:h-[200px]",
+        gold: "w-[140px] h-[140px] md:w-[200px] md:h-[200px]",
         platinum:
-          "w-[240px] h-[240px] md:w-[300px] md:h-[300px] border-gradient-tbc border-4",
+          "w-[180px] h-[180px] md:w-[300px] md:h-[300px] border-gradient-tbc border-4",
       },
     },
     defaultVariants: {
