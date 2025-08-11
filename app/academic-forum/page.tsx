@@ -38,12 +38,12 @@ export default function PaperSubmission() {
             </div>
             <div className="mt-2">
               <Text textType={"paragraph"}>
-                <b>Submission Deadline:</b> August 11, 2025 (23:59 CEST)
+                <b>Submission Deadline:</b> <del>August 11, 2025 (23:59 CEST)</del> August 20, 2025 (23:59 CEST)
               </Text>
             </div>
             <div className="mt-2">
               <Text textType={"paragraph"}>
-                <b>Acceptance Notification:</b> August 15, 2025
+                <b>Acceptance Notification:</b> <del>August 15, 2025</del>
               </Text>
             </div>
             <div className="mt-2">
