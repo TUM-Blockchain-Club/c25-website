@@ -66,6 +66,21 @@ const bronzeSponsors: SponsorData[] = [
     link: "https://www.spacecomputer.io/",
     imageSrc: "/sponsors/spacecomputer_logo.png",
   },
+  {
+    alt: "Arcium",
+    link: "https://www.arcium.com/",
+    imageSrc: "/sponsors/arcium_logo.png",
+  },
+  {
+    alt: "fetch.ai",
+    link: "https://fetch.ai/",
+    imageSrc: "/sponsors/fetch_ai_logo.png",
+  },
+  {
+    alt: "Bosch",
+    link: "https://www.bosch.com/",
+    imageSrc: "/sponsors/bosch_logo.png",
+  },
 ];
 
 // Helper function to chunk an array into groups of specified size
