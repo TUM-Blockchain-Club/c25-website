@@ -41,6 +41,7 @@ export default function Home() {
                 <Tickets />
                 <Speaker />
                 <Sponsors />
+                <Partners />
               </div>
             </div>
           </Container>
