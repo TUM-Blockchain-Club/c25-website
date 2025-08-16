@@ -13,16 +13,6 @@ import path from "path";
 //     backgroundImg: "/side-events/pre-event.jpg",
 //   },
 
-export interface SideEventItem {
-  title: string;
-  url: string;
-  subpage: boolean;
-  description: string;
-  link: string;
-  date: string;
-  backgroundImg: string;
-}
-
 export interface SpeakerItem {
   name: string;
   profile_photo: string;
@@ -87,38 +77,64 @@ export interface Speaker {
   profile_photo?: ProfilePicture | null;
 }
 
+// New: SideEvent typing aligned with Strapi and UI needs
+export interface SideEvent {
+  id: number;
+  documentId: string;
+  title: string;
+  description: string;
+  link: string;
+  startTime: string;
+  endTime: string;
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string;
+  image?: ProfilePicture | null;
+}
+
 export default Speaker;
 
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 export const fetchSpeakers = async (): Promise<Speaker[]> => {
-  const speakers: Speaker[] = [];
-  let hasMore = true;
-  let page = 1;
+  const token = process.env.STRAPI_API_TOKEN;
+  if (!token) {
+    console.warn("STRAPI_API_TOKEN missing; returning empty speakers list");
+    return [];
+  }
 
-  do {
-    const res = await axios.get(
-      `https://strapi.rbg.tum-blockchain.com/api/speakers25?sort=name:asc&pagination[page]=${page}&pagination[pageSize]=25&populate=profile_photo`,
-      {
-        headers: {
-          Authorization: `Bearer ${process.env.STRAPI_API_TOKEN}`,
+  try {
+    const speakers: Speaker[] = [];
+    let hasMore = true;
+    let page = 1;
+
+    do {
+      const res = await axios.get(
+        `https://strapi.rbg.tum-blockchain.com/api/speakers25?sort=name:asc&pagination[page]=${page}&pagination[pageSize]=25&populate=profile_photo`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         },
-      },
-    );
+      );
 
-    speakers.push(...res.data.data);
-    hasMore =
-      res.data.meta.pagination.page < res.data.meta.pagination.pageCount;
-    page = page + 1;
+      speakers.push(...res.data.data);
+      hasMore =
+        res.data.meta.pagination.page < res.data.meta.pagination.pageCount;
+      page = page + 1;
 
-    for (const speaker of res.data.data) {
-      await downloadProfilePicture(speaker);
-      delay(500);
-    }
-    console.log(`Fetched ${speakers.length} speakers so far...`);
-  } while (hasMore);
+      for (const speaker of res.data.data) {
+        await downloadProfilePicture(speaker);
+        delay(500);
+      }
+      console.log(`Fetched ${speakers.length} speakers so far...`);
+    } while (hasMore);
 
-  return speakers;
+    return speakers;
+  } catch (err) {
+    console.error("Error fetching speakers from Strapi:", err);
+    return [];
+  }
 };
 
 const downloadProfilePicture = async (speaker: Speaker) => {
@@ -165,6 +181,98 @@ const downloadProfilePicture = async (speaker: Speaker) => {
   } catch (error) {
     console.error(
       `Error downloading profile picture for ${speaker.name}:`,
+      error,
+    );
+  }
+};
+
+// New: fetch side events from Strapi and download images similarly to Speaker
+export const fetchSideEvents = async (): Promise<SideEvent[]> => {
+  const token = process.env.STRAPI_API_TOKEN;
+  if (!token) {
+    console.warn("STRAPI_API_TOKEN missing; returning empty side events list");
+    return [];
+  }
+
+  try {
+    const events: SideEvent[] = [];
+    let hasMore = true;
+    let page = 1;
+
+    do {
+      const res = await axios.get(
+        `https://strapi.rbg.tum-blockchain.com/api/side-events-25?sort=startTime:asc&pagination[page]=${page}&pagination[pageSize]=25&populate=image`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      );
+
+      const pageData: SideEvent[] = res.data.data;
+
+      for (const event of pageData) {
+        await downloadSideEventImage(event);
+        delay(300);
+      }
+
+      events.push(...pageData);
+
+      hasMore =
+        res.data.meta.pagination.page < res.data.meta.pagination.pageCount;
+      page = page + 1;
+      console.log(`Fetched ${events.length} side events so far...`);
+    } while (hasMore);
+
+    return events;
+  } catch (err) {
+    console.error("Error fetching side events from Strapi:", err);
+    return [];
+  }
+};
+
+const downloadSideEventImage = async (event: SideEvent) => {
+  if (!event.image || !event.image.url) {
+    console.warn(`No image for side event: ${event.title}`);
+    return;
+  }
+
+  try {
+    const dir = path.join(process.cwd(), "public", "side-events25");
+    if (!fs.existsSync(dir)) {
+      fs.mkdirSync(dir, { recursive: true });
+    }
+
+    const ext = event.image.ext || ".webp";
+    const fileName = `${event.documentId}${ext}`;
+    const filePath = path.join(dir, fileName);
+
+    if (!fs.existsSync(filePath)) {
+      const res = await axios({
+        url: "https://strapi.rbg.tum-blockchain.com" + event.image.url,
+        method: "GET",
+        responseType: "stream",
+      });
+
+      const writer = fs.createWriteStream(filePath);
+      res.data.pipe(writer);
+
+      await new Promise<void>((resolve, reject) => {
+        writer.on("finish", () => resolve());
+        writer.on("error", reject);
+      });
+      console.log(
+        `Downloaded side event image for ${event.title} to ${filePath}`,
+      );
+
+      const publicUrl = `/side-events25/${fileName}`;
+      event.image.url = publicUrl;
+    } else {
+      event.image.url = `/side-events25/${fileName}`;
+    }
+  } catch (error) {
+    console.error(
+      `Error downloading image for side event ${event.title}:`,
       error,
     );
   }

@@ -1,15 +1,14 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import { Event } from "./Event";
 
 export interface SideEventItem {
   title: string;
   description: string;
-  url: string;
-  date: string;
-  backgroundImg: string;
-  subpage: boolean;
+  image: string;
+  startTime: string;
+  endTime: string;
   link: string;
 }
 
@@ -25,10 +24,9 @@ export const Events: React.FC<SideEventProps> = ({ items }) => {
           key={index}
           title={item.title}
           description={item.description}
-          url={item.url}
-          bgImage={item.backgroundImg}
-          date={item.date}
-          subpage={item.subpage}
+          image={item.image}
+          startTime={item.startTime}
+          endTime={item.endTime}
           link={item.link}
         />
       ))}
