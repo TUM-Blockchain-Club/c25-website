@@ -11,7 +11,7 @@ function PartnerGrid({
   featured?: boolean;
 }) {
   const itemBox = featured
-    ? "w-[220px] h-[120px] md:w-[260px] md:h-[140px]"
+    ? "w-[220px] h-[120px] md:w-[170px] md:h-[110px]"
     : "w-[150px] h-[100px] md:w-[170px] md:h-[110px]";
 
   return (
@@ -85,7 +85,7 @@ const Partners = () => {
     { alt: "ETH Bratislava", src: "/partners/eth_bratislava_logo.png" },
     { alt: "ETH Warsaw", src: "/partners/eth_warsaw_logo.png" },
     { alt: "FIL-B", src: "/partners/fil_b_logo.png" },
-    { alt: "Frankfurt School", src: "/partners/frankfurt_school_logo.png" },
+    { alt: "Frankfurt School", src: "/partners/frankfurt_school_logo2.png" },
     { alt: "Kryptosphere", src: "/partners/kryptosphere_logo.png" },
     { alt: "Superteam Germany", src: "/partners/superteam_de_logo.png" },
     // { alt: "Encode Club", src: "/partners/encode_logo.png" },
