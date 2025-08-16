@@ -86,6 +86,11 @@ const bronzeSponsors: SponsorData[] = [
     link: "https://filecoin.io/",
     imageSrc: "/sponsors/filecoin_orbit_logo.png",
   },
+  {
+    alt: "Zircuit",
+    link: "https://zircuit.com/",
+    imageSrc: "/sponsors/zircuit_logo.png",
+  },
 ];
 
 // Helper function to chunk an array into groups of specified size
