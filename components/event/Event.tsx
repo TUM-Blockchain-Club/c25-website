@@ -9,11 +9,10 @@ import { Button } from "../button";
 
 interface EventModel {
   title: string;
-  bgImage: string;
+  image: string;
   description: string;
-  url: string;
-  date: string;
-  subpage: boolean;
+  startTime: string;
+  endTime: string;
   link: string;
 }
 
@@ -24,15 +23,47 @@ export const Event = React.forwardRef<EventElement, EventProps>(
   (props, ref) => {
     const {
       className,
-      bgImage,
+      image,
       title,
       description,
-      url,
-      date,
-      subpage,
+      startTime,
+      endTime,
       link,
       ...restProps
     } = props;
+
+    const start = new Date(startTime);
+    const end = new Date(endTime);
+    const sameDay =
+      start.getFullYear() === end.getFullYear() &&
+      start.getMonth() === end.getMonth() &&
+      start.getDate() === end.getDate();
+    const dateDisplay = sameDay
+      ? `${start.toLocaleDateString(undefined, {
+          weekday: "long",
+          month: "long",
+          day: "numeric",
+        })} | ${start.toLocaleTimeString([], {
+          hour: "2-digit",
+          minute: "2-digit",
+        })} - ${end.toLocaleTimeString([], {
+          hour: "2-digit",
+          minute: "2-digit",
+        })}`
+      : `${start.toLocaleString(undefined, {
+          weekday: "long",
+          month: "long",
+          day: "numeric",
+          hour: "2-digit",
+          minute: "2-digit",
+        })} - ${end.toLocaleString(undefined, {
+          weekday: "long",
+          month: "long",
+          day: "numeric",
+          hour: "2-digit",
+          minute: "2-digit",
+        })}`;
+
     return (
       <div
         className={classNames(
@@ -44,7 +75,7 @@ export const Event = React.forwardRef<EventElement, EventProps>(
         <div className="relative w-full h-[300px]">
           <Image
             className={"object-cover"}
-            src={bgImage}
+            src={image}
             alt={title}
             title={title}
             fill
@@ -52,7 +83,7 @@ export const Event = React.forwardRef<EventElement, EventProps>(
           <div className="backdrop-blur-3xl w-full h-full">
             <Image
               className={"object-contain"}
-              src={bgImage}
+              src={image}
               alt={title}
               title={title}
               fill
@@ -63,12 +94,12 @@ export const Event = React.forwardRef<EventElement, EventProps>(
           {title}
         </Text>
         <Text className="mt-4 underline" textType={"small"} as="p">
-          {date}
+          {dateDisplay}
         </Text>
         <Text className="mt-4 text-gray-400" textType={"small"} as="p">
           {description}
         </Text>
-        <NextLink href={subpage ? `/side-events/${url}` : link}>
+        <NextLink href={link} target="_blank" rel="noopener noreferrer">
           <Button className="mt-4" buttonType={"cta"}>
             Learn More
           </Button>
