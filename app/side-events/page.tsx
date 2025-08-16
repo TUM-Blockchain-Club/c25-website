@@ -1,9 +1,20 @@
-import { sideEventsItems } from "@/constants/SideEventData";
 import { Container } from "@/components/container";
 import { Events } from "@/components/event/Events";
 import { Text } from "@/components/text";
+import { fetchSideEvents, SideEvent } from "@/components/service/contentStrapi";
 
-export default function SideEvents() {
+export default async function SideEvents() {
+  const sideEvents: SideEvent[] = await fetchSideEvents();
+
+  const items = sideEvents.map((e) => ({
+    title: e.title,
+    description: e.description,
+    image: e.image?.url || "/side-events/pre-event.jpg",
+    startTime: e.startTime,
+    endTime: e.endTime,
+    link: e.link,
+  }));
+
   return (
     <div className={"overflow-x-hidden"}>
       <main className={"w-full pt-[25px] lg:pt-0 z-20 2xl:px-[225px] pb-40"}>
@@ -16,7 +27,7 @@ export default function SideEvents() {
             >
               Side Events
             </Text>
-            <Events items={sideEventsItems} />
+            <Events items={items} />
           </div>
         </Container>
       </main>

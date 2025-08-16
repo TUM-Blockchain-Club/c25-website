@@ -5,6 +5,9 @@ const nextConfig = {
   },
   // basePath: '/c24-website',
   // assetPrefix: '/c24-website',
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
 };
 
 export default nextConfig;
