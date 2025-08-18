@@ -28,6 +28,11 @@ const goldSponsors: SponsorData[] = [
     link: "https://www.ledger.com/",
     imageSrc: "/sponsors/ledger_logo.png",
   },
+  {
+    alt: "Base",
+    link: "https://www.base.org/",
+    imageSrc: "/sponsors/base_logo.png",
+  },
 ];
 
 const silverSponsors: SponsorData[] = [
@@ -42,6 +47,11 @@ const silverSponsors: SponsorData[] = [
     link: "https://www.iota.org/",
     imageSrc: "/sponsors/iota_logo.png",
   },
+  {
+    alt: "Polkadot",
+    link: "https://polkadot.com/",
+    imageSrc: "/sponsors/Polkadot_Logo.png",
+  },
 ];
 
 const bronzeSponsors: SponsorData[] = [
@@ -55,11 +65,6 @@ const bronzeSponsors: SponsorData[] = [
     alt: "Staking Facilities",
     link: "https://stakingfacilities.com/",
     imageSrc: "/sponsors/staking_facilities_logo.png",
-  },
-  {
-    alt: "Polkadot",
-    link: "https://polkadot.com/",
-    imageSrc: "/sponsors/Polkadot_Logo.png",
   },
   {
     alt: "Space Computer",

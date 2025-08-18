@@ -1,0 +1,76 @@
+---
+alwaysApply: true
+description: High-level repo map and conventions for navigation
+---
+
+### Repository overview
+
+- **App Router entry**: See [app/layout.tsx](mdc:app/layout.tsx). Sets global fonts, metadata, header/footer, analytics, and global styles.
+- **Pages (routes)**: Each route lives in its own directory under `app/*` with a [page.tsx](mdc:app/page.tsx). Examples:
+  - Home: [app/page.tsx](mdc:app/page.tsx)
+  - Agenda: [app/agenda/page.tsx](mdc:app/agenda/page.tsx) with UI in [app/agenda/agenda.tsx](mdc:app/agenda/agenda.tsx)
+  - Speakers: [app/speakers/page.tsx](mdc:app/speakers/page.tsx)
+  - Side events: [app/side-events/page.tsx](mdc:app/side-events/page.tsx)
+- **API routes**: App Router handlers under `app/api/*/route.ts`, e.g. [app/api/check-in/route.ts](mdc:app/api/check-in/route.ts), [app/api/version/route.ts](mdc:app/api/version/route.ts).
+- **Components**: Reusable UI under [components/*](mdc:components). Many folders expose a barrel [index.ts](mdc:components/button/index.ts) for concise imports.
+- **Sections**: Home-page sections and larger page blocks in [sections/*](mdc:sections). These compose page content.
+- **Constants and models**: Typed data in [constants/*](mdc:constants) and TypeScript types in [model/*](mdc:model).
+- **Hooks**: Client-side utilities in [hooks/*](mdc:hooks). Prefer server-side fetching in pages; use hooks only when needed on the client.
+- **Styling**: TailwindCSS in [tailwind.config.ts](mdc:tailwind.config.ts) and global styles in [app/globals.css](mdc:app/globals.css).
+- **Public assets**: Images/videos/docs under [public/*](mdc:public). Use with `next/image` via absolute `/...` paths.
+- **Path alias**: `@/*` configured in [tsconfig.json](mdc:tsconfig.json). Prefer `@/components/...` over relative paths.
+
+### Conventions
+
+- Compose pages from `components/*` and `sections/*`.
+- Keep `app/*/page.tsx` lightweight; colocate complex UI in sibling files.
+- Respect client/server boundaries (see dedicated rule). Add "use client" only when required.
+
+### Directory details
+
+- **Sponsors**:
+  - Images live in [public/sponsors/*](mdc:public/sponsors) (PNG/JPG/SVG).
+  - Rendering logic: [sections/Sponsors.tsx](mdc:sections/Sponsors.tsx) using `imageSrc` paths like `/sponsors/<file>` and the `Sponsor` component at [components/sponsor/Sponsor.tsx](mdc:components/sponsor/Sponsor.tsx).
+- **Speakers**:
+  - Photos in [public/speakers/*](mdc:public/speakers).
+  - Components: [components/speaker/Speaker.tsx](mdc:components/speaker/Speaker.tsx), listing in [app/speakers/page.tsx](mdc:app/speakers/page.tsx). Types in [model/speaker.ts](mdc:model/speaker.ts).
+- **Workshops**:
+  - Images in [public/workshops/*](mdc:public/workshops).
+  - UI: [components/workshops/*](mdc:components/workshops). Data in [constants/WorkshopData.tsx](mdc:constants/WorkshopData.tsx).
+- **Side events**:
+  - Images in [public/side-events/*](mdc:public/side-events).
+  - Data in [constants/SideEventData.tsx](mdc:constants/SideEventData.tsx), page at [app/side-events/page.tsx](mdc:app/side-events/page.tsx).
+- **Partners**:
+  - Logos in [public/partners/*](mdc:public/partners). UI in [sections/Partners.tsx](mdc:sections/Partners.tsx).
+- **Student initiatives**:
+  - Logos in [public/student-initiatives/*](mdc:public/student-initiatives).
+- **Tracks**:
+  - Icons in [public/tracks/*](mdc:public/tracks). Components in [components/track/*](mdc:components/track) and section [sections/Tracks.tsx](mdc:sections/Tracks.tsx).
+- **Venue**:
+  - Images in [public/venue/*](mdc:public/venue). Component at [components/venue/VenueImage.tsx](mdc:components/venue/VenueImage.tsx), section at [sections/Venue.tsx](mdc:sections/Venue.tsx).
+- **Hero & media**:
+  - Video and thumbnail in [public/hero/*](mdc:public/hero), used by [sections/Hero.tsx](mdc:sections/Hero.tsx).
+- **Brand/logos**:
+  - Brand assets in [public/logos/*](mdc:public/logos) and [public/banners/*](mdc:public/banners). Header uses `/logos/tbc-conference-logo.png` by default.
+- **Papers/academic**:
+  - Assets in [public/papers/*](mdc:public/papers). Academic Forum page: [app/academic-forum/page.tsx](mdc:app/academic-forum/page.tsx).
+
+### Data & models
+
+- **Constants**: FAQs in [constants/FAQData.tsx](mdc:constants/FAQData.tsx), workshops in [constants/WorkshopData.tsx](mdc:constants/WorkshopData.tsx), side events in [constants/SideEventData.tsx](mdc:constants/SideEventData.tsx).
+- **Models**: Session and speaker types in [model/*](mdc:model). Agenda UI at [app/agenda/agenda.tsx](mdc:app/agenda/agenda.tsx) uses [model/session.ts](mdc:model/session.ts) and [components/session/Session.tsx](mdc:components/session/Session.tsx).
+
+### How to add a new sponsor
+
+1. Place the sponsor logo file in [public/sponsors](mdc:public/sponsors). Prefer optimized PNG/SVG with transparent background.
+2. Open [sections/Sponsors.tsx](mdc:sections/Sponsors.tsx).
+3. Add an entry to the appropriate tier array (`platinumSponsors`, `goldSponsors`, `silverSponsors`, or `bronzeSponsors`):
+   - `alt`: sponsor name
+   - `link`: external URL
+   - `imageSrc`: absolute path like `/sponsors/<file>`
+   - `className` (optional): adjust padding if the logo needs more/less whitespace
+4. Sizing is controlled by `sponsorType` via [components/sponsor/Sponsor.tsx](mdc:components/sponsor/Sponsor.tsx):
+   - bronze/silver/gold: ~200x200 on desktop
+   - platinum: ~300x300 with gradient border
+5. Save and refresh; images load via `next/image`. If layout looks cramped, tweak `className` paddings on the entry.
+

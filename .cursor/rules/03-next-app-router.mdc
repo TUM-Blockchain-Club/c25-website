@@ -1,0 +1,22 @@
+---
+alwaysApply: true
+description: Next.js App Router and API route patterns used in this project
+---
+
+### Routing
+
+- **App Router**: Use directories in `app/*` with `page.tsx` entries. Co-locate supporting UI in sibling files (e.g., `agenda.tsx`).
+- **Metadata**: Configure global metadata, fonts, and scripts in [app/layout.tsx](mdc:app/layout.tsx). Use Next `Metadata` type for per-route metadata where needed.
+- **Static assets**: Reference via `/...` from [public/*](mdc:public). Prefer `next/image` with explicit `width`/`height`.
+
+### API routes
+
+- **Handlers**: Place API endpoints in `app/api/<route>/route.ts`. Export HTTP methods: `GET`, `POST`, etc. Return `NextResponse`.
+- **Data fetching**: Prefer server-side data fetching in route/page files. Use client hooks only when interactivity is required.
+
+### Client patterns
+
+- **Header/Footer**: Provided by [components/header/Header.tsx](mdc:components/header/Header.tsx) and [components/footer/Footer.tsx](mdc:components/footer/Footer.tsx), rendered globally in `layout`.
+- **Stateful UI**: Mark components with `"use client"` when using state/effects (e.g., `app/agenda/agenda.tsx`).
+- **Third-party scripts**: Use `next/script` with appropriate `strategy` (see CookieYes in `layout`).
+
