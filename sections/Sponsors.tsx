@@ -42,6 +42,11 @@ const silverSponsors: SponsorData[] = [
     link: "https://www.iota.org/",
     imageSrc: "/sponsors/iota_logo.png",
   },
+  {
+    alt: "Polkadot",
+    link: "https://polkadot.com/",
+    imageSrc: "/sponsors/Polkadot_Logo.png",
+  },
 ];
 
 const bronzeSponsors: SponsorData[] = [
@@ -55,11 +60,6 @@ const bronzeSponsors: SponsorData[] = [
     alt: "Staking Facilities",
     link: "https://stakingfacilities.com/",
     imageSrc: "/sponsors/staking_facilities_logo.png",
-  },
-  {
-    alt: "Polkadot",
-    link: "https://polkadot.com/",
-    imageSrc: "/sponsors/Polkadot_Logo.png",
   },
   {
     alt: "Space Computer",
