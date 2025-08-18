@@ -68,11 +68,11 @@ export const Event = React.forwardRef<EventElement, EventProps>(
       <div
         className={classNames(
           className,
-          "flex flex-col border border-white p-6 hover:scale-[102%] duration-500 ease-in-out overflow-hidden rounded-lg",
+          "flex flex-col border border-white p-6 hover:scale-[102%] duration-500 ease-in-out overflow-hidden rounded-none",
         )}
         {...restProps}
       >
-        <div className="relative w-full aspect-square overflow-hidden rounded-md">
+        <div className="relative w-full aspect-square overflow-hidden rounded-none">
           <Image className={"object-cover"} src={image} alt={title} title={title} fill />
         </div>
         <Text textType={"sub_title"} as="p" className="mt-6 line-clamp-2">
