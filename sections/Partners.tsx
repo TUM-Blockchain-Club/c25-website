@@ -85,7 +85,7 @@ const Partners = () => {
     { alt: "ETH Bratislava", src: "/partners/eth_bratislava_logo.png" },
     { alt: "ETH Warsaw", src: "/partners/eth_warsaw_logo.png" },
     { alt: "FIL-B", src: "/partners/fil_b_logo.png" },
-    { alt: "Frankfurt School", src: "/partners/frankfurt_school_logo2.png" },
+    { alt: "Frankfurt School", src: "/partners/frankfurt_school_logo.png" },
     { alt: "Kryptosphere", src: "/partners/kryptosphere_logo.png" },
     { alt: "Superteam Germany", src: "/partners/superteam_de_logo.png" },
     // { alt: "Encode Club", src: "/partners/encode_logo.png" },
