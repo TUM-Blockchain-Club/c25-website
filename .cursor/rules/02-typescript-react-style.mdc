@@ -1,0 +1,29 @@
+---
+globs: *.ts,*.tsx
+description: TypeScript and React coding conventions for this repo
+---
+
+### TypeScript
+
+- **Strict mode**: `strict: true` is enabled. Add explicit types to public APIs and component props. Avoid `any`.
+- **Module resolution**: Use the `@/*` alias instead of relative paths. Example: `import { Header } from "@/components/header"`.
+- **ESNext/isolatedModules**: Prefer ESM syntax; avoid dynamic `require`.
+
+### React/Next patterns
+
+- **Client vs server**: Default to server components. Add `"use client"` only when using state, effects, refs, context, browser-only APIs, or client libraries.
+- **Components**: Keep components small and focused. Export `displayName` for components created with `forwardRef`.
+- **Props**: Use `React.ComponentPropsWithoutRef<...>` and precise prop types. Use discriminated unions over optional props when meaningful.
+- **Events/state**: Use descriptive state variable names, early returns, and minimal nesting.
+
+### Styling
+
+- **Tailwind**: Use Tailwind utility classes; extend theme via [tailwind.config.ts](mdc:tailwind.config.ts). Prefer `classNames` for conditional classes.
+- **Global classes**: Respect global styles from [app/globals.css](mdc:app/globals.css).
+
+### Import/Export
+
+- Prefer named exports from barrel `index.ts` files when present (e.g., `@/components/button`).
+- Group imports: external → alias `@/` → relative.
+- Avoid default exports for reusable components unless there is a strong reason.
+
