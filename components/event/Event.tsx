@@ -68,38 +68,23 @@ export const Event = React.forwardRef<EventElement, EventProps>(
       <div
         className={classNames(
           className,
-          "flex flex-col border-[1px] border-white p-6 mt-10 hover:scale-[102%] duration-500 ease-in-out",
+          "flex flex-col border border-white p-6 hover:scale-[102%] duration-500 ease-in-out overflow-hidden rounded-none",
         )}
         {...restProps}
       >
-        <div className="relative w-full h-[300px]">
-          <Image
-            className={"object-cover"}
-            src={image}
-            alt={title}
-            title={title}
-            fill
-          />
-          <div className="backdrop-blur-3xl w-full h-full">
-            <Image
-              className={"object-contain"}
-              src={image}
-              alt={title}
-              title={title}
-              fill
-            />
-          </div>
+        <div className="relative w-full aspect-square overflow-hidden rounded-none">
+          <Image className={"object-cover"} src={image} alt={title} title={title} fill />
         </div>
-        <Text textType={"sub_title"} as="p" className="mt-10">
+        <Text textType={"sub_title"} as="p" className="mt-6 line-clamp-2">
           {title}
         </Text>
-        <Text className="mt-4 underline" textType={"small"} as="p">
+        <Text className="mt-2 underline truncate" textType={"small"} as="p">
           {dateDisplay}
         </Text>
-        <Text className="mt-4 text-gray-400" textType={"small"} as="p">
+        <Text className="mt-2 text-gray-400 line-clamp-3" textType={"small"} as="p">
           {description}
         </Text>
-        <NextLink href={link} target="_blank" rel="noopener noreferrer">
+        <NextLink className="mt-auto" href={link} target="_blank" rel="noopener noreferrer">
           <Button className="mt-4" buttonType={"cta"}>
             Learn More
           </Button>
