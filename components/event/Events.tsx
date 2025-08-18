@@ -18,10 +18,11 @@ export interface SideEventProps {
 
 export const Events: React.FC<SideEventProps> = ({ items }) => {
   return (
-    <>
+    <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
       {items.map((item, index) => (
         <Event
           key={index}
+          className="h-[520px] md:h-[560px] lg:h-[600px] xl:h-[640px]"
           title={item.title}
           description={item.description}
           image={item.image}
@@ -30,6 +31,6 @@ export const Events: React.FC<SideEventProps> = ({ items }) => {
           link={item.link}
         />
       ))}
-    </>
+    </div>
   );
 };
