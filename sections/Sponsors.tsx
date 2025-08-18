@@ -28,6 +28,11 @@ const goldSponsors: SponsorData[] = [
     link: "https://www.ledger.com/",
     imageSrc: "/sponsors/ledger_logo.png",
   },
+  {
+    alt: "Base",
+    link: "https://www.base.org/",
+    imageSrc: "/sponsors/base_logo.png",
+  },
 ];
 
 const silverSponsors: SponsorData[] = [
