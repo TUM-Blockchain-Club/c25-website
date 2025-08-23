@@ -22,10 +22,10 @@ type HeaderLink = {
 };
 
 const links: HeaderLink[] = [
-  // { label: "Home", link: "/", showsAtHome: false },
-  { label: "Manifesto", link: "#manifesto", showsAtHome: true },
+  { label: "Home", link: "/", showsAtHome: true },
+  { label: "Manifesto", link: "/#manifesto", showsAtHome: true },
   { label: "Speakers", link: "/speakers", showsAtHome: true },
-  { label: "Sponsors", link: "#sponsors", showsAtHome: true },
+  { label: "Sponsors", link: "/#sponsors", showsAtHome: true },
   { label: "Academic Forum", link: "/academic-forum", showsAtHome: true },
   {
     label: "Apply as Speaker",
@@ -71,18 +71,18 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
         <nav className="flex flex-col gap-8">
           {links.map((link) => {
             // Skip "Home" link if we're already on home page
-            if (link.label === "Home" && pathName === "/") return null;
+            // if (link.label === "Home" && pathName === "/") return null;
 
             // Only show links marked for home page when on home page
-            if (link.link.startsWith("#") && pathName !== "/") return null;
+            // if (link.link.startsWith("#") && pathName !== "/") return null;
 
             // Only show links that should appear on the current page
-            if (
-              link.showsAtHome &&
-              pathName !== "/" &&
-              !link.link.startsWith("/")
-            )
-              return null;
+            // if (
+            //   link.showsAtHome &&
+            //   pathName !== "/" &&
+            //   !link.link.startsWith("/")
+            // )
+            //   return null;
 
             return (
               <Text asChild key={link.label}>
@@ -158,18 +158,18 @@ export const Header = React.forwardRef<HeaderElement, HeaderProps>(
             >
               {links.map((link) => {
                 // Skip "Home" link if we're already on home page
-                if (link.label === "Home" && pathName === "/") return null;
+                // if (link.label === "Home" && pathName === "/") return null;
 
-                // Only show links marked for home page when on home page
-                if (link.link.startsWith("#") && pathName !== "/") return null;
+                // // Only show links marked for home page when on home page
+                // if (link.link.startsWith("#") && pathName !== "/") return null;
 
-                // Only show links that should appear on the current page
-                if (
-                  link.showsAtHome &&
-                  pathName !== "/" &&
-                  !link.link.startsWith("/")
-                )
-                  return null;
+                // // Only show links that should appear on the current page
+                // if (
+                //   link.showsAtHome &&
+                //   pathName !== "/" &&
+                //   !link.link.startsWith("/")
+                // )
+                //   return null;
 
                 return (
                   <Text asChild key={link.label}>
