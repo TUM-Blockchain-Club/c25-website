@@ -34,10 +34,15 @@ export const Event = React.forwardRef<EventElement, EventProps>(
 
     const start = new Date(startTime);
     const end = new Date(endTime);
-    const sameDay =
-      start.getFullYear() === end.getFullYear() &&
-      start.getMonth() === end.getMonth() &&
-      start.getDate() === end.getDate();
+    const berlinDateKey = (date: Date): string =>
+      new Intl.DateTimeFormat("en-CA", {
+        timeZone: "Europe/Berlin",
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+      }).format(date);
+
+    const sameDay = berlinDateKey(start) === berlinDateKey(end);
 
     const berlinDateOptions: Intl.DateTimeFormatOptions = {
       timeZone: "Europe/Berlin",
