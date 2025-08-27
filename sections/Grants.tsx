@@ -28,15 +28,27 @@ const Grants = () => {
         <div className="p-5 w-full flex justify-center items-center md:w-96 flex-col gap-4">
           <Text textType="sub_title">Academic Grant</Text>
           <Text>For all curious learners and educators</Text>
-          <Button disabled className="w-fit">
-            Apply for Academic Grant
+          <Button buttonType={"cta"} asChild className="w-fit">
+            <Link
+              href={"https://tally.so/r/3xqKxJ"}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Apply for Academic Grant
+            </Link>
           </Button>
         </div>
         <div className="p-5 w-full flex justify-center items-center md:w-96 flex-col gap-4">
           <Text textType="sub_title">Builder Grant</Text>
           <Text>For all the innovative trailblazers</Text>
-          <Button disabled className="w-fit">
-            Apply for Builder Grant
+          <Button buttonType={"cta"} asChild className="w-fit">
+            <Link
+              href={"https://tally.so/r/3Njk5W"}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Apply for Builder Grant
+            </Link>
           </Button>
         </div>
         <div className="p-5 w-full flex justify-center items-center flex-col gap-4">
