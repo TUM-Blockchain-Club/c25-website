@@ -1,7 +1,7 @@
 import { Text } from "@/components/text";
 import { Button } from "@/components/button";
 import Image from "next/image";
-import SuiLogo from "@/public/grants/sui-logo-grants.svg";
+import TbcWordmark from "@/public/logos/tbc-wordmark.svg";
 import Link from "next/link";
 
 const Grants = () => {
@@ -55,10 +55,10 @@ const Grants = () => {
           <Text textType="sub_title">Student Travel Grant</Text>
           <Image
             className={"object-cover"}
-            src={SuiLogo}
-            alt={"Sui Logo"}
-            width={100}
-            height={100}
+            src={TbcWordmark}
+            alt={"TUM Blockchain Club"}
+            width={160}
+            height={40}
           />
           <Button className="w-fit" disabled>
             Application Closed
