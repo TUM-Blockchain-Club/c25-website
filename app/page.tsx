@@ -39,6 +39,7 @@ export default function Home() {
                 <Tracks />
                 <Venue />
                 <Tickets />
+                <Grants />
                 <Speaker />
                 <Sponsors />
                 <Partners />
