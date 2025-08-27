@@ -96,6 +96,11 @@ const bronzeSponsors: SponsorData[] = [
     link: "https://zircuit.com/",
     imageSrc: "/sponsors/zircuit_logo.png",
   },
+  {
+    alt: "Giessecke Devrient",
+    link: "https://www.gi-de.com/",
+    imageSrc: "/sponsors/giesecke_devrient_logo.png",
+  },
 ];
 
 // Helper function to chunk an array into groups of specified size
