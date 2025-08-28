@@ -1,5 +1,7 @@
 import Image from "next/image";
 import { Text } from "@/components/text";
+import { Button } from "@/components/button";
+import Link from "next/link";
 
 type Partner = { alt: string; src: string; href?: string };
 
@@ -142,6 +144,12 @@ const Partners = () => {
         </Text>
         <PartnerGrid partners={community} />
       </div>
+
+      <Button buttonType={"primary"} asChild>
+        <Link href={"https://conference24.tum-blockchain.com/"}>
+          Throwback 2024
+        </Link>
+      </Button>
     </section>
   );
 };
