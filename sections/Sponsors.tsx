@@ -102,6 +102,11 @@ const bronzeSponsors: SponsorData[] = [
     imageSrc: "/sponsors/giessecke_devrient_logo.png",
     className: "!p-8",
   },
+  {
+    alt: "Gnosis",
+    link: "https://www.gnosis.io/",
+    imageSrc: "/sponsors/gnosis_logo.png",
+  },
 ];
 
 // Helper function to chunk an array into groups of specified size

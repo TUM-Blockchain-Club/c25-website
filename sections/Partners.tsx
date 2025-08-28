@@ -73,6 +73,7 @@ const Partners = () => {
     { alt: "DroomDroom", src: "/partners/DroomDroom_logo.png" },
     { alt: "TheNewsCrypto", src: "/partners/thenewscrypto_logo.png" },
     { alt: "CryptoNews", src: "/partners/cryptonews_logo.png" },
+    { alt: "Coin Gabbar", src: "/partners/coin_gabbar_logo.png" },
     // { alt: "Web3 Vision", src: "/partners/w3.vision_white.png" },
     // { alt: "Werk1", src: "/partners/werk1.png" },
     // { alt: "BTC Echo", src: "/partners/btc_echo_logo.png" },
