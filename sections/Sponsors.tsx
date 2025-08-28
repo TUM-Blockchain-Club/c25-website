@@ -98,8 +98,9 @@ const bronzeSponsors: SponsorData[] = [
   },
   {
     alt: "Giessecke Devrient",
-    link: "https://www.gi-de.com/",
-    imageSrc: "/sponsors/giesecke_devrient_logo.png",
+    link: "https://www.giessecke-devrient.com/",
+    imageSrc: "/sponsors/giessecke_devrient_logo.png",
+    className: "!p-8",
   },
 ];
 
