@@ -164,6 +164,40 @@ export const Ticket = React.forwardRef<TicketElement, TicketProps>(
                 </div>
               </div>
               <Text textType={"paragraph"} className="ml-2 text-[#DE9E31]">
+                Opening Aperitivo Access (B2B)
+                <br />
+              </Text>
+            </div>
+            <div className="flex items-center">
+              <div>
+                <div className="w-[14px] h-[14x]">
+                  <Image
+                    className={"object-cover"}
+                    src={"/assets/check_gold.png"}
+                    alt={"check"}
+                    width={100}
+                    height={100}
+                  />
+                </div>
+              </div>
+              <Text textType={"paragraph"} className="ml-2 text-[#DE9E31]">
+                Food and drinks for both days
+                <br />
+              </Text>
+            </div>
+            <div className="flex items-center">
+              <div>
+                <div className="w-[14px] h-[14x]">
+                  <Image
+                    className={"object-cover"}
+                    src={"/assets/check_gold.png"}
+                    alt={"check"}
+                    width={100}
+                    height={100}
+                  />
+                </div>
+              </div>
+              <Text textType={"paragraph"} className="ml-2 text-[#DE9E31]">
                 VIP-Speaker Lounge
                 <br />
               </Text>
