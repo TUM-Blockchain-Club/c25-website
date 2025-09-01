@@ -1,5 +1,5 @@
 import axios from "axios";
-import fs from "fs";
+// import fs from "fs";
 import path from "path";
 
 //  {
@@ -13,22 +13,22 @@ import path from "path";
 //     backgroundImg: "/side-events/pre-event.jpg",
 //   },
 
-export const Tracks = [
-  "Education Track",
-  "Application Track",
-  "Research Track",
-  "Regulation Track",
-  "Ecosystem Track",
-  "Academic Track",
-] as const;
+// export const Tracks = [
+//   "Education Track",
+//   "Application Track",
+//   "Research Track",
+//   "Regulation Track",
+//   "Ecosystem Track",
+//   "Academic Track",
+// ] as const;
 
-export const Stages = [
-  "Dome Stage",
-  "Tech Stage",
-  "Forum Stage",
-  "Research Stage",
-  "Workshop Stage",
-] as const;
+// export const Stages = [
+//   "Dome Stage",
+//   "Tech Stage",
+//   "Forum Stage",
+//   "Research Stage",
+//   "Workshop Stage",
+// ] as const;
 
 export interface SpeakerItem {
   name: string;
@@ -107,19 +107,6 @@ export interface SideEvent {
   updatedAt: string;
   publishedAt: string;
   image?: ProfilePicture | null;
-}
-
-export interface Session {
-  title: string;
-  track?: (typeof Tracks)[number];
-  type?: "Workshop" | "Panel Discussion" | "Talk";
-  startTime: string;
-  endTime: string;
-  room: (typeof Stages)[number];
-  description: string;
-  speakers?: Speaker[];
-  isSpecialSession?: boolean;
-  registrationLink?: string;
 }
 
 export default Speaker;
@@ -305,5 +292,71 @@ const downloadSideEventImage = async (event: SideEvent) => {
       `Error downloading image for side event ${event.title}:`,
       error,
     );
+  }
+};
+
+export const Tracks = [
+  "Application",
+  "Ecosystem",
+  "Education",
+  "Research",
+  "Regulation",
+  "Sub Events",
+  "TUM Blockchain Club",
+] as const;
+
+export const Stages = ["Stage 1", "Stage 2", "Stage 3"] as const;
+
+export interface Session {
+  id: number;
+  documentId: string;
+  title: string;
+  track?: (typeof Tracks)[number] | null;
+  type?: "Workshop" | "Panel Discussion" | "Talk" | null;
+  startTime: string;
+  endTime: string;
+  room: (typeof Stages)[number];
+  description?: string | null;
+  speakers?: Record<string, string> | null;
+  isSpecialSession?: boolean | null;
+  registrationLink?: string | null;
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string;
+}
+
+export const fetchSessions = async (): Promise<Session[]> => {
+  const token = process.env.STRAPI_API_TOKEN;
+  if (!token) {
+    console.warn("STRAPI_API_TOKEN missing; returning empty sessions list");
+    return [];
+  }
+
+  try {
+    const sessions: Session[] = [];
+    let hasMore = true;
+    let page = 1;
+
+    do {
+      const res = await axios.get(
+        `https://strapi.rbg.tum-blockchain.com/api/agenda-25s?sort=startTime:asc&pagination[page]=${page}&pagination[pageSize]=25`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        },
+      );
+
+      const pageData: Session[] = res.data.data;
+      sessions.push(...pageData);
+
+      hasMore =
+        res.data.meta.pagination.page < res.data.meta.pagination.pageCount;
+      page++;
+      console.log(`Fetched ${sessions.length} sessions so far...`);
+    } while (hasMore);
+
+    return sessions;
+  } catch (err) {
+    console.error("Error fetching sessions from Strapi:", err);
+    return [];
   }
 };

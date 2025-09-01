@@ -4,10 +4,11 @@ import * as Select from "@/components/select/Select";
 import { Session as SessionComponent } from "@/components/session";
 import { Text } from "@/components/text";
 import { Toggle } from "@/components/toggle";
-import { Session, Stages, Tracks } from "@/model/session";
+// import { Session, Stages, Tracks } from "@/model/session";
 import * as Separator from "@radix-ui/react-separator";
 import classNames from "classnames";
 import React, { useState } from "react";
+import { Session, Stages, Tracks } from "@/components/service/contentStrapi";
 
 type AgendaProps = { sessions: Session[] };
 
@@ -158,12 +159,12 @@ export const Agenda: React.FC<AgendaProps> = ({ sessions }) => {
                       <span
                         className={classNames(
                           "inline-block w-3 h-3 rounded-full mr-2",
-                          track === "Education Track" && "bg-green-400",
-                          track === "Research Track" && "bg-yellow-400",
-                          track === "Ecosystem Track" && "bg-blue-400",
-                          track === "Regulation Track" && "bg-red-400",
-                          track === "Academic Track" && "bg-purple-400",
-                          track === "Application Track" && "bg-teal-400",
+                          track === "Education" && "bg-green-400",
+                          track === "Research" && "bg-yellow-400",
+                          track === "Ecosystem" && "bg-blue-400",
+                          track === "Regulation" && "bg-red-400",
+                          // track === "Academic" && "bg-purple-400",
+                          track === "Application" && "bg-teal-400",
                         )}
                       />
                       {track}
@@ -177,32 +178,68 @@ export const Agenda: React.FC<AgendaProps> = ({ sessions }) => {
       </div>
       <div id="sessions" className="flex w-full flex-col gap-y-4">
         <div className="flex w-full flex-col items-center md:items-start">
-          {filteredSessions?.map((item, index) => (
-            <>
-              {
-                // Add divider when there is they change
-                index > 0 &&
-                  new Date(filteredSessions[index - 1].startTime).getDate() <
-                    new Date(item.startTime).getDate() && (
-                    <Separator.Root
-                      attr-text={new Date(item.startTime).toLocaleDateString(
-                        "en-DE",
-                        {
-                          weekday: "long",
-                          timeZone: "Europe/Berlin",
-                        },
-                      )}
-                      className={classNames(
-                        "h-px my-16 bg-gradient-tbc w-full text-center overflow-visible",
-                        "after:bg-black after:px-4 after:relative after:-top-[0.75em]",
-                        "after:content-[attr(attr-text)]",
-                      )}
-                    />
-                  )
-              }
-              <SessionComponent session={item} key={index} />
-            </>
-          ))}
+          {filteredSessions?.map((item, index) => {
+            // --- Warnings if Strapi data is missing ---
+            if (!item.title) {
+              console.warn(
+                `⚠️ Session at index ${index} is missing a title`,
+                item,
+              );
+            }
+            if (!item.startTime || !item.endTime) {
+              console.warn(
+                `⚠️ Session "${item.title ?? "?"}" has no start or end time`,
+                item,
+              );
+            }
+            if (!item.room) {
+              console.warn(
+                `⚠️ Session "${item.title ?? "?"}" has no room assigned`,
+                item,
+              );
+            }
+            if (!item.track) {
+              console.warn(
+                `⚠️ Session "${item.title ?? "?"}" has no track assigned`,
+                item,
+              );
+            }
+            if (!item.speakers || Object.keys(item.speakers).length === 0) {
+              console.warn(
+                `⚠️ Session "${item.title ?? "?"}" has no speakers`,
+                item,
+              );
+            }
+            // -----------------------------------------
+
+            return (
+              <React.Fragment key={index}>
+                {
+                  // Divider between days
+                  index > 0 &&
+                    new Date(filteredSessions[index - 1].startTime).getDate() <
+                      new Date(item.startTime).getDate() && (
+                      <Separator.Root
+                        attr-text={new Date(item.startTime).toLocaleDateString(
+                          "en-DE",
+                          {
+                            weekday: "long",
+                            timeZone: "Europe/Berlin",
+                          },
+                        )}
+                        className={classNames(
+                          "h-px my-16 bg-gradient-tbc w-full text-center overflow-visible",
+                          "after:bg-black after:px-4 after:relative after:-top-[0.75em]",
+                          "after:content-[attr(attr-text)]",
+                        )}
+                      />
+                    )
+                }
+                <SessionComponent session={item} />
+              </React.Fragment>
+            );
+          })}
+
           {filteredSessions?.length === 0 && (
             <Text className="text-gray-500">
               There is no session with that filter :(
