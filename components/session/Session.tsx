@@ -2,7 +2,12 @@
 
 import { Button } from "@/components/button";
 import { Text } from "@/components/text";
-import { Session as SessionModel } from "@/model/session";
+import {
+  Session as SessionModel,
+  SpeakerItem,
+  fetchSpeakers,
+} from "@/components/service/contentStrapi";
+// import { Session as SessionModel } from '@/model/session';
 import { ClockIcon, SewingPinIcon } from "@radix-ui/react-icons";
 
 import classNames from "classnames";
@@ -10,11 +15,12 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useRef, useState } from "react";
 import { contentfulImageLoader } from "@/util/contentfulImageLoader";
-import { Clock, MapPin, Bell } from "lucide-react";
+import { Clock, MapPin } from "lucide-react";
 export type SessionElement = React.ElementRef<"div">;
 export type SessionProps = React.ComponentPropsWithoutRef<"div"> & {
   session: SessionModel;
 };
+import { useSpeaker } from "@/hooks/useSpeaker";
 
 export const Session = React.forwardRef<SessionElement, SessionProps>(
   (props, ref) => {
@@ -23,6 +29,7 @@ export const Session = React.forwardRef<SessionElement, SessionProps>(
     const [isLineClampClamped, setIsLineClampClamped] =
       useState<boolean>(false);
     const lineClampRef = useRef<HTMLParagraphElement>(null);
+    const [active, setActive] = useState(false);
 
     useEffect(() => {
       const checkLineClamping = () => {
@@ -49,6 +56,29 @@ export const Session = React.forwardRef<SessionElement, SessionProps>(
       endTime: new Date(session.endTime),
     };
 
+    const [allSpeakers, setAllSpeakers] = useState<SpeakerItem[]>([]);
+
+    useEffect(() => {
+      // fetch all speakers once when the component mounts
+      useSpeaker()
+        .then((speakers) => {
+          // Map Speaker[] to SpeakerItem[]
+          const speakerItems: SpeakerItem[] = speakers.map((sp: any) => ({
+            ...sp,
+            profile_photo: sp.profile_photo || "",
+            company_name: sp.company_name || "",
+          }));
+          setAllSpeakers(speakerItems);
+        })
+        .catch((err) => {
+          console.error("Failed to load speakers for Session component", err);
+        });
+    }, []);
+
+    const speakerMap = new Map(
+      allSpeakers.map((sp) => [sp.name.toLowerCase().trim(), sp]),
+    );
+
     return (
       <div
         {...divProps}
@@ -56,12 +86,12 @@ export const Session = React.forwardRef<SessionElement, SessionProps>(
           className,
           "border w-full flex p-4 flex-col gap-4 bg-gradient-to-b from-black bg-opacity-60",
           {
-            "to-[#14532d]/60": session.track === "Education Track", // Dark forest green
-            "to-[#665200]/60": session.track === "Research Track", // Deep gold-brown
-            "to-[#1e3a8a]/40": session.track === "Ecosystem Track", // Deep blue (Tailwind blue-900)
-            "to-[#4c0608]/60": session.track === "Regulation Track", // Deep red / oxblood
-            "to-[#1a012e]": session.track === "Academic Track", // Very dark purple
-            "to-[#134e4a]/60": session.track === "Application Track", // Teal-950 (deep cyan-green)
+            "to-[#14532d]/60": session.track === "Education", // Dark forest green
+            "to-[#665200]/60": session.track === "Research", // Deep gold-brown
+            "to-[#1e3a8a]/40": session.track === "Ecosystem", // Deep blue (Tailwind blue-900)
+            "to-[#4c0608]/60": session.track === "Regulation", // Deep red / oxblood
+            // 'to-[#1a012e]': session.track === 'Academic', // Very dark purple
+            "to-[#134e4a]/60": session.track === "Application", // Teal-950 (deep cyan-green)
           },
         )}
         ref={ref}
@@ -102,25 +132,25 @@ export const Session = React.forwardRef<SessionElement, SessionProps>(
                   className={classNames(
                     "border rounded-[5px] h-fit col-start-2",
                     {
-                      "border-green-400": session.track === "Education Track",
-                      "border-yellow-400": session.track === "Research Track",
-                      "border-blue-400": session.track === "Ecosystem Track",
-                      "border-amber": session.track === "Research Track",
-                      "border-[#F87171]": session.track === "Regulation Track",
-                      "border-[#c084fc]": session.track === "Academic Track",
-                      "border-teal-400": session.track === "Application Track",
+                      "border-green-400": session.track === "Education",
+                      "border-yellow-400": session.track === "Research",
+                      "border-blue-400": session.track === "Ecosystem",
+                      "border-amber": session.track === "Research",
+                      "border-[#F87171]": session.track === "Regulation",
+                      // 'border-[#c084fc]': session.track === 'Academic',
+                      "border-teal-400": session.track === "Application",
                     },
                   )}
                 >
                   <Text
                     textType={"small"}
                     className={classNames({
-                      "text-[#bbf7d0]": session.track === "Education Track", // Light mint green
-                      "text-[#fef08a]": session.track === "Research Track", // Soft yellow
-                      "text-[#bfdbfe]": session.track === "Ecosystem Track", // Light blue
-                      "text-[#fca5a5]": session.track === "Regulation Track", // Light red
-                      "text-[#E9D5FF]": session.track === "Academic Track", // Lavender
-                      "text-[#99f6e4]": session.track === "Application Track", // Light teal
+                      "text-[#bbf7d0]": session.track === "Education", // Light mint green
+                      "text-[#fef08a]": session.track === "Research", // Soft yellow
+                      "text-[#bfdbfe]": session.track === "Ecosystem", // Light blue
+                      "text-[#fca5a5]": session.track === "Regulation", // Light red
+                      // 'text-[#E9D5FF]': session.track === 'Academic', // Lavender
+                      "text-[#99f6e4]": session.track === "Application", // Light teal
                     })}
                   >
                     {session.track}
@@ -157,7 +187,28 @@ export const Session = React.forwardRef<SessionElement, SessionProps>(
               </Text>
             </div>
             <div>
-              <Bell className="text-white" />
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                className="text-white cursor-pointer select-none"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                onClick={() => setActive(!active)}
+              >
+                {active && (
+                  <path
+                    d="M6 9a6 6 0 0 1 12 0c0 3.93 1.02 5.3 2.28 6.62A1 1 0 0 1 20 17H4a1 1 0 0 1-.28-1.38C5.02 14.3 6 12.93 6 9Z"
+                    fill="currentColor"
+                  />
+                )}
+                <path d="M10.268 21a2 2 0 0 0 3.464 0" />
+                <path d="M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326" />
+              </svg>
             </div>
           </div>
         </div>
@@ -175,14 +226,14 @@ export const Session = React.forwardRef<SessionElement, SessionProps>(
             <Text
               onClick={() => setClamped(!clamped)}
               className={classNames("cursor-pointer", {
-                "text-green-400": session.track === "Education Track",
+                "text-green-400": session.track === "Education",
                 "text-yellow-400":
-                  session.track === "Research Track" || !session.track,
-                "text-blue-400": session.track === "Ecosystem Track",
-                "text-orange-400": session.track === "Research Track",
-                "text-red-400": session.track === "Regulation Track",
-                "text-[#E9D5FF]": session.track === "Academic Track",
-                "text-teal-400": session.track === "Application Track",
+                  session.track === "Research" || !session.track,
+                "text-blue-400": session.track === "Ecosystem",
+                "text-orange-400": session.track === "Research",
+                "text-red-400": session.track === "Regulation",
+                // 'text-[#E9D5FF]': session.track === 'Academic',
+                "text-teal-400": session.track === "Application",
               })}
             >
               {clamped ? "Show More" : "Show Less"}
@@ -204,38 +255,46 @@ export const Session = React.forwardRef<SessionElement, SessionProps>(
         </div>
         <div className="flex flex-col gap-2">
           <div>
-            Speaker{session.speakers && session.speakers.length > 1 && "s"}:
+            Speaker
+            {session.speakers &&
+              Object.keys(session.speakers).length > 1 &&
+              "s"}
+            :
           </div>
           <div className="grid md:grid-cols-2 gap-2">
-            {session.speakers &&
-              session.speakers.map((speaker, index) => (
-                <>
+            {session.speakers && Object.keys(session.speakers).length > 0 ? (
+              Object.values(session.speakers).map((name, index) => {
+                const details = speakerMap.get(name.toLowerCase().trim());
+                console.log("Looking for:", name.toLowerCase().trim());
+                console.log(
+                  "Available speaker keys:",
+                  Array.from(speakerMap.keys()),
+                );
+
+                return (
                   <div className="flex gap-2 items-start" key={index}>
-                    {speaker.profilePhoto && (
-                      <Link href={speaker.url || "#"}>
+                    {/* Show profile photo if found */}
+                    {details?.profile_photo && (
+                      <Link href={details.url || "#"}>
                         <Image
-                          src={speaker.profilePhoto}
-                          loader={
-                            speaker.profilePhoto
-                              ? contentfulImageLoader
-                              : undefined
-                          }
-                          alt={speaker.name}
+                          src={details.profile_photo}
+                          loader={contentfulImageLoader}
+                          alt={details.name}
                           width={48}
                           height={48}
                         />
                       </Link>
                     )}
                     <div className="flex flex-col max-w-48">
-                      <Text key={index} className="break-words hyphens-auto">{speaker.name}</Text>
-                      <Text key={index} textType="small">
-                        {speaker.description}
-                      </Text>
+                      <Text>{details?.name || name}</Text>
+                      {details?.description && (
+                        <Text textType="small">{details.description}</Text>
+                      )}
                     </div>
                   </div>
-                </>
-              ))}
-            {(!session.speakers || session.speakers.length === 0) && (
+                );
+              })
+            ) : (
               <Text>Coming soon...</Text>
             )}
           </div>
