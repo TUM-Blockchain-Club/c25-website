@@ -8,15 +8,27 @@ import { Toggle } from "@/components/toggle";
 import * as Separator from "@radix-ui/react-separator";
 import classNames from "classnames";
 import React, { useState } from "react";
-import { Session, Stages, Tracks } from "@/components/service/contentStrapi";
+import {
+  Session,
+  Stages,
+  Tracks,
+  Speaker,
+} from "@/components/service/contentStrapi_static";
 
-type AgendaProps = { sessions: Session[] };
+type AgendaProps = { sessions: Session[]; speakers: Speaker[] };
 
-export const Agenda: React.FC<AgendaProps> = ({ sessions }) => {
+export const Agenda: React.FC<AgendaProps> = ({ sessions, speakers }) => {
   const [titleFilter, setTitleFilter] = useState<string>("");
   const [dayFilter, setDayFilter] = useState<Date>();
   const [trackFilter, setTrackFilter] = useState<Session["track"] & "all">();
   const [stageFilter, setStageFilter] = useState<Session["room"] & "all">();
+
+  const stageDisplayNames: Record<string, string> = {
+    "Stage 1": "Turing Stage",
+    "Stage 2": "Hopper Stage",
+    "Stage 3": "Nakamoto Stage",
+    "Stage 4": "Lovelace Room",
+  };
 
   function isSameDay(d1: Date, d2: Date) {
     return (
@@ -127,7 +139,7 @@ export const Agenda: React.FC<AgendaProps> = ({ sessions }) => {
                   <Select.Item value={"all"}>Any Stage</Select.Item>
                   {Stages.map((stage, index) => (
                     <Select.Item value={stage} key={index}>
-                      {stage}
+                      {stageDisplayNames[stage] || stage}
                     </Select.Item>
                   ))}
                 </Select.Content>
@@ -235,7 +247,7 @@ export const Agenda: React.FC<AgendaProps> = ({ sessions }) => {
                       />
                     )
                 }
-                <SessionComponent session={item} />
+                <SessionComponent session={item} speakers={speakers} />
               </React.Fragment>
             );
           })}

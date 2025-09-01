@@ -5,10 +5,12 @@ import { Container } from "@/components/container";
 import { Text } from "@/components/text";
 import { useSession } from "@/hooks/useSession";
 import { Session, Stages, Tracks } from "@/model/session";
-import { fetchSessions } from "@/components/service/contentStrapi";
+import { fetchSessions } from "@/components/service/contentStrapi_static";
+import { fetchSpeakers } from "@/components/service/contentStrapi";
 
 const AgendaPage = async () => {
   const sessions = await fetchSessions();
+  const speakers = await fetchSpeakers();
 
   return (
     <div className={"flex justify-center"}>
@@ -24,7 +26,7 @@ const AgendaPage = async () => {
               </Text>
             </div>
           </div>
-          <Agenda sessions={sessions} />
+          <Agenda sessions={sessions} speakers={speakers} />
         </Container>
       </main>
     </div>

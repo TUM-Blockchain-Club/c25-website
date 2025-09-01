@@ -4,10 +4,8 @@ import { Button } from "@/components/button";
 import { Text } from "@/components/text";
 import {
   Session as SessionModel,
-  SpeakerItem,
-  fetchSpeakers,
-} from "@/components/service/contentStrapi";
-// import { Session as SessionModel } from '@/model/session';
+  Speaker,
+} from "@/components/service/contentStrapi_static";
 import { ClockIcon, SewingPinIcon } from "@radix-ui/react-icons";
 
 import classNames from "classnames";
@@ -19,12 +17,12 @@ import { Clock, MapPin } from "lucide-react";
 export type SessionElement = React.ElementRef<"div">;
 export type SessionProps = React.ComponentPropsWithoutRef<"div"> & {
   session: SessionModel;
+  speakers: Speaker[];
 };
-import { useSpeaker } from "@/hooks/useSpeaker";
 
 export const Session = React.forwardRef<SessionElement, SessionProps>(
   (props, ref) => {
-    const { session, className, ...divProps } = props;
+    const { session, speakers, className, ...divProps } = props;
     const [clamped, setClamped] = useState<boolean>(true);
     const [isLineClampClamped, setIsLineClampClamped] =
       useState<boolean>(false);
@@ -56,27 +54,8 @@ export const Session = React.forwardRef<SessionElement, SessionProps>(
       endTime: new Date(session.endTime),
     };
 
-    const [allSpeakers, setAllSpeakers] = useState<SpeakerItem[]>([]);
-
-    useEffect(() => {
-      // fetch all speakers once when the component mounts
-      useSpeaker()
-        .then((speakers) => {
-          // Map Speaker[] to SpeakerItem[]
-          const speakerItems: SpeakerItem[] = speakers.map((sp: any) => ({
-            ...sp,
-            profile_photo: sp.profile_photo || "",
-            company_name: sp.company_name || "",
-          }));
-          setAllSpeakers(speakerItems);
-        })
-        .catch((err) => {
-          console.error("Failed to load speakers for Session component", err);
-        });
-    }, []);
-
     const speakerMap = new Map(
-      allSpeakers.map((sp) => [sp.name.toLowerCase().trim(), sp]),
+      speakers.map((sp) => [sp.name.toLowerCase().trim(), sp]),
     );
 
     return (
@@ -162,7 +141,17 @@ export const Session = React.forwardRef<SessionElement, SessionProps>(
           <div className="flex gap-x-8 flex-col md:flex-row">
             <div className="flex items-center gap-1">
               <MapPin className="text-white" />
-              <Text>{session.room}</Text>
+              <Text>
+                {session.room === "Stage 1"
+                  ? "Turing Stage"
+                  : session.room === "Stage 2"
+                    ? "Hopper Stage"
+                    : session.room === "Stage 3"
+                      ? "Nakamoto Stage"
+                      : session.room === "Stage 4"
+                        ? "Lovelace Room"
+                        : session.room}
+              </Text>
             </div>
             <div className="flex items-center gap-1">
               <Clock className="text-white" />
@@ -265,11 +254,11 @@ export const Session = React.forwardRef<SessionElement, SessionProps>(
             {session.speakers && Object.keys(session.speakers).length > 0 ? (
               Object.values(session.speakers).map((name, index) => {
                 const details = speakerMap.get(name.toLowerCase().trim());
-                console.log("Looking for:", name.toLowerCase().trim());
-                console.log(
-                  "Available speaker keys:",
-                  Array.from(speakerMap.keys()),
-                );
+                // console.log("Looking for:", name.toLowerCase().trim());
+                // console.log(
+                //   "Available speaker keys:",
+                //   Array.from(speakerMap.keys()),
+                // );
 
                 return (
                   <div className="flex gap-2 items-start" key={index}>
@@ -277,7 +266,7 @@ export const Session = React.forwardRef<SessionElement, SessionProps>(
                     {details?.profile_photo && (
                       <Link href={details.url || "#"}>
                         <Image
-                          src={details.profile_photo}
+                          src={details.profile_photo?.url || ""}
                           loader={contentfulImageLoader}
                           alt={details.name}
                           width={48}
@@ -287,8 +276,10 @@ export const Session = React.forwardRef<SessionElement, SessionProps>(
                     )}
                     <div className="flex flex-col max-w-48">
                       <Text>{details?.name || name}</Text>
-                      {details?.description && (
-                        <Text textType="small">{details.description}</Text>
+                      {details?.position && (
+                        <Text textType="small">
+                          {details.position}, {details.company_name}
+                        </Text>
                       )}
                     </div>
                   </div>
