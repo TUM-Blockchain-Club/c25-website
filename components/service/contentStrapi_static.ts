@@ -61,11 +61,18 @@ export const Tracks = [
   "Education",
   "Research",
   "Regulation",
+  "Workshop",
+  "TUM Blockchain Club",
   //   "Sub Events",
   //   "TUM Blockchain Club",
 ] as const;
 
-export const Stages = ["Stage 1", "Stage 2", "Stage 3"] as const;
+export const Stages = [
+  "Stage 1",
+  "Stage 2",
+  "Stage 3",
+  "Workshop Room",
+] as const;
 
 export interface Session {
   id: number;

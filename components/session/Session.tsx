@@ -69,7 +69,7 @@ export const Session = React.forwardRef<SessionElement, SessionProps>(
             "to-[#665200]/60": session.track === "Research", // Deep gold-brown
             "to-[#1e3a8a]/40": session.track === "Ecosystem", // Deep blue (Tailwind blue-900)
             "to-[#4c0608]/60": session.track === "Regulation", // Deep red / oxblood
-            // 'to-[#1a012e]': session.track === 'Academic', // Very dark purple
+            "to-[#1a012e]": session.track === "Workshop", // Very dark purple
             "to-[#134e4a]/60": session.track === "Application", // Teal-950 (deep cyan-green)
           },
         )}
@@ -116,7 +116,7 @@ export const Session = React.forwardRef<SessionElement, SessionProps>(
                       "border-blue-400": session.track === "Ecosystem",
                       "border-amber": session.track === "Research",
                       "border-[#F87171]": session.track === "Regulation",
-                      // 'border-[#c084fc]': session.track === 'Academic',
+                      "border-[#c084fc]": session.track === "Workshop",
                       "border-teal-400": session.track === "Application",
                     },
                   )}
@@ -128,11 +128,13 @@ export const Session = React.forwardRef<SessionElement, SessionProps>(
                       "text-[#fef08a]": session.track === "Research", // Soft yellow
                       "text-[#bfdbfe]": session.track === "Ecosystem", // Light blue
                       "text-[#fca5a5]": session.track === "Regulation", // Light red
-                      // 'text-[#E9D5FF]': session.track === 'Academic', // Lavender
+                      "text-[#E9D5FF]": session.track === "Workshop", // Lavender
                       "text-[#99f6e4]": session.track === "Application", // Light teal
                     })}
                   >
-                    {session.track}
+                    {session.track === "TUM Blockchain Club"
+                      ? "TBC"
+                      : session.track}
                   </Text>
                 </div>
               )}
@@ -148,7 +150,7 @@ export const Session = React.forwardRef<SessionElement, SessionProps>(
                     ? "Hopper Stage"
                     : session.room === "Stage 3"
                       ? "Nakamoto Stage"
-                      : session.room === "Stage 4"
+                      : session.room === "Workshop Room"
                         ? "Lovelace Room"
                         : session.room}
               </Text>
@@ -221,7 +223,7 @@ export const Session = React.forwardRef<SessionElement, SessionProps>(
                 "text-blue-400": session.track === "Ecosystem",
                 "text-orange-400": session.track === "Research",
                 "text-red-400": session.track === "Regulation",
-                // 'text-[#E9D5FF]': session.track === 'Academic',
+                "text-[#E9D5FF]": session.track === "Workshop",
                 "text-teal-400": session.track === "Application",
               })}
             >
@@ -250,18 +252,13 @@ export const Session = React.forwardRef<SessionElement, SessionProps>(
               "s"}
             :
           </div>
-          <div className="grid md:grid-cols-2 gap-2">
+          <div className="grid md:grid-cols-2 gap-4">
             {session.speakers && Object.keys(session.speakers).length > 0 ? (
               Object.values(session.speakers).map((name, index) => {
                 const details = speakerMap.get(name.toLowerCase().trim());
-                // console.log("Looking for:", name.toLowerCase().trim());
-                // console.log(
-                //   "Available speaker keys:",
-                //   Array.from(speakerMap.keys()),
-                // );
 
                 return (
-                  <div className="flex gap-2 items-start" key={index}>
+                  <div className="flex gap-3 items-center" key={index}>
                     {/* Show profile photo if found */}
                     {details?.profile_photo && (
                       <Link href={details.url || "#"}>
@@ -271,14 +268,23 @@ export const Session = React.forwardRef<SessionElement, SessionProps>(
                           alt={details.name}
                           width={48}
                           height={48}
+                          className="rounded-full object-cover"
                         />
                       </Link>
                     )}
-                    <div className="flex flex-col max-w-48">
-                      <Text>{details?.name || name}</Text>
+                    <div className="flex flex-col max-w-[200px]">
+                      <Text className="font-medium leading-tight">
+                        {details?.name || name}
+                      </Text>
                       {details?.position && (
-                        <Text textType="small">
-                          {details.position}, {details.company_name}
+                        <Text
+                          textType="small"
+                          className="text-gray-300 leading-snug"
+                        >
+                          {details.position}
+                          {details.company_name
+                            ? `, ${details.company_name}`
+                            : ""}
                         </Text>
                       )}
                     </div>

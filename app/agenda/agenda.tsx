@@ -27,8 +27,16 @@ export const Agenda: React.FC<AgendaProps> = ({ sessions, speakers }) => {
     "Stage 1": "Turing Stage",
     "Stage 2": "Hopper Stage",
     "Stage 3": "Nakamoto Stage",
-    "Stage 4": "Lovelace Room",
+    "Workshop Room": "Lovelace Room",
   };
+
+  const STAGE_PRIORITY: Record<string, number> = {
+    "Stage 3": 0, // Nakamoto — highest priority
+    "Stage 1": 1, // Turing
+    "Stage 2": 2, // Hopper
+    "Workshop Room": 3, // Lovelace
+  };
+  const SAME_TIME_WINDOW_MS = 5 * 60 * 1000; // 5 minutes
 
   function isSameDay(d1: Date, d2: Date) {
     return (
@@ -53,6 +61,28 @@ export const Agenda: React.FC<AgendaProps> = ({ sessions, speakers }) => {
         item.title.toLowerCase().includes(titleFilter.trim().toLowerCase());
 
       return matchesDay && matchesTrack && matchesStage && matchesTitle;
+    });
+
+    filteredSessions.sort((a, b) => {
+      const ta = new Date(a.startTime).getTime();
+      const tb = new Date(b.startTime).getTime();
+
+      if (ta !== tb) {
+        // If they're close in time, apply stage priority
+        if (Math.abs(ta - tb) <= SAME_TIME_WINDOW_MS) {
+          const pa = STAGE_PRIORITY[a.room] ?? 99;
+          const pb = STAGE_PRIORITY[b.room] ?? 99;
+          if (pa !== pb) return pa - pb;
+        }
+        return ta - tb;
+      }
+
+      const pa = STAGE_PRIORITY[a.room] ?? 99;
+      const pb = STAGE_PRIORITY[b.room] ?? 99;
+      if (pa !== pb) return pa - pb;
+
+      if (a.room !== b.room) return a.room.localeCompare(b.room);
+      return a.title.localeCompare(b.title);
     });
   }
 
@@ -175,7 +205,7 @@ export const Agenda: React.FC<AgendaProps> = ({ sessions, speakers }) => {
                           track === "Research" && "bg-yellow-400",
                           track === "Ecosystem" && "bg-blue-400",
                           track === "Regulation" && "bg-red-400",
-                          // track === "Academic" && "bg-purple-400",
+                          track === "Workshop" && "bg-purple-400",
                           track === "Application" && "bg-teal-400",
                         )}
                       />
