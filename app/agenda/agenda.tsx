@@ -36,7 +36,7 @@ export const Agenda: React.FC<AgendaProps> = ({ sessions, speakers }) => {
     "Stage 2": 2, // Hopper
     "Workshop Room": 3, // Lovelace
   };
-  const SAME_TIME_WINDOW_MS = 5 * 60 * 1000; // 5 minutes
+  const SAME_TIME_WINDOW_MS = 0 * 60 * 1000; // 5 minutes
 
   function isSameDay(d1: Date, d2: Date) {
     return (
