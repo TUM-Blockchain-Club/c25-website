@@ -192,7 +192,9 @@ export const Agenda: React.FC<AgendaProps> = ({ sessions, speakers }) => {
                 />
                 <Select.Content>
                   <Select.Item value="all">Any Track</Select.Item>
-                  {Tracks.map((track, index) => (
+                  {Tracks.filter(
+                    (track) => track !== "TUM Blockchain Club",
+                  ).map((track, index) => (
                     <Select.Item
                       value={track}
                       key={index}
