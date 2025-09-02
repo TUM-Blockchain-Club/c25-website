@@ -93,6 +93,7 @@ const PRIORITY: string[] = [
   "Sponsors",
   "Academic Forum",
   "Side Events",
+  "Agenda",
   "Apply as Speaker",
 ];
 
