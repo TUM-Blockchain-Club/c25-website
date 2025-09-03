@@ -95,10 +95,10 @@ const Partners = () => {
     { alt: "Kryptosphere", src: "/partners/kryptosphere_logo.png" },
     { alt: "Superteam Germany", src: "/partners/superteam_de_logo.png" },
     // { alt: "Encode Club", src: "/partners/encode_logo.png" },
-    // {
-    //   alt: "Blockchain Bayern e.V.",
-    //   src: "/partners/blockchain_bayern_logo.png",
-    // },
+    {
+      alt: "Blockchain Bayern e.V.",
+      src: "/partners/blockchain_bayern_logo.png",
+    },
     // { alt: "UnternehmerTUM", src: "/partners/UnternehmerTUM.png" },
     // { alt: "BAF", src: "/partners/baf.png" },
     // { alt: "PretzelDAO", src: "/partners/pretzeldao-logo.png" },
