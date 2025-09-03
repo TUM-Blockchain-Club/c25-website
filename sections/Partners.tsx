@@ -99,6 +99,7 @@ const Partners = () => {
       alt: "Blockchain Bayern e.V.",
       src: "/partners/blockchain_bayern_logo.png",
     },
+    { alt: "w3", src: "/partners/w3.png" },
     // { alt: "UnternehmerTUM", src: "/partners/UnternehmerTUM.png" },
     // { alt: "BAF", src: "/partners/baf.png" },
     // { alt: "PretzelDAO", src: "/partners/pretzeldao-logo.png" },
