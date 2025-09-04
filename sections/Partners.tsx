@@ -94,6 +94,7 @@ const Partners = () => {
     { alt: "Frankfurt School", src: "/partners/frankfurt_school_logo.png" },
     { alt: "Kryptosphere", src: "/partners/kryptosphere_logo.png" },
     { alt: "Superteam Germany", src: "/partners/superteam_de_logo.png" },
+    { alt: "Blockchain for Europe", src: "/partners/blockchain_europe_logo.png" },
     // { alt: "Encode Club", src: "/partners/encode_logo.png" },
     {
       alt: "Blockchain Bayern e.V.",
