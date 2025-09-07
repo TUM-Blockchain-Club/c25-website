@@ -34,7 +34,7 @@ const links: HeaderLink[] = [
   // },
   { label: "Side Events", link: "/side-events", showsAtHome: true },
   { label: "Agenda", link: "/agenda", showsAtHome: true },
-  // { label: "Workshops", link: "/workshops", showsAtHome: true },
+  { label: "Workshops", link: "/workshops", showsAtHome: true },
   // { label: "Student Grants", link: "#grants", showsAtHome: true },
   // { label: "FAQ", link: "#faq", showsAtHome: true },
 ];
