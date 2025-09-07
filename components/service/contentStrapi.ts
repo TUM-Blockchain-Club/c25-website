@@ -92,6 +92,21 @@ export interface SideEvent {
   image?: ProfilePicture | null;
 }
 
+export interface Workshop {
+  id: number;
+  documentId: string;
+  title: string;
+  description: string;
+  url: string;
+  backgroundImg: ProfilePicture | null;
+  room: string;
+  starttime: string;
+  endtime: string;
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string;
+}
+
 export default Speaker;
 
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
@@ -273,6 +288,88 @@ const downloadSideEventImage = async (event: SideEvent) => {
   } catch (error) {
     console.error(
       `Error downloading image for side event ${event.title}:`,
+      error,
+    );
+  }
+};
+
+export const fetchWorkshops = async (): Promise<Workshop[]> => {
+  const token = process.env.STRAPI_API_TOKEN;
+  if (!token) {
+    console.warn("STRAPI_API_TOKEN missing; returning empty workshops list");
+    return [];
+  }
+
+  try {
+    const workshops: Workshop[] = [];
+    let hasMore = true;
+    let page = 1;
+    do {
+      const res = await axios.get(
+        `https://strapi.rbg.tum-blockchain.com/api/workshop-25s?sort=starttime:asc&pagination[page]=${page}&pagination[pageSize]=25&populate=backgroundImg`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      );
+      const pageData: Workshop[] = res.data.data;
+      for (const workshop of pageData) {
+        await downloadWorkshopImage(workshop);
+        delay(300);
+      }
+      workshops.push(...pageData);
+      hasMore =
+        res.data.meta.pagination.page < res.data.meta.pagination.pageCount;
+      page = page + 1;
+      console.log(`Fetched ${workshops.length} workshops so far...`);
+    } while (hasMore);
+    return workshops;
+  } catch (err) {
+    console.error("Error fetching workshops from Strapi:", err);
+    return [];
+  }
+};
+
+const downloadWorkshopImage = async (workshop: Workshop) => {
+  if (!workshop.backgroundImg || !workshop.backgroundImg.url) {
+    console.warn(`No background image for workshop: ${workshop.title}`);
+    return;
+  }
+
+  try {
+    const dir = path.join(process.cwd(), "public", "workshops25");
+    if (!fs.existsSync(dir)) {
+      fs.mkdirSync(dir, { recursive: true });
+    }
+
+    const ext = workshop.backgroundImg.ext || ".webp";
+    const fileName = `${workshop.documentId}${ext}`;
+    const filePath = path.join(dir, fileName);
+    if (!fs.existsSync(filePath)) {
+      const res = await axios({
+        url:
+          "https://strapi.rbg.tum-blockchain.com" + workshop.backgroundImg.url,
+        method: "GET",
+        responseType: "stream",
+      });
+      const writer = fs.createWriteStream(filePath);
+      res.data.pipe(writer);
+      await new Promise<void>((resolve, reject) => {
+        writer.on("finish", () => resolve());
+        writer.on("error", reject);
+      });
+      console.log(
+        `Downloaded workshop image for ${workshop.title} to ${filePath}`,
+      );
+      const publicUrl = `/workshops25/${fileName}`;
+      workshop.backgroundImg.url = publicUrl;
+    } else {
+      workshop.backgroundImg.url = `/workshops25/${fileName}`;
+    }
+  } catch (error) {
+    console.error(
+      `Error downloading image for workshop ${workshop.title}:`,
       error,
     );
   }

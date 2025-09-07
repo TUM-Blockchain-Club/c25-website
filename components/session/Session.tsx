@@ -11,7 +11,7 @@ import { ClockIcon, SewingPinIcon } from "@radix-ui/react-icons";
 import classNames from "classnames";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState, useLayoutEffect } from "react";
 import { contentfulImageLoader } from "@/util/contentfulImageLoader";
 import { Clock, MapPin } from "lucide-react";
 export type SessionElement = React.ElementRef<"div">;
@@ -27,32 +27,50 @@ export const Session = React.forwardRef<SessionElement, SessionProps>(
     const [isLineClampClamped, setIsLineClampClamped] =
       useState<boolean>(false);
     const lineClampRef = useRef<HTMLParagraphElement>(null);
-    const [active, setActive] = useState(false);
-
-    useEffect(() => {
-      const checkLineClamping = () => {
-        if (lineClampRef.current) {
-          const lineClampElement = lineClampRef.current;
-          setIsLineClampClamped(
-            lineClampElement.scrollHeight > lineClampElement.clientHeight,
-          );
-        }
-      };
-
-      checkLineClamping();
-
-      // Re-check on window resize
-      window.addEventListener("resize", checkLineClamping);
-
-      return () => {
-        window.removeEventListener("resize", checkLineClamping);
-      };
-    }, [lineClampRef]);
 
     const { startTime, endTime } = {
       startTime: new Date(session.startTime),
       endTime: new Date(session.endTime),
     };
+
+    const LINES = 3; // number of lines to clamp to
+
+    useLayoutEffect(() => {
+      const measure = () => {
+        const el = lineClampRef.current;
+        if (!el) return;
+
+        // remember whether the clamp class is applied
+        const hadClamp = el.classList.contains(`line-clamp-${LINES}`);
+
+        // temporarily disable clamping to get the real height
+        el.classList.remove(`line-clamp-${LINES}`);
+        el.classList.add("line-clamp-none");
+
+        const cs = window.getComputedStyle(el);
+        const lineHeight = parseFloat(cs.lineHeight);
+        const fullHeight = el.getBoundingClientRect().height;
+        const maxHeight = lineHeight * LINES;
+
+        // restore original class
+        el.classList.remove("line-clamp-none");
+        if (hadClamp) el.classList.add(`line-clamp-${LINES}`);
+
+        setIsLineClampClamped(fullHeight > maxHeight + 0.5);
+      };
+
+      // measure now and on the next frame (in case layout settles)
+      measure();
+      const raf = requestAnimationFrame(measure);
+
+      const onResize = () => measure();
+      window.addEventListener("resize", onResize);
+
+      return () => {
+        cancelAnimationFrame(raf);
+        window.removeEventListener("resize", onResize);
+      };
+    }, []);
 
     const speakerMap = new Map(
       speakers.map((sp) => [sp.name.toLowerCase().trim(), sp]),
@@ -63,14 +81,15 @@ export const Session = React.forwardRef<SessionElement, SessionProps>(
         {...divProps}
         className={classNames(
           className,
-          "border w-full flex p-4 flex-col gap-4 bg-gradient-to-b from-black bg-opacity-60",
+          "border w-full flex p-4 flex-col gap-4 bg-gradient-to-b bg-opacity-60 from-black from-0% via-black via-30% ",
           {
-            "to-[#14532d]/60": session.track === "Education", // Dark forest green
-            "to-[#665200]/60": session.track === "Research", // Deep gold-brown
-            "to-[#1e3a8a]/40": session.track === "Ecosystem", // Deep blue (Tailwind blue-900)
-            "to-[#4c0608]/60": session.track === "Regulation", // Deep red / oxblood
-            "to-[#1a012e]": session.track === "Workshop", // Very dark purple
-            "to-[#134e4a]/60": session.track === "Application", // Teal-950 (deep cyan-green)
+            "to-[#06b6d4]/40 to-100%": session.track === "Application", // Cyan
+            "to-[#1e3a8a]/40 to-100%": session.track === "Ecosystem", // Blue
+            "to-[#15803d]/40 to-100%": session.track === "Education", // Green
+            "to-[#7a6a00]/50 to-100%": session.track === "Research", // Olive / brass
+            "to-[#b91c1c]/40 to-100%": session.track === "Regulation", // Red
+            "to-[#7c3aed]/30 to-100%": session.track === "Workshop", // Purple
+            "to-[#f97316]/30 to-100%": session.track === "Academic Forum", // Orange
           },
         )}
         ref={ref}
@@ -111,30 +130,30 @@ export const Session = React.forwardRef<SessionElement, SessionProps>(
                   className={classNames(
                     "border rounded-[5px] h-fit col-start-2",
                     {
-                      "border-green-400": session.track === "Education",
-                      "border-yellow-400": session.track === "Research",
-                      "border-blue-400": session.track === "Ecosystem",
-                      "border-amber": session.track === "Research",
-                      "border-[#F87171]": session.track === "Regulation",
-                      "border-[#c084fc]": session.track === "Workshop",
-                      "border-teal-400": session.track === "Application",
+                      "border-[#22d3ee]": session.track === "Application", // Lighter cyan
+                      "border-[#60a5fa]": session.track === "Ecosystem", // Lighter blue
+                      "border-[#4ade80]": session.track === "Education", // Lighter green
+                      "border-[#fde047]": session.track === "Research", // Lighter yellow
+                      "border-[#f87171]": session.track === "Regulation", // Lighter red
+                      "border-[#c4b5fd]": session.track === "Workshop", // Lighter purple
+                      "border-[#fdba74]": session.track === "Academic Forum", // Lighter orange
+                      "gradient-border": session.track === "TBC'25", // Gradient for TBC
                     },
                   )}
                 >
                   <Text
                     textType={"small"}
                     className={classNames({
-                      "text-[#bbf7d0]": session.track === "Education", // Light mint green
-                      "text-[#fef08a]": session.track === "Research", // Soft yellow
-                      "text-[#bfdbfe]": session.track === "Ecosystem", // Light blue
-                      "text-[#fca5a5]": session.track === "Regulation", // Light red
-                      "text-[#E9D5FF]": session.track === "Workshop", // Lavender
-                      "text-[#99f6e4]": session.track === "Application", // Light teal
+                      "text-[#22d3ee]": session.track === "Application", // Lighter cyan
+                      "text-[#60a5fa]": session.track === "Ecosystem", // Lighter blue
+                      "text-[#4ade80]": session.track === "Education", // Lighter green
+                      "text-[#fde047]": session.track === "Research", // Lighter yellow
+                      "text-[#f87171]": session.track === "Regulation", // Lighter red
+                      "text-[#c4b5fd]": session.track === "Workshop", // Lighter purple
+                      "text-[#fdba74]": session.track === "Academic Forum", // Lighter orange
                     })}
                   >
-                    {session.track === "TUM Blockchain Club"
-                      ? "TBC"
-                      : session.track}
+                    {session.track}
                   </Text>
                 </div>
               )}
@@ -266,9 +285,10 @@ export const Session = React.forwardRef<SessionElement, SessionProps>(
                           src={details.profile_photo?.url || ""}
                           loader={contentfulImageLoader}
                           alt={details.name}
-                          width={48}
-                          height={48}
+                          width={60}
+                          height={60}
                           className="rounded-full object-cover"
+                          quality={100}
                         />
                       </Link>
                     )}

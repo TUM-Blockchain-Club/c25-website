@@ -27,9 +27,9 @@ export default function PaperSubmission() {
               </div>
             </div>
             <div className="mt-4">
-                <Text textType={"paragraph"}>
+              <Text textType={"paragraph"}>
                 Knowledge Partner: <b>IEEE Blockchain</b>
-                </Text>
+              </Text>
             </div>
             <div className="mt-12">
               <Text textType={"paragraph"}>
@@ -38,12 +38,15 @@ export default function PaperSubmission() {
             </div>
             <div className="mt-2">
               <Text textType={"paragraph"}>
-                <b>Submission Deadline:</b> <del>August 11, 2025 (23:59 CEST)</del> August 20, 2025 (23:59 CEST)
+                <b>Submission Deadline:</b>{" "}
+                <del>August 11, 2025 (23:59 CEST)</del> August 20, 2025 (23:59
+                CEST)
               </Text>
             </div>
             <div className="mt-2">
               <Text textType={"paragraph"}>
-                <b>Acceptance Notification:</b> <del>August 15, 2025</del> August 22, 2025
+                <b>Acceptance Notification:</b> <del>August 15, 2025</del>{" "}
+                August 22, 2025
               </Text>
             </div>
             <div className="mt-2">
@@ -53,7 +56,8 @@ export default function PaperSubmission() {
             </div>
             <div className="mt-2">
               <Text textType={"paragraph"}>
-                <b>Academic Track Date:</b> September 12, 2025
+                <b>Academic Track Date:</b> September 11, 2025; 13:30 - 17:45
+                CEST
               </Text>
             </div>
             <div className="mt-2">
@@ -61,12 +65,8 @@ export default function PaperSubmission() {
                 <b>Venue:</b> House of Communication, Munich, Germany
               </Text>
             </div>
-            <Link
-              href={
-                "https://apply.tum-blockchain.com/r/m6YOrA"
-              }
-            >
-              <Button buttonType={"cta"} className="mt-6">
+            <Link href={"https://apply.tum-blockchain.com/r/m6YOrA"}>
+              <Button buttonType={"cta"} disabled className="mt-6">
                 Submit Abstract
               </Button>
             </Link>
@@ -77,10 +77,24 @@ export default function PaperSubmission() {
             </div>
             <div className="mt-12">
               <Text textType={"paragraph"}>
-                We are delighted to announce the Call for Extended Abstracts for the Academic Forum at the 2025 TUM Blockchain Conference. The Academic Forum is hosted in collaboration with the TUM Chair of Network Architectures and Services. We are happy to have IEEE Blockchain as a Knowledge partner inviting selected works for a submission to IEEE Blockchain Technical Briefs. The selected abstracts will be offered to present their work in form of a short talk and/or a poster presentation.
+                We are delighted to announce the Call for Extended Abstracts for
+                the Academic Forum at the 2025 TUM Blockchain Conference. The
+                Academic Forum is hosted in collaboration with the TUM Chair of
+                Network Architectures and Services. We are happy to have IEEE
+                Blockchain as a Knowledge partner inviting selected works for a
+                submission to IEEE Blockchain Technical Briefs. The selected
+                abstracts will be offered to present their work in form of a
+                short talk and/or a poster presentation.
                 <br />
                 <br />
-                This event invites researchers, academics, and industry professionals to connect and present their latest work in the topics related to the Science of Blockchains. Accepted talks will be showcased through a short presentation at the conference and displayed as posters in the conference area. The posters will remain on display for the entire day of the event, offering an excellent platform for in-depth discussions and networking opportunities.
+                This event invites researchers, academics, and industry
+                professionals to connect and present their latest work in the
+                topics related to the Science of Blockchains. Accepted talks
+                will be showcased through a short presentation at the conference
+                and displayed as posters in the conference area. The posters
+                will remain on display for the entire day of the event, offering
+                an excellent platform for in-depth discussions and networking
+                opportunities.
               </Text>
             </div>
             <div className="mt-20">
@@ -198,12 +212,8 @@ export default function PaperSubmission() {
                 </ul>
               </Text>
             </div>
-            <Link
-              href={
-                "https://apply.tum-blockchain.com/r/m6YOrA"
-              }
-            >
-              <Button buttonType={"cta"} className="mt-6">
+            <Link href={"https://apply.tum-blockchain.com/r/m6YOrA"}>
+              <Button buttonType={"cta"} disabled className="mt-6">
                 Submit Abstract
               </Button>
             </Link>
@@ -212,7 +222,8 @@ export default function PaperSubmission() {
             </div>
             <div className="mt-6">
               <Text textType={"paragraph"}>
-                Abstracts will be reviewed by the listed committee. Accepted papers will be invited to present their work at the conference.
+                Abstracts will be reviewed by the listed committee. Accepted
+                papers will be invited to present their work at the conference.
               </Text>
             </div>
             <div className="mt-12">
@@ -278,10 +289,22 @@ export default function PaperSubmission() {
                   style={{ listStyleType: "circle" }}
                   className="pl-5 space-y-2"
                 >
-                  <li>Jonas Gebele, TUM, Chair of Software Engineering for Business Information Systems</li>
-                  <li>Burak Oez, TUM, Chair of Software Engineering for Business Information Systems</li>
-                  <li>Fabian Stiehle, TUM, Information System Development and Operation</li>
-                  <li>Kilian Glas, TUM, Chair of Network Architectures and Services</li>
+                  <li>
+                    Jonas Gebele, TUM, Chair of Software Engineering for
+                    Business Information Systems
+                  </li>
+                  <li>
+                    Burak Oez, TUM, Chair of Software Engineering for Business
+                    Information Systems
+                  </li>
+                  <li>
+                    Fabian Stiehle, TUM, Information System Development and
+                    Operation
+                  </li>
+                  <li>
+                    Kilian Glas, TUM, Chair of Network Architectures and
+                    Services
+                  </li>
                 </ul>
               </Text>
             </div>
