@@ -28,12 +28,14 @@ export const Agenda: React.FC<AgendaProps> = ({ sessions, speakers }) => {
     "Stage 2": "Hopper Stage",
     "Stage 3": "Nakamoto Stage",
     "Workshop Room": "Lovelace Room",
+    Gern: "Gern",
   };
 
   const STAGE_PRIORITY: Record<string, number> = {
     "Stage 3": 0, // Nakamoto — highest priority
     "Stage 1": 1, // Turing
     "Stage 2": 2, // Hopper
+    Gern: 2, // Gern
     "Workshop Room": 3, // Lovelace
   };
   const SAME_TIME_WINDOW_MS = 0 * 60 * 1000; // 5 minutes
@@ -56,9 +58,38 @@ export const Agenda: React.FC<AgendaProps> = ({ sessions, speakers }) => {
         trackFilter === "all" || !trackFilter || trackFilter === item.track;
       const matchesStage =
         stageFilter === "all" || !stageFilter || stageFilter === item.room;
-      const matchesTitle =
-        !titleFilter.trim() ||
-        item.title.toLowerCase().includes(titleFilter.trim().toLowerCase());
+
+      const q = titleFilter.trim().toLowerCase();
+
+      const speakerTextParts: string[] = [];
+      const rawSpeakers = (item as any).speakers;
+      if (rawSpeakers && typeof rawSpeakers === "object") {
+        speakerTextParts.push(
+          ...Object.keys(rawSpeakers).map((x) => String(x)),
+          ...Object.values(rawSpeakers).map((x) => String(x)),
+        );
+      }
+
+      const searchableChunks = [
+        item.title,
+        (item as any).subtitle,
+        (item as any).description,
+        (item as any).abstract,
+        (item as any).summary,
+        item.track,
+        item.room,
+        ...(Array.isArray((item as any).tags) ? (item as any).tags : []),
+        ...(Array.isArray((item as any).keywords)
+          ? (item as any).keywords
+          : []),
+        ...speakerTextParts,
+      ]
+        .filter(Boolean)
+        .map((x) => String(x).toLowerCase());
+
+      const haystack = searchableChunks.join(" | ");
+
+      const matchesTitle = !q || haystack.includes(q);
 
       return matchesDay && matchesTrack && matchesStage && matchesTitle;
     });
@@ -97,13 +128,13 @@ export const Agenda: React.FC<AgendaProps> = ({ sessions, speakers }) => {
         </Text>
         <div className="flex flex-col gap-2">
           <Text textType={"paragraph"} className="font-bold text-left" as="p">
-            Title
+            Search
           </Text>
           <input
             type="text"
             value={titleFilter}
             onChange={(e) => setTitleFilter(e.target.value)}
-            placeholder="Search agenda titles..."
+            placeholder="Titles, speakers, descriptions…"
             className="w-full rounded-lg text-white border py-2 px-3 bg-black placeholder-gray-500"
           />
         </div>
@@ -209,6 +240,7 @@ export const Agenda: React.FC<AgendaProps> = ({ sessions, speakers }) => {
                           track === "Regulation" && "bg-red-400",
                           track === "Workshop" && "bg-purple-400",
                           track === "Application" && "bg-teal-400",
+                          track === "Academic Forum" && "bg-orange-400",
                         )}
                       />
                       {track}
