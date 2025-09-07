@@ -23,15 +23,15 @@ type HeaderLink = {
 
 const links: HeaderLink[] = [
   { label: "Home", link: "/", showsAtHome: true },
-  { label: "Manifesto", link: "/#manifesto", showsAtHome: true },
+  // { label: "Manifesto", link: "/#manifesto", showsAtHome: true },
   { label: "Speakers", link: "/speakers", showsAtHome: true },
   { label: "Sponsors", link: "/#sponsors", showsAtHome: true },
   { label: "Academic Forum", link: "/academic-forum", showsAtHome: true },
-  {
-    label: "Apply as Speaker",
-    link: "https://tally.so/r/w8EB0o",
-    showsAtHome: true,
-  },
+  // {
+  //   label: "Apply as Speaker",
+  //   link: "https://tally.so/r/w8EB0o",
+  //   showsAtHome: true,
+  // },
   { label: "Side Events", link: "/side-events", showsAtHome: true },
   { label: "Agenda", link: "/agenda", showsAtHome: true },
   // { label: "Workshops", link: "/workshops", showsAtHome: true },
@@ -88,13 +88,14 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
 
 const PRIORITY: string[] = [
   "Home",
-  "Manifesto",
+  // "Manifesto",
   "Speakers",
   "Sponsors",
   "Academic Forum",
   "Side Events",
   "Agenda",
-  "Apply as Speaker",
+  "Workshops",
+  // "Apply as Speaker",
 ];
 
 function NavDesktop({ items }: { items: HeaderLink[] }) {

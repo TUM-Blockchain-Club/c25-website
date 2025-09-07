@@ -37,6 +37,7 @@ export const Agenda: React.FC<AgendaProps> = ({ sessions, speakers }) => {
     "Stage 2": 2, // Hopper
     Gern: 2, // Gern
     "Workshop Room": 3, // Lovelace
+    "Lab lounge": 0, // Lab lounge
   };
   const SAME_TIME_WINDOW_MS = 0 * 60 * 1000; // 5 minutes
 
@@ -223,29 +224,29 @@ export const Agenda: React.FC<AgendaProps> = ({ sessions, speakers }) => {
                 />
                 <Select.Content>
                   <Select.Item value="all">Any Track</Select.Item>
-                  {Tracks.filter(
-                    (track) => track !== "TUM Blockchain Club",
-                  ).map((track, index) => (
-                    <Select.Item
-                      value={track}
-                      key={index}
-                      className="flex items-center gap-2"
-                    >
-                      <span
-                        className={classNames(
-                          "inline-block w-3 h-3 rounded-full mr-2",
-                          track === "Education" && "bg-green-400",
-                          track === "Research" && "bg-yellow-400",
-                          track === "Ecosystem" && "bg-blue-400",
-                          track === "Regulation" && "bg-red-400",
-                          track === "Workshop" && "bg-purple-400",
-                          track === "Application" && "bg-teal-400",
-                          track === "Academic Forum" && "bg-orange-400",
-                        )}
-                      />
-                      {track}
-                    </Select.Item>
-                  ))}
+                  {Tracks.filter((track) => track !== "TBC'25").map(
+                    (track, index) => (
+                      <Select.Item
+                        value={track}
+                        key={index}
+                        className="flex items-center gap-2"
+                      >
+                        <span
+                          className={classNames(
+                            "inline-block w-3 h-3 rounded-full mr-2",
+                            track === "Education" && "bg-green-400",
+                            track === "Research" && "bg-yellow-400",
+                            track === "Ecosystem" && "bg-blue-400",
+                            track === "Regulation" && "bg-red-400",
+                            track === "Workshop" && "bg-purple-400",
+                            track === "Application" && "bg-teal-400",
+                            track === "Academic Forum" && "bg-orange-400",
+                          )}
+                        />
+                        {track}
+                      </Select.Item>
+                    ),
+                  )}
                 </Select.Content>
               </Select.Root>
             </div>

@@ -62,7 +62,7 @@ export const Tracks = [
   "Research",
   "Regulation",
   "Workshop",
-  "TUM Blockchain Club",
+  "TBC'25",
   "Academic Forum",
   //   "Sub Events",
   //   "TUM Blockchain Club",
@@ -74,6 +74,7 @@ export const Stages = [
   "Stage 3",
   "Workshop Room",
   "Gern",
+  "Lab Lounge",
 ] as const;
 
 export interface Session {

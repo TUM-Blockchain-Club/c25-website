@@ -11,7 +11,7 @@ import { ClockIcon, SewingPinIcon } from "@radix-ui/react-icons";
 import classNames from "classnames";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState, useLayoutEffect } from "react";
 import { contentfulImageLoader } from "@/util/contentfulImageLoader";
 import { Clock, MapPin } from "lucide-react";
 export type SessionElement = React.ElementRef<"div">;
@@ -27,32 +27,50 @@ export const Session = React.forwardRef<SessionElement, SessionProps>(
     const [isLineClampClamped, setIsLineClampClamped] =
       useState<boolean>(false);
     const lineClampRef = useRef<HTMLParagraphElement>(null);
-    const [active, setActive] = useState(false);
-
-    useEffect(() => {
-      const checkLineClamping = () => {
-        if (lineClampRef.current) {
-          const lineClampElement = lineClampRef.current;
-          setIsLineClampClamped(
-            lineClampElement.scrollHeight > lineClampElement.clientHeight,
-          );
-        }
-      };
-
-      checkLineClamping();
-
-      // Re-check on window resize
-      window.addEventListener("resize", checkLineClamping);
-
-      return () => {
-        window.removeEventListener("resize", checkLineClamping);
-      };
-    }, [lineClampRef]);
 
     const { startTime, endTime } = {
       startTime: new Date(session.startTime),
       endTime: new Date(session.endTime),
     };
+
+    const LINES = 3; // number of lines to clamp to
+
+    useLayoutEffect(() => {
+      const measure = () => {
+        const el = lineClampRef.current;
+        if (!el) return;
+
+        // remember whether the clamp class is applied
+        const hadClamp = el.classList.contains(`line-clamp-${LINES}`);
+
+        // temporarily disable clamping to get the real height
+        el.classList.remove(`line-clamp-${LINES}`);
+        el.classList.add("line-clamp-none");
+
+        const cs = window.getComputedStyle(el);
+        const lineHeight = parseFloat(cs.lineHeight);
+        const fullHeight = el.getBoundingClientRect().height;
+        const maxHeight = lineHeight * LINES;
+
+        // restore original class
+        el.classList.remove("line-clamp-none");
+        if (hadClamp) el.classList.add(`line-clamp-${LINES}`);
+
+        setIsLineClampClamped(fullHeight > maxHeight + 0.5);
+      };
+
+      // measure now and on the next frame (in case layout settles)
+      measure();
+      const raf = requestAnimationFrame(measure);
+
+      const onResize = () => measure();
+      window.addEventListener("resize", onResize);
+
+      return () => {
+        cancelAnimationFrame(raf);
+        window.removeEventListener("resize", onResize);
+      };
+    }, []);
 
     const speakerMap = new Map(
       speakers.map((sp) => [sp.name.toLowerCase().trim(), sp]),
@@ -119,8 +137,7 @@ export const Session = React.forwardRef<SessionElement, SessionProps>(
                       "border-[#f87171]": session.track === "Regulation", // Lighter red
                       "border-[#c4b5fd]": session.track === "Workshop", // Lighter purple
                       "border-[#fdba74]": session.track === "Academic Forum", // Lighter orange
-                      "gradient-border":
-                        session.track === "TUM Blockchain Club", // Gradient for TBC
+                      "gradient-border": session.track === "TBC'25", // Gradient for TBC
                     },
                   )}
                 >
@@ -136,9 +153,7 @@ export const Session = React.forwardRef<SessionElement, SessionProps>(
                       "text-[#fdba74]": session.track === "Academic Forum", // Lighter orange
                     })}
                   >
-                    {session.track === "TUM Blockchain Club"
-                      ? "TBC"
-                      : session.track}
+                    {session.track}
                   </Text>
                 </div>
               )}
