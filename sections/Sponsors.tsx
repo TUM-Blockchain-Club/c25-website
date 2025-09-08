@@ -108,11 +108,6 @@ const bronzeSponsors: SponsorData[] = [
     imageSrc: "/sponsors/gnosis_logo.png",
   },
   {
-    alt: "Oasis",
-    link: "https://oasisprotocol.org/",
-    imageSrc: "/sponsors/oasis_logo.png",
-  },
-  {
     alt: "TUM Venture Labs",
     link: "https://venturelabs.tum.de/",
     imageSrc: "/sponsors/utum_venturelabs_logo.png",
