@@ -76,8 +76,8 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
           ))}
 
           <Button buttonType="primary" asChild className="mt-2">
-            <Link href="https://tum-blockchain-conference-25.eventbrite.de">
-              Tickets
+            <Link href="https://Visitor.conference.tum-blockchain.com">
+              Visitor Portal
             </Link>
           </Button>
         </nav>
