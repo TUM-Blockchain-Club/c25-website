@@ -14,6 +14,8 @@ import {
   Tracks,
   Speaker,
 } from "@/components/service/contentStrapi_static";
+import Link from "next/link";
+import { DownloadIcon } from "lucide-react";
 
 type AgendaProps = { sessions: Session[]; speakers: Speaker[] };
 
@@ -251,6 +253,19 @@ export const Agenda: React.FC<AgendaProps> = ({ sessions, speakers }) => {
               </Select.Root>
             </div>
           </div>
+        </div>
+        <div className="mt-6 pt-4 border-t border-gray-700">
+          <Text textType={"paragraph"} className="font-bold text-left" as="p">
+            Venue
+          </Text>
+          <Link
+            href="/map/TBC_25_venue_map.pdf"
+            download
+            className="mt-2 inline-flex items-center gap-2 text-sm font-medium text-blue-400 hover:underline"
+          >
+            <DownloadIcon className="h-4 w-4" />
+            View Venue Map (PDF)
+          </Link>
         </div>
       </div>
       <div id="sessions" className="flex w-full flex-col gap-y-4">

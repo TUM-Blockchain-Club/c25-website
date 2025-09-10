@@ -3,6 +3,8 @@
 import { Text } from "@/components/text";
 import { VenueImage } from "@/components/venue/VenueImage";
 import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
+import { DownloadIcon } from "lucide-react";
 
 const Venue = () => {
   const [slide, setSlide] = useState(1);
@@ -33,7 +35,9 @@ const Venue = () => {
       <Text textType={"sub_hero"} className="text-gradient text-center">
         Venue
       </Text>
+
       <div className="mt-20">
+        {/* Venue slideshow */}
         <div className="overflow-x-hidden w-[280px] sm:w-[600px] xl:w-[800px]">
           <div
             className="flex relative duration-500 ease-in-out"
@@ -66,6 +70,7 @@ const Venue = () => {
             ref={timerRef}
           ></div>
         </div>
+
         <a
           href="https://maps.app.goo.gl/rLirPeQoSCjxYL1u5"
           target="_blank"
@@ -81,6 +86,22 @@ const Venue = () => {
             </Text>
           </div>
         </a>
+
+        <Text
+          as="p"
+          textType={"paragraph"}
+          className="flex justify-center items-center gap-2 text-gray-300"
+        >
+          Looking for the venue layout?
+          <Link
+            href="/map/TBC_25_venue_map.pdf"
+            download
+            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-md border border-gray-600 bg-black/40 text-sm font-medium text-gray-100 hover:bg-gray-800 hover:text-white transition-colors"
+          >
+            <DownloadIcon className="h-4 w-4" />
+            View Map (PDF)
+          </Link>
+        </Text>
       </div>
     </section>
   );
