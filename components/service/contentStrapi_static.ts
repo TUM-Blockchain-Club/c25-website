@@ -64,8 +64,6 @@ export const Tracks = [
   "Workshop",
   "TBC'25",
   "Academic Forum",
-  //   "Sub Events",
-  //   "TUM Blockchain Club",
 ] as const;
 
 export const Stages = [

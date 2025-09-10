@@ -4,19 +4,33 @@ import { useVersionCheck } from "@/hooks/useVersion";
 import React, { useEffect, useState } from "react";
 import { Container } from "@/components/container";
 import { Text } from "@/components/text";
-import Session, { Stages } from "@/model/session";
+import {
+  Session,
+  Stages,
+  Speaker,
+} from "@/components/service/contentStrapi_static";
 import Image from "next/image";
 import { contentfulImageLoader } from "@/util/contentfulImageLoader";
 import { Link } from "@/components/link";
 
-// New custom hook for simulated time
+// Stage display names
+const stageDisplayNames: Record<string, string> = {
+  "Stage 1": "Turing Stage",
+  "Stage 2": "Hopper Stage",
+  "Stage 3": "Nakamoto Stage",
+  "Workshop Room": "Lovelace Room",
+  Gern: "Gern",
+  "Lab Lounge": "Lab Lounge",
+};
+
+// --- Custom Hook for simulated time ---
 const useSimulatedTime = (initialTime: Date) => {
   const [simulatedTime, setSimulatedTime] = useState(initialTime);
 
   useEffect(() => {
     const intervalId = setInterval(() => {
-      setSimulatedTime((prevTime) => new Date(prevTime.getTime() + 60000)); // Advance by 1 minute
-    }, 1000); // Update every second for smoother simulation
+      setSimulatedTime((prevTime) => new Date(prevTime.getTime() + 60000)); // advance 1 min
+    }, 1000);
 
     return () => clearInterval(intervalId);
   }, []);
@@ -24,42 +38,72 @@ const useSimulatedTime = (initialTime: Date) => {
   return simulatedTime;
 };
 
-export type NowProps = {
-  sessions: Session[];
-  simulatedDate?: Date; // New prop for simulated date
+// --- Helper to always get NOW in Europe/Berlin ---
+const getBerlinNow = (): Date => {
+  const formatter = new Intl.DateTimeFormat("en-CA", {
+    timeZone: "Europe/Berlin",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+  });
+
+  const parts = formatter.formatToParts(new Date());
+  const values: any = {};
+  parts.forEach((p) => {
+    if (p.type !== "literal") values[p.type] = p.value;
+  });
+
+  // Build an ISO string in Berlin local time (no timezone offset)
+  const iso = `${values.year}-${values.month}-${values.day}T${values.hour}:${values.minute}:${values.second}`;
+  return new Date(iso);
 };
 
-const Now: React.FC<NowProps> = ({ sessions, simulatedDate }) => {
+export type NowProps = {
+  sessions: Session[];
+  speakers: Speaker[];
+  simulatedDate?: Date;
+};
+
+const Now: React.FC<NowProps> = ({ sessions, speakers, simulatedDate }) => {
   const initialTime = simulatedDate || new Date();
   const currentTime = useSimulatedTime(initialTime);
   const newVersionAvailable = useVersionCheck();
 
+  // Handle refresh on new version
   useEffect(() => {
     if (newVersionAvailable) {
-      handleRefresh();
+      window.location.reload();
     }
   }, [newVersionAvailable]);
 
-  const handleRefresh = () => {
-    window.location.reload();
+  // Speaker lookup
+  const speakerMap = new Map(
+    speakers.map((sp) => [sp.name.toLowerCase().trim(), sp]),
+  );
+
+  const resolveSpeakers = (session: Session): Speaker[] => {
+    if (!session.speakers) return [];
+    return Object.values(session.speakers)
+      .map((name) => speakerMap.get(name.toLowerCase().trim()))
+      .filter((sp): sp is Speaker => !!sp);
   };
 
-  // Re-render the page every minute
-  useEffect(() => {
-    const intervalId = setInterval(() => {}, 60000);
+  // --- Utility to compare days in Europe/Berlin ---
+  const toBerlinDateString = (d: Date) =>
+    d.toLocaleDateString("en-CA", { timeZone: "Europe/Berlin" });
 
-    return () => clearInterval(intervalId);
-  }, []);
+  const todayBerlin = toBerlinDateString(new Date());
 
   const getCurrentAndNextSessions = (
     sessionsInStage: Session[],
   ): { currentSession: Session | null; nextSession: Session | null } => {
-    const now =
-      simulatedDate && process.env.NEXT_PUBLIC_PRODUCTION !== "1"
-        ? currentTime
-        : new Date();
-    let currentSession = null;
-    let nextSession = null;
+    const now = getBerlinNow();
+
+    let currentSession: Session | null = null;
+    let nextSession: Session | null = null;
 
     sessionsInStage.sort(
       (a, b) =>
@@ -70,11 +114,12 @@ const Now: React.FC<NowProps> = ({ sessions, simulatedDate }) => {
       const startTime = new Date(session.startTime);
       const endTime = new Date(session.endTime);
 
+      // console.log("NOW (Berlin)", now, "START", startTime, "END", endTime);
+
       if (now >= startTime && now < endTime) {
         currentSession = session;
-      } else if (now < startTime) {
+      } else if (now < startTime && !nextSession) {
         nextSession = session;
-        break;
       }
     }
 
@@ -82,42 +127,37 @@ const Now: React.FC<NowProps> = ({ sessions, simulatedDate }) => {
   };
 
   return (
-    <div className={"flex justify-center min-h-screen"}>
-      <main
-        className={
-          "w-full lg:max-w-7xl 2xl:max-w-full pt-[25px] lg:pt-0 z-20 pb-40 min-h-full"
-        }
-      >
-        <Container className={"flex flex-col min-h-full"}>
-          <div className={"mt-[100px] md:mt-[20vh] z-10 max-w-3xl"}>
+    <div className="flex justify-center min-h-screen">
+      <main className="w-full lg:max-w-7xl 2xl:max-w-full pt-[25px] lg:pt-0 z-20 pb-40 min-h-full">
+        <Container className="flex flex-col min-h-full">
+          {/* Header */}
+          <div className="mt-[100px] md:mt-[20vh] z-10 max-w-3xl">
             <div className="flex flex-col items-start">
-              <Text textType={"sub_hero"} className="text-gradient text-left">
+              <Text textType="sub_hero" className="text-gradient text-left">
                 Now
               </Text>
-              <Text textType={"small"}>
+              <Text textType="small">
                 Grab it on your phone:{" "}
                 <Link
-                  className={"font-bold"}
-                  href={"https://conference.tum-blockchain.com/now"}
+                  className="font-bold"
+                  href="https://conference.tum-blockchain.com/now"
                 >
                   https://conference.tum-blockchain.com/now
                 </Link>
               </Text>
             </div>
           </div>
-          <div className={"flex flex-col pt-24 flex-grow"}>
-            <div
-              className={
-                "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-5 md:flex-row h-full flex-wrap gap-8"
-              }
-            >
+
+          {/* Sessions Grid */}
+          <div className="flex flex-col pt-24 flex-grow">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-5 flex-wrap gap-8">
               {Stages.map((stage, key) => {
-                const sessionsInThisStage = sessions.filter(
-                  (session) =>
-                    session.room === stage &&
-                    new Date(session.startTime).getDate() ===
-                      new Date().getDate(),
-                );
+                const sessionsInThisStage = sessions.filter((session) => {
+                  const sessionDay = toBerlinDateString(
+                    new Date(session.startTime),
+                  );
+                  return session.room === stage && sessionDay === todayBerlin;
+                });
 
                 const { currentSession, nextSession } =
                   getCurrentAndNextSessions(sessionsInThisStage);
@@ -127,14 +167,15 @@ const Now: React.FC<NowProps> = ({ sessions, simulatedDate }) => {
                     className="flex md:min-h-[500px] flex-1 border p-4 flex-col gap-16"
                     key={key}
                   >
+                    {/* Current Session */}
                     <div>
                       <h3 className="text-lg text-gradient font-bold">
-                        {stage}
+                        {stageDisplayNames[stage] || stage}
                       </h3>
-                      {currentSession !== null && (
+                      {currentSession ? (
                         <div className="flex flex-col gap-4">
                           <div className="flex flex-col gap-2">
-                            <Text textType={"sub_title"}>
+                            <Text textType="sub_title">
                               {currentSession.title}
                             </Text>
                             <Text>
@@ -157,50 +198,54 @@ const Now: React.FC<NowProps> = ({ sessions, simulatedDate }) => {
                             </Text>
                           </div>
                           <div className="flex flex-col gap-4">
-                            {currentSession.speakers &&
-                              currentSession.speakers.map((speaker, index) => (
-                                <>
-                                  <div
-                                    className="flex gap-2 items-start"
-                                    key={index}
-                                  >
-                                    {speaker.profilePhoto && (
-                                      <Image
-                                        src={speaker.profilePhoto}
-                                        loader={
-                                          speaker.profilePhoto
-                                            ? contentfulImageLoader
-                                            : undefined
-                                        }
-                                        alt={speaker.name}
-                                        width={48}
-                                        height={48}
-                                      />
-                                    )}
-                                    <div className="flex flex-col max-w-48">
-                                      <Text className="break-words hyphens-auto">{speaker.name}</Text>
-                                      <Text textType={"small"}>
-                                        {speaker.description}
+                            {resolveSpeakers(currentSession).map(
+                              (speaker, index) => (
+                                <div
+                                  className="flex gap-2 items-start"
+                                  key={index}
+                                >
+                                  {speaker.profile_photo?.url && (
+                                    <Image
+                                      src={speaker.profile_photo.url}
+                                      loader={contentfulImageLoader}
+                                      alt={speaker.name}
+                                      width={48}
+                                      height={48}
+                                      className="rounded-full object-cover"
+                                    />
+                                  )}
+                                  <div className="flex flex-col max-w-48">
+                                    <Text className="break-words hyphens-auto">
+                                      {speaker.name}
+                                    </Text>
+                                    {speaker.position && (
+                                      <Text textType="small">
+                                        {speaker.position}
+                                        {speaker.company_name
+                                          ? `, ${speaker.company_name}`
+                                          : ""}
                                       </Text>
-                                    </div>
+                                    )}
                                   </div>
-                                </>
-                              ))}
+                                </div>
+                              ),
+                            )}
                           </div>
                         </div>
-                      )}
-                      {currentSession === null && (
+                      ) : (
                         <Text>There is currently no active session.</Text>
                       )}
                     </div>
+
+                    {/* Next Session */}
                     <div className="opacity-40">
                       <h4 className="font-bold">Up Next</h4>
-                      {nextSession !== null && (
+                      {nextSession ? (
                         <div className="flex flex-col gap-4">
                           <div className="flex flex-col gap-1">
                             <Text
-                              textType={"paragraph"}
-                              className="text-ellipsis overflow-ellipsis"
+                              textType="paragraph"
+                              className="text-ellipsis"
                             >
                               {nextSession.title}
                             </Text>
@@ -224,38 +269,40 @@ const Now: React.FC<NowProps> = ({ sessions, simulatedDate }) => {
                               )}
                             </Text>
                           </div>
-                          {nextSession.speakers &&
-                            nextSession.speakers.map((speaker, index) => (
-                              <>
-                                <div
-                                  className="flex gap-2 items-start"
-                                  key={index}
-                                >
-                                  {speaker.profilePhoto && (
-                                    <Image
-                                      src={speaker.profilePhoto}
-                                      loader={
-                                        speaker.profilePhoto
-                                          ? contentfulImageLoader
-                                          : undefined
-                                      }
-                                      alt={speaker.name}
-                                      width={48}
-                                      height={48}
-                                    />
-                                  )}
-                                  <div className="flex flex-col max-w-48">
-                                    <Text className="break-words hyphens-auto">{speaker.name}</Text>
-                                    <Text textType={"small"}>
-                                      {speaker.description}
+                          {resolveSpeakers(nextSession).map(
+                            (speaker, index) => (
+                              <div
+                                className="flex gap-2 items-start"
+                                key={index}
+                              >
+                                {speaker.profile_photo?.url && (
+                                  <Image
+                                    src={speaker.profile_photo.url}
+                                    loader={contentfulImageLoader}
+                                    alt={speaker.name}
+                                    width={48}
+                                    height={48}
+                                    className="rounded-full object-cover"
+                                  />
+                                )}
+                                <div className="flex flex-col max-w-48">
+                                  <Text className="break-words hyphens-auto">
+                                    {speaker.name}
+                                  </Text>
+                                  {speaker.position && (
+                                    <Text textType="small">
+                                      {speaker.position}
+                                      {speaker.company_name
+                                        ? `, ${speaker.company_name}`
+                                        : ""}
                                     </Text>
-                                  </div>
+                                  )}
                                 </div>
-                              </>
-                            ))}
+                              </div>
+                            ),
+                          )}
                         </div>
-                      )}
-                      {nextSession === null && (
+                      ) : (
                         <Text>There is no next event in this room.</Text>
                       )}
                     </div>
