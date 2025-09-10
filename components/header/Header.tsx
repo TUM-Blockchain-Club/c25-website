@@ -232,11 +232,11 @@ export const Header = React.forwardRef<HeaderElement, HeaderProps>(
               </NextLink>
             </div>
 
-            <div className="hidden md:flex items-center gap-3 lg:gap-4">
+            <div className="hidden md:flex items-center gap-3 lg:gap-8">
               <NavDesktop items={links} />
-              <Button asChild className="whitespace-nowrap md:px-3 lg:px-4">
-                <Link href="https://tum-blockchain-conference-25.eventbrite.de">
-                  Tickets
+              <Button asChild className="whitespace-nowrap md:px-3 lg:px-4 ">
+                <Link href="https://Visitor.conference.tum-blockchain.com">
+                  Visitor Portal
                 </Link>
               </Button>
             </div>
