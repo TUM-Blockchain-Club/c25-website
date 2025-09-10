@@ -23,24 +23,26 @@ const stageDisplayNames: Record<string, string> = {
   "Lab Lounge": "Lab Lounge",
 };
 
-// --- Custom Hook for simulated time ---
+// --- Custom Hook for simulated time (keeps the page updating) ---
 const useSimulatedTime = (initialTime: Date) => {
   const [simulatedTime, setSimulatedTime] = useState(initialTime);
-
   useEffect(() => {
     const intervalId = setInterval(() => {
-      setSimulatedTime((prevTime) => new Date(prevTime.getTime() + 60000)); // advance 1 min
+      setSimulatedTime((prev) => new Date(prev.getTime() + 60000)); // +1 min per second
     }, 1000);
-
     return () => clearInterval(intervalId);
   }, []);
-
   return simulatedTime;
 };
 
-// --- Helper to always get NOW in Europe/Berlin ---
-const getBerlinNow = (): Date => {
-  const formatter = new Intl.DateTimeFormat("en-CA", {
+// ===== Time helpers (robust & simple) =====
+
+// "Now" as an actual instant (UTC under the hood, as JS always does)
+const getBerlinNow = (): Date => new Date();
+
+// Format any Date as Munich/Berlin wall clock for DISPLAY/logging
+const fmtBerlinDateTime = (d: Date) =>
+  d.toLocaleString("de-DE", {
     timeZone: "Europe/Berlin",
     year: "numeric",
     month: "2-digit",
@@ -50,16 +52,13 @@ const getBerlinNow = (): Date => {
     second: "2-digit",
   });
 
-  const parts = formatter.formatToParts(new Date());
-  const values: any = {};
-  parts.forEach((p) => {
-    if (p.type !== "literal") values[p.type] = p.value;
+const fmtBerlinTime = (d: Date, withTZ = false) =>
+  d.toLocaleTimeString("de-DE", {
+    timeZone: "Europe/Berlin",
+    hour: "2-digit",
+    minute: "2-digit",
+    ...(withTZ ? { timeZoneName: "short" } : {}),
   });
-
-  // Build an ISO string in Berlin local time (no timezone offset)
-  const iso = `${values.year}-${values.month}-${values.day}T${values.hour}:${values.minute}:${values.second}`;
-  return new Date(iso);
-};
 
 export type NowProps = {
   sessions: Session[];
@@ -69,15 +68,40 @@ export type NowProps = {
 
 const Now: React.FC<NowProps> = ({ sessions, speakers, simulatedDate }) => {
   const initialTime = simulatedDate || new Date();
-  const currentTime = useSimulatedTime(initialTime);
-  const newVersionAvailable = useVersionCheck();
+  // This state change forces re-renders so "now" updates on screen.
+  useSimulatedTime(initialTime);
 
-  // Handle refresh on new version
+  const newVersionAvailable = useVersionCheck();
   useEffect(() => {
-    if (newVersionAvailable) {
-      window.location.reload();
-    }
+    if (newVersionAvailable) window.location.reload();
   }, [newVersionAvailable]);
+
+  // ⏱️ Auto-refresh exactly every new minute 60000 - (now.getSeconds() * 1000 + now.getMilliseconds());
+  useEffect(() => {
+    const now = new Date();
+    const msUntilNextMinute =
+      300_000 -
+      ((now.getMinutes() * 60_000 +
+        now.getSeconds() * 1000 +
+        now.getMilliseconds()) %
+        300_000);
+
+    console.log(
+      "[AutoReload] scheduling reload in",
+      msUntilNextMinute,
+      "ms at",
+      new Date(Date.now() + msUntilNextMinute).toLocaleTimeString("de-DE", {
+        timeZone: "Europe/Berlin",
+      }),
+    );
+
+    const timeout = setTimeout(() => {
+      console.log("[AutoReload] Reloading now!");
+      window.location.reload();
+    }, msUntilNextMinute);
+
+    return () => clearTimeout(timeout);
+  }, []);
 
   // Speaker lookup
   const speakerMap = new Map(
@@ -91,17 +115,15 @@ const Now: React.FC<NowProps> = ({ sessions, speakers, simulatedDate }) => {
       .filter((sp): sp is Speaker => !!sp);
   };
 
-  // --- Utility to compare days in Europe/Berlin ---
+  // --- Utility to compare days in Europe/Berlin (for filtering "today") ---
   const toBerlinDateString = (d: Date) =>
     d.toLocaleDateString("en-CA", { timeZone: "Europe/Berlin" });
-
   const todayBerlin = toBerlinDateString(new Date());
 
   const getCurrentAndNextSessions = (
     sessionsInStage: Session[],
   ): { currentSession: Session | null; nextSession: Session | null } => {
-    const now = getBerlinNow();
-
+    const now = getBerlinNow(); // real "now"
     let currentSession: Session | null = null;
     let nextSession: Session | null = null;
 
@@ -114,7 +136,14 @@ const Now: React.FC<NowProps> = ({ sessions, speakers, simulatedDate }) => {
       const startTime = new Date(session.startTime);
       const endTime = new Date(session.endTime);
 
-      // console.log("NOW (Berlin)", now, "START", startTime, "END", endTime);
+      console.log(
+        "NOW (Munich)",
+        fmtBerlinDateTime(now),
+        "START",
+        fmtBerlinDateTime(startTime),
+        "END",
+        fmtBerlinDateTime(endTime),
+      );
 
       if (now >= startTime && now < endTime) {
         currentSession = session;
@@ -132,7 +161,7 @@ const Now: React.FC<NowProps> = ({ sessions, speakers, simulatedDate }) => {
         <Container className="flex flex-col min-h-full">
           {/* Header */}
           <div className="mt-[100px] md:mt-[20vh] z-10 max-w-3xl">
-            <div className="flex flex-col items-start">
+            <div className="flex flex-col items-start gap-8">
               <Text textType="sub_hero" className="text-gradient text-left">
                 Now
               </Text>
@@ -179,22 +208,14 @@ const Now: React.FC<NowProps> = ({ sessions, speakers, simulatedDate }) => {
                               {currentSession.title}
                             </Text>
                             <Text>
-                              {new Date(
-                                currentSession.startTime,
-                              ).toLocaleTimeString("en-DE", {
-                                hour: "2-digit",
-                                minute: "2-digit",
-                                timeZone: "Europe/Berlin",
-                              })}{" "}
+                              {fmtBerlinTime(
+                                new Date(currentSession.startTime),
+                              )}{" "}
                               -{" "}
-                              {new Date(
-                                currentSession.endTime,
-                              ).toLocaleTimeString("en-DE", {
-                                hour: "2-digit",
-                                minute: "2-digit",
-                                timeZone: "Europe/Berlin",
-                                timeZoneName: "short",
-                              })}
+                              {fmtBerlinTime(
+                                new Date(currentSession.endTime),
+                                true,
+                              )}
                             </Text>
                           </div>
                           <div className="flex flex-col gap-4">
@@ -250,22 +271,10 @@ const Now: React.FC<NowProps> = ({ sessions, speakers, simulatedDate }) => {
                               {nextSession.title}
                             </Text>
                             <Text>
-                              {new Date(
-                                nextSession.startTime,
-                              ).toLocaleTimeString("en-DE", {
-                                hour: "2-digit",
-                                minute: "2-digit",
-                                timeZone: "Europe/Berlin",
-                              })}{" "}
-                              -{" "}
-                              {new Date(nextSession.endTime).toLocaleTimeString(
-                                "en-DE",
-                                {
-                                  hour: "2-digit",
-                                  minute: "2-digit",
-                                  timeZone: "Europe/Berlin",
-                                  timeZoneName: "short",
-                                },
+                              {fmtBerlinTime(new Date(nextSession.startTime))} -{" "}
+                              {fmtBerlinTime(
+                                new Date(nextSession.endTime),
+                                true,
                               )}
                             </Text>
                           </div>
