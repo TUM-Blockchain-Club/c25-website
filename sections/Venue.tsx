@@ -86,23 +86,22 @@ const Venue = () => {
             </Text>
           </div>
         </a>
-
-        <Text
-          as="p"
-          textType={"paragraph"}
-          className="flex justify-center items-center gap-2 text-gray-300"
-        >
-          Looking for the venue layout?
-          <Link
-            href="/map/TBC_25_venue_map.pdf"
-            download
-            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-md border border-gray-600 bg-black/40 text-sm font-medium text-gray-100 hover:bg-gray-800 hover:text-white transition-colors"
-          >
-            <DownloadIcon className="h-4 w-4" />
-            View Map (PDF)
-          </Link>
-        </Text>
       </div>
+      <Text
+        as="p"
+        textType={"paragraph"}
+        className="flex justify-center items-center gap-2 text-gray-300"
+      >
+        Looking for the venue layout?
+        <Link
+          href="/map/TBC_25_venue_map.pdf"
+          download
+          className="inline-flex items-center gap-2 px-3 py-1.5 rounded-md border border-gray-600 bg-black/40 text-sm font-medium text-gray-100 hover:bg-gray-800 hover:text-white transition-colors"
+        >
+          <DownloadIcon className="h-4 w-4" />
+          View Map (PDF)
+        </Link>
+      </Text>
     </section>
   );
 };
