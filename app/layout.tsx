@@ -66,10 +66,10 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <Script src="https://tally.so/widgets/embed.js"></Script>
-        <Script
+        {/* <Script
           src={`https://cdn-cookieyes.com/client_data/6331baf83b563ec3150ad4bb/script.js`}
           strategy="beforeInteractive"
-        ></Script>
+        ></Script> */}
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </head>
       <body
