@@ -23,7 +23,7 @@ const Video = () => {
           style={{ aspectRatio: "16 / 9" }}
         >
           <iframe
-            src="https://www.youtube-nocookie.com/embed/u6X9xXLnFQU"
+            src="https://www.youtube-nocookie.com/embed/jcm7LlyuKss"
             title="YouTube video player"
             className="w-full h-full glow cta-border"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"

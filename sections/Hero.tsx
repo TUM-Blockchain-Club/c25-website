@@ -22,7 +22,7 @@ const Hero = () => {
               </Text>
             </div>
             <div className="flex flex-col items-center gap-1">
-              <Button buttonType={"cta"} asChild>
+              <Button buttonType={"cta"} asChild disabled>
                 <Link
                   href={"https://tum-blockchain-conference-25.eventbrite.de"}
                 >

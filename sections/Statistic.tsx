@@ -9,44 +9,56 @@ const Statistic = () => {
     >
       <div className={"flex flex-col items-center"}>
         <Text textType={"sub_title"} className={""}>
-          Last Year Statistic
+          This Year's Statistics
         </Text>
         <div className={"flex flex-col items-center lg:flex-row gap-12 mt-12"}>
           <div className={"flex flex-col gap-2 items-center lg:items-center"}>
             <Text className={""} textType={"sub_hero"}>
-              1000+
+              1100+
             </Text>
             <Text textType={"sub_title"}>Attendees</Text>
           </div>
           <div className={"flex flex-col gap-2 items-center lg:items-center"}>
             <Text className={""} textType={"sub_hero"}>
-              150+
+              125+
             </Text>
             <Text textType={"sub_title"}>Speakers</Text>
           </div>
           <div className={"flex flex-col gap-2 items-center lg:items-center"}>
             <Text className={""} textType={"sub_hero"}>
-              23
+              18
             </Text>
             <Text textType={"sub_title"}>Sponsors</Text>
           </div>
           <div className={"flex flex-col gap-2 items-center lg:items-center"}>
             <Text className={""} textType={"sub_hero"}>
-              83
+              57
             </Text>
             <Text textType={"sub_title"}>Talks</Text>
           </div>
           <div className={"flex flex-col gap-2 items-center lg:items-center"}>
             <Text className={""} textType={"sub_hero"}>
-              20
+              12
             </Text>
             <Text textType={"sub_title"}>Panels</Text>
           </div>
           <div className={"flex flex-col gap-2 items-center lg:items-center"}>
             <Text className={""} textType={"sub_hero"}>
-              7
+              4
             </Text>
             <Text textType={"sub_title"}>Workshops</Text>
+          </div>
+          <div className={"flex flex-col gap-2 items-center lg:items-center"}>
+            <Text className={""} textType={"sub_hero"}>
+              1
+            </Text>
+            <Text textType={"sub_title"}>Ideathon</Text>
+          </div>
+          <div className={"flex flex-col gap-2 items-center lg:items-center"}>
+            <Text className={""} textType={"sub_hero"}>
+              1
+            </Text>
+            <Text textType={"sub_title"}>Researchathon</Text>
           </div>
         </div>
       </div>
