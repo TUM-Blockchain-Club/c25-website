@@ -235,8 +235,8 @@ export const Header = React.forwardRef<HeaderElement, HeaderProps>(
             <div className="hidden md:flex items-center gap-3 lg:gap-8">
               <NavDesktop items={links} />
               <Button asChild className="whitespace-nowrap md:px-3 lg:px-4 ">
-                <Link href="https://Visitor.conference.tum-blockchain.com">
-                  Visitor Portal
+                <Link href="https://www.tum-blockchain.com">
+                  Visit Club Website
                 </Link>
               </Button>
             </div>
