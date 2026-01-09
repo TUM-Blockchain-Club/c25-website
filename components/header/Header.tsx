@@ -76,8 +76,8 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
           ))}
 
           <Button buttonType="primary" asChild className="mt-2">
-            <Link href="https://Visitor.conference.tum-blockchain.com">
-              Visitor Portal
+            <Link href="https://www.tum-blockchain.com">
+              Visit Club Website
             </Link>
           </Button>
         </nav>
