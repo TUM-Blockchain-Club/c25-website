@@ -1,7 +1,9 @@
 import { Text } from "@/components/text";
 import { Button } from "@/components/button";
 import { Ticket } from "@/components/ticket";
-import Link from "next/link";
+
+// Restore this URL when ticket sales should be clickable again:
+// https://tum-blockchain-conference-25.eventbrite.de
 
 const Tickets = () => {
   return (
@@ -19,10 +21,8 @@ const Tickets = () => {
         </div>
       </div>
       <div className="w-full flex justify-center mt-20">
-        <Button buttonType={"cta"} asChild disabled>
-          <Link href={"https://tum-blockchain-conference-25.eventbrite.de"}>
-            Tickets
-          </Link>
+        <Button buttonType={"cta"} disabled>
+          Tickets
         </Button>
       </div>
     </section>
