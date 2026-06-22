@@ -10,14 +10,14 @@ const montserrat = Montserrat({ subsets: ["latin"] });
 const description =
   "Germany's leading student-run conference exploring the frontiers of blockchain technology";
 const ogImages = {
-  url: new URL("https://conference.tum-blockchain.com/opengraph-image.png"),
+  url: new URL("https://conference25.tum-blockchain.com/opengraph-image.png"),
   width: 1200,
   height: 630,
 };
 
 export const metadata: Metadata = {
   title: "TUM Blockchain Conference 25",
-  metadataBase: new URL("https://conference.tum-blockchain.com"),
+  metadataBase: new URL("https://conference25.tum-blockchain.com"),
   authors: [
     {
       name: "Yudhistira Arief Wibowo",
@@ -81,12 +81,13 @@ export default function RootLayout({
         {children}
         <SpeedInsights />
         <Footer />
+        <Script
+          defer
+          data-domain="conference25.tum-blockchain.com"
+          src="https://plausible.rbg.tum-blockchain.com/js/script.js"
+          strategy="afterInteractive"
+        />
       </body>
-      <Script
-        defer
-        data-domain="conference.tum-blockchain.com"
-        src="https://plausible.rbg.tum-blockchain.com/js/script.js"
-      ></Script>
     </html>
   );
 }
