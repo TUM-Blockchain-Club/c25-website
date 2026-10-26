@@ -22,3 +22,4 @@
 - Prefer existing components and section patterns before introducing new abstractions.
 - Use `next/script` for third-party scripts in App Router layouts.
 - Document meaningful changes in Markdown under `docs/`.
+- Keep production deployments triggered by pushes to `main` or `workflow_dispatch` only; `repository_dispatch` can feed Vercel deployment events back into deployment loops.
